@@ -1,0 +1,19 @@
+#volunteer_map > ul{position:relative;height:558px;background:url(/final_project/assets/img/map/bg_map.png) no-repeat}
+
+/* 서브 맵 공통*/
+#volunteer_map{float:none;width:100%;margin-top:30px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;background-color:#e8e8e8}
+#volunteer_map .web{width:450px;margin:0 auto}	
+#volunteer_map .mobile{display:none}
+.volunteer_step{float:none;width:100%;margin-top:0px}
+.volunteer_step_list{width:100%;box-sizing:border-box}
+
+.mobile label{overflow:visible;overflow:hidden;z-index:999;position:absolute;left:-1px;top:0px;width:1px}
+.mobile select{width:99.8%;height:45px;padding-left:10px;border:1px solid #0475cc;font-size:15px;font-weight:700}
+.mobile select.map_list_2dep{margin-top:5px;border:1px solid #e5e5e5;font-size:15px}
+.result_list table col:nth-child(3){width:80%}
+
+/* 서브 맵 공통*/
+#volunteer_map{min-width:auto;margin-top:0px;border-radius:0;background:none}
+#volunteer_map .web{display:none}
+#volunteer_map .mobile{display:block}
+#volunteer_map h4.tit{display:block}

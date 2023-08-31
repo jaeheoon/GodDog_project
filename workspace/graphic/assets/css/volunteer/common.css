@@ -1,0 +1,34 @@
+/* .ul_form */
+.ul_form{display:inline-block; vertical-align:middle;}
+.ul_form:after{ content: ""; display: block; clear: both;}
+.ul_form > li{ display: inline-block; margin:0 3px 0 0; vertical-align: middle;}
+.ul_form > li > label{ display: inline-block; padding:0 3px; }
+.ul_form > li > input {vertical-align:middle;}
+.ul_form > li > input[type="checkbox"] + label, 
+.ul_form > li > input[type="radio"] + label{ display: inline-block; margin: 0 15px 0 3px;  padding:0 0px;}
+
+h4.ti{ font-size: 23px; line-height: 1em; margin-bottom: 15px; font-weight:600;}
+.red {color:#df2e4b;}
+.agree_box{}
+.agree_box * {box-sizing:border-box; word-break:keep-all; line-height:1.4em;}
+.agree_box em {font-style:normal;}
+.agree_box input[type="radio"]{ width:20px;height:20px;border:1px solid #828282; padding:0px; }
+
+.agree_box .info_box {border:1px solid #dfe3ec; background:#fff; width:100%;padding:30px;}
+.radio_box{ padding: 10px 30px 10px; text-align: right; background: #ededed; color: #000; }
+/* .radio_box{padding: 10px; margin: 0; border:1px solid #cad5e8; background:#f4f7fc;} */
+.agree_box .rule_txt_wrap .info_box{ padding: 10px; margin: 0; border:1px solid #cad5e8; background:#f4f7fc;}
+.agree_box .rule_txt_wrap .paragraph{ margin: 10px 0;}
+.agree_box .rule_txt_wrap .paragraph .headding1{ font-size: 17px; margin-bottom: 2px; font-weight:600;}
+.agree_box .rule_txt_wrap .paragraph .headding2{ font-size: 15px; margin-bottom: 2px;}
+.agree_box .rule_txt_wrap .paragraph .ul_list > li{position:relative; padding:2px 0 2px 13px;}
+.ti{
+  margin: 0 auto;
+}
+
+
+/* ???? */
+.elementor-section elementor-inner-section elementor-element elementor-element-5fa196b3 elementor-section-full_width elementor-section-content-middle elementor-section-height-default elementor-section-height-default{
+  width: 70%; 
+  margin: 0 auto;
+}
