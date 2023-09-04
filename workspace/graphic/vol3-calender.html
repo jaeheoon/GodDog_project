@@ -13,9 +13,175 @@
 	<title>Dog Pals &#8211; Dog Breeder &amp; Adoption</title>
 
 	<!-- 추가한 css -->
-	<link rel="stylesheet" href="assets/css/volunteer/calendar.css">
+	<!-- <link rel="stylesheet" href="assets/css/volunteer/vol3_v3.css"> -->
 	<link rel="stylesheet" href="assets/css/volunteer/common_cal.css">
 	<link rel="stylesheet" href="assets/css/volunteer/sub.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+		/* body { background-color : skyblue; }  */
+
+		div {
+				/* height: auto;
+				width: 400px;
+				margin: 0px;
+				padding: 20px;
+				margin: 0 auto;
+				border-radius:5px;
+				box-shadow:0px 40px 30px -20px rgba(0,0,0,0.3); */
+		}
+
+		td {
+				width: 100px;
+				height: 100px;
+		}
+
+		.Calendar {
+			border: solid black 1px;
+			width: 100%;
+			height: 100%;
+				text-align: center;
+		}
+
+		.Calendar>thead>tr:first-child>td {
+				font-family: 'Questrial', sans-serif;
+				font-size: 1.1em;
+				font-weight: bold;
+		}
+
+		.Calendar>thead>tr:last-child>td {
+				font-family: 'Questrial', sans-serif;
+				font-weight: 600;     
+		}
+
+		.Calendar>tbody>tr>td>p {
+				font-family: 'Montserrat', sans-serif;
+				height: 45px;
+				width: 45px;
+				border-radius: 45px;
+				transition-duration: .2s;
+				line-height: 45px;
+				margin: 2.5px;
+				display: block;
+				text-align: center;
+		}        
+
+		.pastDay {
+				color: lightgray;
+		}
+
+		.today {
+				background-color: #F5D042;            
+				color: #fff;
+				font-weight: 600;
+				cursor: pointer;
+		}
+
+		.futureDay {
+				background-color: #FFFFFF;
+				cursor: pointer;
+		}
+		.futureDay:hover{
+				background:#eee;
+		}
+
+		.futureDay.choiceDay,
+		.today.choiceDay {
+				background: #0A174E;
+				color: #fff;
+				font-weight: 600;
+				cursor: pointer;
+		}
+</style>
+
+<script>
+		window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
+
+		let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
+		let today = new Date();     // 페이지를 로드한 날짜를 저장
+		today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
+
+		// 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
+		function buildCalendar() {
+
+				let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
+				let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
+
+				let tbody_Calendar = document.querySelector(".Calendar > tbody");
+				document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
+				document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
+
+				while (tbody_Calendar.rows.length > 0) {                        // 이전 출력결과가 남아있는 경우 초기화
+						tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
+				}
+
+				let nowRow = tbody_Calendar.insertRow();        // 첫번째 행 추가           
+
+				for (let j = 0; j < firstDate.getDay(); j++) {  // 이번달 1일의 요일만큼
+						let nowColumn = nowRow.insertCell();        // 열 추가
+				}
+
+				for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) {   // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
+
+						let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
+
+
+						let newDIV = document.createElement("p");
+						newDIV.innerHTML = leftPad(nowDay.getDate())        // 추가한 열에 날짜 입력
+						
+						nowColumn.appendChild(newDIV);
+
+						if (nowDay.getDay() == 6) {                 // 토요일인 경우
+								nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
+						}
+
+						if (nowDay < today) {                       // 지난날인 경우
+								newDIV.className = "pastDay";
+						}
+						else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
+								newDIV.className = "today";
+								newDIV.onclick = function () { choiceDate(this); }
+						}
+						else {                                      // 미래인 경우
+								newDIV.className = "futureDay";
+								newDIV.onclick = function () { choiceDate(this); }
+						}
+				}
+		}
+
+		// 날짜 선택
+		function choiceDate(newDIV) {
+				if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
+						document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
+				}
+				newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+		}
+
+		// 이전달 버튼 클릭
+		function prevCalendar() {
+				nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
+				buildCalendar();    // 달력 다시 생성
+		}
+		// 다음달 버튼 클릭
+		function nextCalendar() {
+				nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
+				buildCalendar();    // 달력 다시 생성
+		}
+
+		// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
+		function leftPad(value) {
+				if (value < 10) {
+						value = "0" + value;
+						return value;
+				}
+				return value;
+		}
+</script>
+
+
+
+
+<!-- 추가 끝 -->
 
 
 	<script>
@@ -539,8 +705,8 @@
 								position: static;
 								">
 									<h3>평화사랑 보호소</h3>
-								</div> -->
-								<br>
+								</div>
+								<br> -->
 								<br>
 								<br>
 								<br>
@@ -570,1373 +736,55 @@
 													</ul>
 													<!-- //탭 -->
 
+													<div class="user-icon" style=" background: #616FE2;
+								border-radius: 40px;
+								width: 400px;
+								height: 100px;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								margin: 0 auto;
+								position: static;
+								">
+									<h3>평화사랑 보호소</h3>
+								</div>
+								<br><br><br>
 
-													<div class="elementor-image-carousel-wrapper swiper-container" dir="ltr">
-
-
-														<script type="text/javascript">
-															$(function () {
-																$("#btn_booking").click(function () {
-																	alert("이미 예약 하셨습니다.")
-																});
-																$(".arrow_r").click(function () {
-																	$("#thisMonth").addClass("hidden");
-																	$("#nextMonth").removeClass("hidden");
-																});
-
-																$(".arrow_l").click(function () {
-																	$("#nextMonth").addClass("hidden");
-																	$("#thisMonth").removeClass("hidden");
-																});
-
-																$(".btn-select").click(function () {
-
-																	var day = $(this).parent().parent().parent();
-
-																	if (day.attr('class') == "on") {
-																		day.attr('class', 'off');
-																	} else {
-																		init();
-																		day.attr('class', 'on');
-																	}
-																	return false;
-																});
-
-																$("#submit").click(function () {
-
-																	var selected_schedules = "";
-
-																	for (i = 0; i < $(".btn-select").size(); i++) {
-																		var checked = $(".btn-select").eq(i);
-																		if (checked.parent().parent().parent().attr('class') == 'on') {
-
-																			if (selected_schedules != null && selected_schedules != "") {
-																				selected_schedules += "|";
-																			}
-
-																			selected_schedules += checked.attr("id").replace("SelDay_", "");
-																		}
-																	}
-
-																	if (selected_schedules == null || selected_schedules == "") {
-																		alert('최소 하나이상 선택하셔야 합니다.');
-																		return false;
-																	}
-
-																	$("#selectedSchedules").val(selected_schedules);
-
-																	$('#frmSelectedVolunteer').submit();
-																});
-															});
-
-															function select() {
-																var selected_schedules = "";
-																for (i = 0; i < $(".btn-select").size(); i++) {
-																	var checked = $(".btn-select").eq(i);
-																	if (checked.parent().parent().parent().attr('class') == 'on') {
-
-																		if (selected_schedules != null && selected_schedules != "") {
-																			selected_schedules += "|";
-																		}
-
-																		selected_schedules += checked.attr("id").replace("SelDay_", "");
-																	}
-																}
-
-																if (selected_schedules == null || selected_schedules == "") {
-																	alert('최소 하나이상 선택하셔야 합니다.');
-																	return false;
-																}
-
-																$("#selectedSchedules").val(selected_schedules);
-
-																return true;
-															}
-
-															function init() {
-																//day.attr('class','off');
-
-																$("#calender_check tbody td").removeClass('on');
-																$("#calender_check tbody td").removeClass('off');
-																$("#calender_check tbody td").addClass('off');
-
-																/*
-																$(".btn-select").each(function() {
-																	$(this).find("img").attr("src", "/reservation/img/volunteer/c_bt.gif");
-																});
-																*/
-															}
-														</script>
-
-
-
-														<div class="calender_wrap" id="thisMonth">
-
-															<ul class="month_box">
-																<!-- <li class="arrow_l"><a href=""><img src="/reservation/img/main/arrow_left.png" alt="이전 달 보기"></a></li> -->
-																<li class="month">8월</li>
-																<li class="arrow_r"><img src="assets/img/calender/arrow_right.png" alt="다음 달 보기">
-																</li>
-															</ul>
-
-															<table class="tbl_left tbl_calender" id="calender_check" style="width: 100%;">
-																<caption>봉사활동 신청 날짜 선택</caption>
-																<colgroup>
-																	<col class="date_sun" />
-																	<col />
-																	<col />
-																	<col />
-																	<col />
-																	<col />
-																	<col class="date_sat" />
-																</colgroup>
-																<thead>
-																	<tr>
-																		<th scope="col" class="txt_c date_sun">일</th>
-																		<th scope="col" class="txt_c">월</th>
-																		<th scope="col" class="txt_c">화</th>
-																		<th scope="col" class="txt_c">수</th>
-																		<th scope="col" class="txt_c">목</th>
-																		<th scope="col" class="txt_c">금</th>
-																		<th scope="col" class="txt_c date_sat">토</th>
-																	</tr>
-																</thead>
-																<tbody>
-
-																	<tr>
-
-																		<td class="off  disable">
-
-																			<p class="date_sun">30</p>
-
-
-
-
-
+													<!-- calendar -->
+													<table class="Calendar">
+														<thead>
+																<tr>
+																		<td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+																		<td colspan="5">
+																				<span id="calYear"></span>년
+																				<span id="calMonth"></span>월
 																		</td>
+																		<td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+																</tr>
+																<tr>
+																		<td>일</td>
+																		<td>월</td>
+																		<td>화</td>
+																		<td>수</td>
+																		<td>목</td>
+																		<td>금</td>
+																		<td>토</td>
+																</tr>
+														</thead>
+								
+														<tbody>
+														</tbody>
+												</table>
+												<!-- //calendar -->
+
+												<!-- calendar 밑 버튼 -->
+												<ul class="btn_set mar_t20">
+													<li class="btn_default float_l">
+														<a href="/application/reservation/programList.action?dprtm_id=B141">이전으로</a>
+													</li>
+													<li class="btn_default btn_red float_r"><a id="submit">봉사신청</a></li>
+												</ul>
 
-																		<td class="off  disable">
-
-
-
-																			<p>31</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>8. 1</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>2</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>3</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>4</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-																			<p class="date_sat">5</p>
-
-
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off  disable">
-
-																			<p class="date_sun">6</p>
-
-
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>7</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>8</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>9</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>10</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>11</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-																			<p class="date_sat">12</p>
-
-
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off  disable">
-
-																			<p class="date_sun">13</p>
-
-
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>14</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>15</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>16</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>17</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>18</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-																			<p class="date_sat">19</p>
-
-
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off  disable">
-
-																			<p class="date_sun">20</p>
-
-
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>21</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>22</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>23</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>24</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>25</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-																			<p class="date_sat">26</p>
-
-
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off  disable">
-
-																			<p class="date_sun">27</p>
-
-
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>28</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>29</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>30</p>
-
-
-
-																		</td>
-
-																		<td class="off  disable">
-
-
-
-																			<p>31</p>
-
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>9. 1</p>
-
-
-
-
-
-
-																			<ul>
-
-
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="#" class="btn-select" id="SelDay_20230901_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-																			<p class="date_sat">2</p>
-
-
-
-
-
-
-
-																			<ul>
-
-
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="#" class="btn-select" id="SelDay_20230902_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																	</tr>
-
-																</tbody>
-															</table>
-														</div>
-
-														<!-- 다음달 나왔습니당~~~~!!!!!!!!!!!!!!~~~~~~~~~~~~~~~~ -->
-														<div class="calender_wrap hidden" id="nextMonth">
-															<ul class="month_box">
-																<li class="arrow_l"><img src="assets/img/calender/arrow_left.png" alt="이전 달 보기">
-																</li>
-																<li class="month">
-
-
-																	9월
-
-																</li>
-																<!-- <li class="arrow_r"><a href=""><img src="/reservation/img/main/arrow_right.png" alt="다음 달 보기"></a></li> -->
-															</ul>
-															<table class="tbl_left tbl_calender" id="calender_check">
-																<caption>봉사활동 신청 날짜 선택</caption>
-																<colgroup>
-																	<col class="date_sun" />
-																	<col />
-																	<col />
-																	<col />
-																	<col />
-																	<col />
-																	<col class="date_sat" />
-																</colgroup>
-																<thead>
-																	<tr>
-																		<th scope="col" class="txt_c date_sun">일</th>
-																		<th scope="col" class="txt_c">월</th>
-																		<th scope="col" class="txt_c">화</th>
-																		<th scope="col" class="txt_c">수</th>
-																		<th scope="col" class="txt_c">목</th>
-																		<th scope="col" class="txt_c">금</th>
-																		<th scope="col" class="txt_c date_sat">토</th>
-																	</tr>
-																</thead>
-																<tbody>
-
-
-
-																	<tr>
-
-																		<td class="off ">
-
-																			<p class="date_sun">3</p>
-
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230903_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>4</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230904_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>5</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230905_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>6</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230906_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>7</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230907_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>8</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230908_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-																			<p class="date_sat">9</p>
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230909_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off ">
-
-																			<p class="date_sun">10</p>
-
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230910_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>11</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230911_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>12</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230912_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>13</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230913_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>14</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230914_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>15</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230915_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-																			<p class="date_sat">16</p>
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230916_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off ">
-
-																			<p class="date_sun">17</p>
-
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230917_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>18</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230918_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>19</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230919_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>20</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230920_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>21</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230921_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>22</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230922_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-																			<p class="date_sat">23</p>
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230923_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																	</tr>
-
-																	<tr>
-
-																		<td class="off ">
-
-																			<p class="date_sun">24</p>
-
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230924_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>25</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230925_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>26</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230926_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>27</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230927_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>28</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230928_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-
-																			<p>29</p>
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230929_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																		<td class="off ">
-
-
-																			<p class="date_sat">30</p>
-
-
-
-
-
-
-																			<ul>
-																				<!-- <li class="time">09:00</li> -->
-																				<li class="pp_box"><span class="pp">0</span>/<span class="pp_max">30</span>
-																				</li>
-																				<li>
-
-
-
-																					<a href="javascript:;" class="btn-select" id="SelDay_20230930_1">[선택]</a>
-
-																				</li>
-																			</ul>
-
-
-																		</td>
-
-																	</tr>
-
-																</tbody>
-															</table>
-														</div>
-
-														<ul class="btn_set mar_t20">
-															<li class="btn_default float_l">
-
-
-
-																<a href="/application/reservation/programList.action?dprtm_id=B141">이전으로</a>
-
-
-															</li>
-															<li class="btn_default btn_red float_r"><a id="submit">
-
-																	봉사신청
-
-
-																</a></li>
-															<li class="btn_default_line btn_red float_r  mar_r5"><a href="javascript:init();">다시선택</a>
-															</li>
-														</ul>
-
-
-														<div class="c_bt">
-
-
-
-
-
-
-															<form id="frmSelectedVolunteer" method="POST"
-																action="/application/reservation/registReservation.action">
-																<input type="hidden" id="prgCode" name="prg_code" value="00003664" />
-																<input type="hidden" id="prgtpe_cd" name="prgtpe_cd" value="8" />
-																<input type="hidden" id="selectedSchedules" name="prg_schedules" value="" />
-															</form>
-														</div>
-													</div>
 												</div>
 											</div>
 								   </section>
