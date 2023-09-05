@@ -1,5 +1,5 @@
 -- 테이블 생성
--- 23.09.01 홍재헌 생성
+-- 23.09.05 홍재헌 수정
 CREATE TABLE member (
   member_id VARCHAR2(20),
   adress_no NUMBER,
@@ -8,7 +8,6 @@ CREATE TABLE member (
   tel       VARCHAR2(20),
   email     VARCHAR2(50),
   lev       NUMBER(10),
-  status    VARCHAR2(10),
   regdate   DATE,
   birthday  DATE,
   adress    VARCHAR2(200),
@@ -66,17 +65,24 @@ CREATE TABLE care (
   CONSTRAINT care_no_pk PRIMARY KEY ( care_no )
 );
 
+CREATE TABLE care_admin (
+  care_id           VARCHAR2(20),
+  care_no           NUMBER,
+  passwd            VARCHAR2(20),
+  CONSTRAINT care_id_pk PRIMARY KEY ( care_id )
+);
+
 CREATE TABLE reservation (
   reservation_no NUMBER,
   member_id      VARCHAR2(20),
   care_no        NUMBER,
   regdate        VARCHAR2(20),
+  people         NUMBER,
   CONSTRAINT reservation_no_pk PRIMARY KEY ( reservation_no )
 );
 
 CREATE TABLE dog (
   dog_no      NUMBER,
-  dog_kind_no NUMBER,
   care_no     NUMBER,
   notice_date VARCHAR2(10),
   find_place  VARCHAR2(200),
@@ -89,6 +95,7 @@ CREATE TABLE dog (
   surgery     CHAR(1),
   etc         VARCHAR2(200),
   adopt_state VARCHAR2(20),
+  dog_kind    VARCHAR2(100),
   CONSTRAINT dog_no_pk PRIMARY KEY ( dog_no )
 );
 
@@ -103,23 +110,10 @@ CREATE TABLE chat (
 
 CREATE TABLE donahistory (
   donahistory_no NUMBER,
+  donation       LONG,
   donation_date  DATE,
   member_id      VARCHAR2(20),
   CONSTRAINT donahistory_no_pk PRIMARY KEY ( donahistory_no )
-);
-
-CREATE TABLE donation (
-  donation_no    NUMBER,
-  donahistory_no NUMBER,
-  donation       LONG,
-  CONSTRAINT donation_no_pk PRIMARY KEY ( donation_no )
-);
-
-CREATE TABLE dog_kind (
-  dog_kind_no NUMBER,
-  care_no     NUMBER,
-  kind        VARCHAR2(100),
-  CONSTRAINT dog_kind_no_pk PRIMARY KEY ( dog_kind_no )
 );
 
 CREATE TABLE adress (
@@ -134,15 +128,10 @@ CREATE TABLE adress (
 CREATE TABLE volunhistory (
   volunhistory_no NUMBER,
   volun_date      DATE,
+  care_no         NUMBER,
   member_id       VARCHAR2(20),
-  CONSTRAINT volunhistory_no_pk PRIMARY KEY ( volunhistory_no )
-);
-
-CREATE TABLE volunteer (
-  volunteer_no    NUMBER,
-  volunhistory_no NUMBER,
   people          NUMBER,
-  CONSTRAINT volunteer_no_pk PRIMARY KEY ( volunteer_no )
+  CONSTRAINT volunhistory_no_pk PRIMARY KEY ( volunhistory_no )
 );
 
 CREATE TABLE anno (
@@ -179,18 +168,10 @@ ALTER TABLE adopt ADD (
   CONSTRAINT adopt_notice_no_fk FOREIGN KEY ( notice_no ) REFERENCES notice ( notice_no )
 );
 
-ALTER TABLE donation ADD ( 
-  CONSTRAINT donation_donahistory_no_fk FOREIGN KEY ( donahistory_no ) REFERENCES donahistory ( donahistory_no ) 
-);
-
 ALTER TABLE reservation ADD (
-  CONSTRAINT reservation_dog_no_fk FOREIGN KEY ( dog_no ) REFERENCES dog ( dog_no ),
   CONSTRAINT reservation_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no ),
   CONSTRAINT reservation_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id )
 );
-
-ALTER TABLE volunteer 
-  ADD CONSTRAINT volunteer_volunhistory_no_fk FOREIGN KEY ( volunhistory_no ) REFERENCES volunhistory ( volunhistory_no );
 
 ALTER TABLE member ADD (
   CONSTRAINT member_adress_no_fk FOREIGN KEY ( adress_no ) REFERENCES adress ( adress_no ),
@@ -200,17 +181,13 @@ ALTER TABLE member ADD (
 ALTER TABLE care 
   ADD CONSTRAINT care_adress_no_fk FOREIGN KEY ( adress_no ) REFERENCES adress ( adress_no );
 
-ALTER TABLE dog ADD (
-  CONSTRAINT dog_kind_no_fk FOREIGN KEY ( dog_kind_no ) REFERENCES dog_kind ( dog_kind_no ),
-  CONSTRAINT dog_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no )
+ALTER TABLE dog 
+  ADD CONSTRAINT dog_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no );
+
+ALTER TABLE chat ADD (
+  CONSTRAINT chat_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id ),
+  CONSTRAINT chat_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no )
 );
-
-ALTER TABLE chat
-  ADD CONSTRAINT chat_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id );
-
-ALTER TABLE dog_kind
-  ADD CONSTRAINT dog_kind_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no );
-
 ALTER TABLE dog_img
   ADD CONSTRAINT dog_img_dog_no_fk FOREIGN KEY ( dog_no )  REFERENCES dog ( dog_no );
 
@@ -220,10 +197,7 @@ ALTER TABLE care_img
 
 -- DEFAULT와 COMMENT 추가--------------------------------------------------------------------------
 ALTER TABLE member MODIFY ( lev NUMBER(10) DEFAULT 1 );
-COMMENT ON COLUMN member.lev IS '0.관리자 1.일반회원 2.보호소';
-
-ALTER TABLE member MODIFY ( status VARCHAR2(10) DEFAULT '0' );
-COMMENT ON COLUMN member.status IS '0.가입승인 1.가입미승인';
+COMMENT ON COLUMN member.lev IS '0.관리자 1.일반회원';
 
 ALTER TABLE member MODIFY ( regdate DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
@@ -263,13 +237,10 @@ ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- 오늘 날
 --DROP TABLE goddog.care CASCADE CONSTRAINTS;
 --DROP TABLE goddog.chat CASCADE CONSTRAINTS;
 --DROP TABLE goddog.dog CASCADE CONSTRAINTS;
---DROP TABLE goddog.dog_kind CASCADE CONSTRAINTS;
 --DROP TABLE goddog.donahistory CASCADE CONSTRAINTS;
---DROP TABLE goddog.donation CASCADE CONSTRAINTS;
 --DROP TABLE goddog.member CASCADE CONSTRAINTS;
 --DROP TABLE goddog.notice CASCADE CONSTRAINTS;
 --DROP TABLE goddog.reservation CASCADE CONSTRAINTS;
 --DROP TABLE goddog.volunhistory CASCADE CONSTRAINTS;
---DROP TABLE goddog.volunteer CASCADE CONSTRAINTS;
 --DROP TABLE goddog.dog_img CASCADE CONSTRAINTS;
 --DROP TABLE goddog.care_img CASCADE CONSTRAINTS;
