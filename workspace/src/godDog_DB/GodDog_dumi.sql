@@ -3,19 +3,22 @@
 
 -- Adress 테이블
 INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (1, '서울특별시', '노원구', '상계동', '서울특별시 노원구 노해로');
+VALUES (1, '서울특별시', '중랑구', '신내동', '서울특별시 중랑구 용마산로');
 INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (2, '경기도', '양주시', '옥정동', '경기도 양주시 옥정동로');
+VALUES (2, '경기도', '광주시', '도척동', '경기도 광주시 도척면 독고개길');
 INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (3, '대구광역시', '수성구', '범어동', '대구광역시 수성구 범어로');
+VALUES (3, '전라북도', '전주시', '대성동', '전라북도 전주시 완산구 객원길');
 INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
 VALUES (4, '수원시', '영통구', '이의동', '수원시 영통구 이의로');
 
--- Care 테이블 - 보호소
+-- Care 테이블 - 보호소(최대3개만 등록)
 INSERT INTO CARE (care_no, adress_no, name, adress, tel, closeday, mans, week_open, week_close, week_adopt_str, week_adopt_end, weekend_open, weekend_close, weekend_adopt_str, weekend_adopt_end, map_url)
-VALUES (1, 3, '퍼키즈', '대구광역시 수성구 범어로 175', '010-1234-5678', '매주 목요일', 30, '09:00', '18:00', '10:00','17:00','09:00','20:00','10:00','19:00', 'ansdmeklwl_21_21314sdfsew');
+VALUES (1, 3, '해피파워', '57-26', '010-1234-5678', '매주 목요일', 30, '09:00', '18:00', '10:00','17:00','09:00','20:00','10:00','19:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23401.192695856615!2d127.15998703550167!3d35.792659781764605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35702510baabe389%3A0x20f739be04cba361!2z656R656R7J2064SkIO2VmOyImQ!5e0!3m2!1sko!2skr!4v1693900715878!5m2!1sko!2skr');
 INSERT INTO CARE (care_no, adress_no, name, adress, tel, closeday, mans, week_open, week_close, week_adopt_str, week_adopt_end, weekend_open, weekend_close, weekend_adopt_str, weekend_adopt_end, map_url)
-VALUES (2, 4, '이리온', '수원시 영통구 이의동 1275-7 이석 빌딩 2층', '010-1234-5678', '매주 목요일', 40, '09:00', '18:00', '10:00','17:00','09:00','20:00','10:00','19:00', 'wmekldil_23_243266sdfsew');
+VALUES (2, 2, '굿도그', '357 KR', '010-5678-9101', '매주 목요일', 40, '09:00', '18:00', '10:00','17:00','09:00','20:00','10:00','19:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4173.778456239814!2d127.30491264159748!3d37.33584054588896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356355f4a1f0641b%3A0x56ebac08078de44f!2z7JWE7J207KGw7JWEIOyalOyWkeuztO2YuOyGjCDqsr3quLDqtJHso7zsoJA!5e0!3m2!1sko!2skr!4v1693901340631!5m2!1sko!2skr');
+INSERT INTO CARE (care_no, adress_no, name, adress, tel, closeday, mans, week_open, week_close, week_adopt_str, week_adopt_end, weekend_open, weekend_close, weekend_adopt_str, weekend_adopt_end, map_url)
+VALUES (2, 1, '춘향이와멍멍이', '139나길 83', '010-9876-5432', '매주 목요일', 40, '09:00', '18:00', '10:00','17:00','09:00','20:00','10:00','19:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1348.064582504651!2d127.10170285603522!3d37.61888852972289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cba21c49379e7%3A0x18e763e51b5158de!2z7ISc7Jq47Jyg6riw64-Z66y87J6F7JaR7IS87YSw!5e0!3m2!1sko!2skr!4v1693901528111!5m2!1sko!2skr');
+
 
 -- Member 테이블
 INSERT INTO MEMBER (member_id, passwd, name, birthday, regdate, adress_no, adress, email, tel, lev)
@@ -63,21 +66,45 @@ VALUES (1, 1, '2022-09-06', '수원시 달통구 교회앞', '8개월', '5kg', '2023-09-01'
 INSERT INTO DOG_IMG (dog_img_no, dog_no, dog_img, dog_1_img, dog_2_img, dog_3_img)
 VALUES (1, 1, 'test-dog-img.png', 'test-dog-1-img', 'test-dog-2-img', 'test-dog-3-img');
 
--- Chat 테이블 - 채팅
-INSERT INTO CHAT (chat_no, member_id, chat_contents, write_date, care_no)
-VALUES (1, 'bangry', '강아지는 언제 보러갈 수 있나요?', '2023-09-02', 1);
+-- Chat 테이블 - 채팅(수정중)
+--INSERT INTO CHAT (chat_no, member_id, chat_contents, write_date, care_no)
+--VALUES (1, 'bangry', '강아지는 언제 보러갈 수 있나요?', '2023-09-02', 1);
 
 -- Donahistory 테이블 - 후원내역
 INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
-VALUES (1, 1000000, '2023-09-03', 'bangry');
+VALUES (1, 10000, '2023-09-05', 'irion');
+INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
+VALUES (2, 5000, '2023-09-02', 'bangry');
+INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
+VALUES (3, 3000, '2023-09-04', 'bangry');
+INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
+VALUES (4, 1000, '2023-09-01', 'furkids');
+INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
+VALUES (5, 1000, '2023-09-04', 'furkids');
 
 -- Reservation 테이블 - 봉사 예약
 INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people)
-VALUES (1, 'bangry', 1, '2023-09-01 09:00', 7);
+VALUES (1, 'bangry', 1, '2023-09-01 09:00~12:00', 7);
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people)
+VALUES (2, 'furkids', 2, '2023-09-01 13:00~18:00', 5);
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people)
+VALUES (3, 'furkids', 1, '2023-09-01 09:00~12:00', 3);
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people)
+VALUES (4, 'bangry', 2,'2023-09-01 13:00~18:00', 6);
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people)
+VALUES (5, 'irion', 2,'2023-09-01 13:00~18:00', 1);
 
 -- Volunhistory 테이블 - 봉사내역
 INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
 VALUES (1, '2023-09-01', 7, 'bangry', 1);
+INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
+VALUES (2, '2023-09-03', 3, 'furkids', 2);
+INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
+VALUES (3, '2023-09-04', 1, 'irion', 1);
+INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
+VALUES (4, '2023-09-01', 7, 'bangry', 1);
+INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
+VALUES (5, '2023-09-06', 2, 'bangry', 2);
 
 
 

@@ -99,12 +99,20 @@ CREATE TABLE dog (
   CONSTRAINT dog_no_pk PRIMARY KEY ( dog_no )
 );
 
+CREATE TABLE chat_room (
+  chat_room_no  NUMBER,
+  member_id     VARCHAR2(20),
+  care_no       NUMBER,
+  CONSTRAINT chat_room_no_pk PRIMARY KEY ( chat_room_no )
+);
+
 CREATE TABLE chat (
   chat_no       NUMBER,
+  chat_room_no  NUMBER,
   member_id     VARCHAR2(20),
+  care_no       NUMBER,
   chat_contents VARCHAR2(2000),
   write_date    DATE,
-  care_no       NUMBER,
   CONSTRAINT chat_no_pk PRIMARY KEY ( chat_no )
 );
 
@@ -184,10 +192,15 @@ ALTER TABLE care
 ALTER TABLE dog 
   ADD CONSTRAINT dog_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no );
 
-ALTER TABLE chat ADD (
-  CONSTRAINT chat_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id ),
-  CONSTRAINT chat_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no )
+ALTER TABLE chat_room ADD (
+  CONSTRAINT chat_room_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id ),
+  CONSTRAINT chat_room_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no )
 );
+
+ALTER TABLE chat ADD (
+  CONSTRAINT chat_no_fk FOREIGN KEY ( chat_room_no ) REFERENCES chat_room ( chat_room_no )
+);
+
 ALTER TABLE dog_img
   ADD CONSTRAINT dog_img_dog_no_fk FOREIGN KEY ( dog_no )  REFERENCES dog ( dog_no );
 
@@ -235,6 +248,7 @@ ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- ¿À´Ã ³¯
 --DROP TABLE goddog.adress CASCADE CONSTRAINTS;
 --DROP TABLE goddog.anno CASCADE CONSTRAINTS;
 --DROP TABLE goddog.care CASCADE CONSTRAINTS;
+--DROP TABLE goddog.chat_room CASCADE CONSTRAINTS;
 --DROP TABLE goddog.chat CASCADE CONSTRAINTS;
 --DROP TABLE goddog.dog CASCADE CONSTRAINTS;
 --DROP TABLE goddog.donahistory CASCADE CONSTRAINTS;
