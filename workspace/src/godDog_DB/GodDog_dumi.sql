@@ -110,29 +110,16 @@ INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
 VALUES (5, 1000, '2023-09-04', 'furkids');
 
 -- Reservation 테이블 - 봉사 예약
-INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people, status)
-VALUES (1, 'bangry', 1, '2023-09-01 09:00~12:00', 7, 'false');
-INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people, status)
-VALUES (2, 'furkids', 2, '2023-09-01 13:00~18:00', 5, 'false');
-INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people, status)
-VALUES (3, 'furkids', 1, '2023-09-01 09:00~12:00', 3, 'true');
-INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people, status)
-VALUES (4, 'bangry', 2,'2023-09-01 13:00~18:00', 6, 'true');
-INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, people, status)
-VALUES (5, 'irion', 2,'2023-09-01 13:00~18:00', 1, 'true');
-
--- Volunhistory 테이블 - 봉사내역
-INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
-VALUES (1, '2023-09-01', 7, 'bangry', 1);
-INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
-VALUES (2, '2023-09-03', 3, 'furkids', 2);
-INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
-VALUES (3, '2023-09-04', 1, 'irion', 1);
-INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
-VALUES (4, '2023-09-01', 7, 'bangry', 1);
-INSERT INTO VOLUNHISTORY (volunhistory_no, volun_date, people, member_id, care_no)
-VALUES (5, '2023-09-06', 2, 'bangry', 2);
-
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
+VALUES (1, 'bangry', 1, '2023-09-01', '09:00~12:00', 7, 'false');
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
+VALUES (2, 'furkids', 2, '2023-09-01', '13:00~18:00', 5, 'false');
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
+VALUES (3, 'furkids', 1, '2023-09-01', '09:00~12:00', 3, 'true');
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
+VALUES (4, 'bangry', 2,'2023-09-01', '13:00~18:00', 6, 'true');
+INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
+VALUES (5, 'irion', 2,'2023-09-01', '13:00~18:00', 1, 'true');
 
 
 commit;

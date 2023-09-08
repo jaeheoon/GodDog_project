@@ -76,6 +76,7 @@ CREATE TABLE reservation (
   member_id      VARCHAR2(40),
   care_no        NUMBER,
   regdate        VARCHAR2(100),
+  regtime        VARCHAR2(100),
   people         NUMBER,
   status         VARCHAR2(40),
   CONSTRAINT reservation_no_pk PRIMARY KEY ( reservation_no )
@@ -241,7 +242,7 @@ ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- 오늘 날
 --컬럼 추가 코드
 --ALTER TABLE care ADD (map_url VARCHAR2(4000));
 --ALTER TABLE member ADD (care_no NUMBER);
---ALTER TABLE reservation ADD (status varchar2(40));
+--ALTER TABLE reservation ADD (regtime VARCHAR2(100));
 
 --FOREIGN KEY 삭제 코드
 --ALTER TABLE chat_room drop CONSTRAINT CHAT_ROOM_CARE_NO_FK;
@@ -260,6 +261,5 @@ ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- 오늘 날
 --DROP TABLE goddog.member CASCADE CONSTRAINTS;
 --DROP TABLE goddog.notice CASCADE CONSTRAINTS;
 --DROP TABLE goddog.reservation CASCADE CONSTRAINTS;
---DROP TABLE goddog.volunhistory CASCADE CONSTRAINTS;
 --DROP TABLE goddog.dog_img CASCADE CONSTRAINTS;
 --DROP TABLE goddog.care_img CASCADE CONSTRAINTS;
