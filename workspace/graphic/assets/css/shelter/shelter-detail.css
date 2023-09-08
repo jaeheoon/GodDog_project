@@ -91,7 +91,8 @@ h6 {
 
 p {
   color: var(--p-color);
-  font-size: var(--p-font-size);
+  /* 이거 vol5에서 msg box안 글씨에 영향을 미쳐서 일단 주석해놓았습니다. */
+  /* font-size: var(--p-font-size);  */
   font-weight: var(--font-weight-normal);
 }
 
@@ -1187,6 +1188,7 @@ blockquote {
   box-shadow: none !important;
   opacity: 1 !important;
   color: #717275 !important;
+  font-weight: bold !important;
 }
 
 .container-fluid button:hover{

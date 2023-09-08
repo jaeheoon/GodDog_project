@@ -402,7 +402,7 @@
 }
 
 #sb_contents .pagenate li.on a {
-  background-color: #666;
+  background-color: #616FE2;
   color: #fff
 }
 
@@ -866,7 +866,7 @@ h5.result_list_tit {
 
 .result_list_num {
   padding-bottom: 12px;
-  color: #df352c;
+  color: #616FE2;
   font-weight: 400
 }
 
@@ -1668,21 +1668,21 @@ input.btn_upload {
 .search_box {
   margin-bottom: 50px;
   padding: 25px;
-  background-color: #f9f9f9;
-  border: 1px solid #e5e5e5
+  background-color: #fafcff;
+  border: 1px solid rgb(177, 184, 212);
 }
 
 .search_box select.search_w01 {
   float: left;
   width: 20%;
-  height: 40px;
+  height: 45px;
   margin-right: 7px
 }
 
 .search_box input.search_w02 {
   float: left;
   width: 65.6%;
-  height: 38px;
+  height: 45px;
   margin-right: 7px
 }
 
@@ -1715,7 +1715,7 @@ input.btn_upload {
 }
 
 .board_wrap .txt_box {
-  font-size: 14px;
+  /* font-size: 14px; */
   font-weight: 400;
   line-height: 1.6em;
   text-align: center
@@ -1774,7 +1774,7 @@ input.btn_upload {
   float: left;
   width: 9%;
   padding: 34px 0 12px 0;
-  font-size: 14px;
+  /* font-size: 14px; */
   font-weight: 400;
   text-align: center
 }
@@ -1799,7 +1799,7 @@ input.btn_upload {
   display: inline-block;
   padding: 0 10px;
   border-right: 1px solid #e5e5e5;
-  font-size: 13px
+  font-size: 14px
 }
 
 .board_list .data li:nth-child(2) {
@@ -1821,7 +1821,7 @@ input.btn_upload {
 .board_detail {
   overflow: hidden;
   margin-bottom: 10px;
-  border-top: 2px solid #000
+  border-top: 3px solid #95a1b3
 }
 
 .board_detail>li {
@@ -1842,9 +1842,9 @@ input.btn_upload {
 }
 
 .board_detail .tit_detail {
-  background-color: #f9f9f9;
+  background-color: #fafcff;;
   border-right: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.4em
 }
@@ -1853,7 +1853,7 @@ input.btn_upload {
   display: inline-block;
   padding: 0 10px;
   border-right: 1px solid #e5e5e5;
-  font-size: 13px
+  font-size: 15px
 }
 
 .board_detail .file>ul>li {
@@ -3184,14 +3184,14 @@ input.btn_upload {
 
 .untact .btn_default_line.btn_red {
   position: relative;
-  border: 1px solid #008b9c;
+  border: 1px solid #e261ac;
   color: #008b9c;
 }
 
 .untact .btn_default_line.btn_red:hover,
 .untact .btn_default_line.btn_red:focus,
 .untact .btn_default_line.btn_red:active {
-  background: #008b9c;
+  background: #e261ac;
   color: #fff;
 }
 

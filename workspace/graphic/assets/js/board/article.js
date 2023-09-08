@@ -40,3 +40,16 @@ function toggleAlign(align) {
   var button = document.querySelector(".option-button.align-" + align);
   button.classList.add("active");
 }
+
+// 댓글 보기 누르면 접었다 폈다하는 함수
+function doDisplay(){
+  var conList = document.getElementsByClassName("commentBoxList");
+  for (var i = 0; i < conList.length; i++) {
+    var con = conList[i];
+    if (con.style.display === 'none' || con.style.display === '') {
+      con.style.display = 'block';
+    } else {
+      con.style.display = 'none';
+    }
+  }
+}
