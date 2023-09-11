@@ -73,7 +73,7 @@ VALUES (1, 1, 'test-img.png', 'test-1-img', 'test-2-img', 'test-3-img');
 
 -- Dog 테이블 - 유기견
 INSERT INTO DOG (dog_no, care_no, notice_date, find_place, age, weight, str_notice, end_notice, gender, surgery, etc, adopt_state, dog_kind)
-VALUES (1, 1, '2022-09-06', '수원시 달통구 교회앞', '8개월', '5kg', '2023-09-01', '2023-09-30', '1', '1', '없음', '입양안됨', '비숑');
+VALUES (4, 1, '20220906', '수원시 달통구 교회앞', '8개월', '5kg', '20230901', '20230930', '1', '1', '없음', '입양안됨', '비숑');
 
 -- Dog_img 테이블 - 보호소 이미지
 INSERT INTO DOG_IMG (dog_img_no, dog_no, dog_img, dog_1_img, dog_2_img, dog_3_img)

@@ -91,7 +91,7 @@ CREATE TABLE dog (
   weight      VARCHAR2(10),
   str_notice  DATE,
   end_notice  DATE,
-  status      CHAR(1),
+  status      VARCHAR2(10),
   gender      CHAR(1),
   surgery     CHAR(1),
   etc         VARCHAR2(200),
@@ -232,9 +232,14 @@ ALTER TABLE chat MODIFY ( write_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
+-- 시퀀스 생성---------------------------------------------------------------------------------------
+  CREATE SEQUENCE DOGNUM_seq
+  START WITH 1
+  INCREMENT BY 1;
+
 --컬럼 수정 코드
 --ALTER TABLE chat RENAME COLUMN care_no to care_id;
---ALTER TABLE RESERVATION MODIFY ( regdate VARCHAR2(100) );
+--ALTER TABLE DOG MODIFY ( STATUS VARCHAR2(10) );
   
 --컬럼 삭제 코드
 --ALTER TABLE reservation DROP COLUMN dog_no;
