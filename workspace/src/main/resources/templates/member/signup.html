@@ -18,6 +18,9 @@
 
 		<!-- ============================================================== 개별script =========================================================================-->
 		<script defer src="/assets/js/member/signup.js"></script>
+		<script defer src="/assets/js/postCode.js"></script>
+		<script
+			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	</th:block>
 
 	<!--/* 페이지별 콘텐츠 동적변경 */-->
@@ -57,7 +60,7 @@
 												data-id="261a1af9" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container">
-													<p>
+													<p th:text="${bindingResult}">
 														로그인한 사람의 정보가 나오는 페이지입니다.
 														<!-- line -->
 													<div
@@ -97,7 +100,7 @@
 											class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-50">
 											<label for="form-field-name" class="elementor-field-label"
 												style="margin-bottom: 1.8%;"> 아이디 </label> <input size="1"
-												type="text" name="form_fields[name]" id="form-field-name"
+												type="text" name="memberId" id="form-field-name"
 												class=" elementor-size-md  elementor-field-textual"
 												placeholder="아이디" style="background-color: white;">
 											<!-- <p>아이디는 필수 입력사항 입니다.</p> -->
@@ -108,8 +111,7 @@
 											class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-field_8e07a04 elementor-col-50">
 											<label for="form-field-field_8e07a04"
 												class="elementor-field-label" style="margin-bottom: 1.8%;">
-												비밀번호 </label> <input size="1" type="password"
-												name="form_fields[field_8e07a04]"
+												비밀번호 </label> <input size="1" type="password" name="passwd"
 												id="form-field-field_8e07a04"
 												class="elementor-field elementor-size-md  elementor-field-textual"
 												placeholder="비밀번호" style="background-color: white;">
@@ -121,8 +123,7 @@
 											class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-field_43d0f1c elementor-col-50 elementor-field-required">
 											<label for="form-field-field_43d0f1c"
 												class="elementor-field-label" style="margin-bottom: 1.8%;">
-												이름 </label> <input size="1" type="text"
-												name="form_fields[field_43d0f1c]"
+												이름 </label> <input size="1" type="text" name="name"
 												id="form-field-field_43d0f1c"
 												class="elementor-field elementor-size-md  elementor-field-textual"
 												placeholder="이름" required="required" aria-required="true"
@@ -135,8 +136,7 @@
 											class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-field_43d0f1c elementor-col-50 elementor-field-required">
 											<label for="form-field-field_43d0f1c"
 												class="elementor-field-label" style="margin-bottom: 1.8%;">
-												핸드폰번호 </label> <input size="1" type="text"
-												name="form_fields[field_43d0f1c]"
+												핸드폰번호 </label> <input size="1" type="text" name="phoneNum"
 												id="form-field-field_43d0f1c"
 												class="elementor-field elementor-size-md  elementor-field-textual"
 												placeholder="핸드폰번호" required="required" aria-required="true"
@@ -149,15 +149,15 @@
 											<label for="form-field-email" class="elementor-field-label">
 												본인 확인 이메일 (선택) </label>
 											<p>
-												<input type="text" name="" id=""
+												<input type="text" name="emailF" id=""
 													class="elementor-field elementor-size-md elementor-field-textual"
 													required="required" aria-required="true"
 													style="background-color: white; width: 26%;"> @ <input
-													type="text" name="" id="domain-txt"
+													type="text" name="emailB" id="domain-txt"
 													class="elementor-field elementor-size-md elementor-field-textual"
 													required="required" aria-required="true"
 													style="background-color: white; width: 42%;"> <select
-													class="box" id="domain-list" style="width: 10em;">
+													class="box" id="domain-list" style="width: 10em;" name="emailB">
 													<option value="type">직접 입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="google.com">google.com</option>
@@ -174,11 +174,11 @@
 												style="margin-bottom: 0.1em;"> 생년월일 </label>
 											<div
 												class="birth elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-50 elementor-field-required">
-												<select class="box" id="birth-year">
+												<select class="box" id="birth-year" name="year">
 													<option disabled selected>출생 연도</option>
-												</select> <select class="box" id="birth-month">
+												</select> <select class="box" id="birth-month" name="month">
 													<option disabled selected>월</option>
-												</select> <select class="box" id="birth-day">
+												</select> <select class="box" id="birth-day" name="day">
 													<option disabled selected>일</option>
 												</select>
 												<!-- <p>생년월일은 필수 입력사항 입니다.</p> -->
@@ -190,25 +190,18 @@
 											<label for="form-field-field_43d0f1c"
 												class="elementor-field-label"> 주소 </label>
 										</div>
-										<div class="elementor-field-required">
-											<input type="text" name="" id="postcode" readonly
-												class="elementor-field elementor-size-md elementor-field-textual"
-												required="required" aria-required="true"
-												style="background-color: white; width: 26%;"> <input
-												type="button" style="padding: 0.4em 1em; margin-top: 2%;"
-												value="우편번호 찾기" onclick="checkPost()">
-										</div>
 										<div>
-											<input type="text" name="" id="address" placeholder="주소"
-												readonly
+											<input type="text" name="adress" id="combinedAddress"
+												placeholder="주소" readonly
 												class="elementor-field elementor-size-md elementor-field-textual"
 												required="required" aria-required="true"
 												style="background-color: white; width: 44%;"> <input
-												type="text" name="" id="detailAddress" placeholder="상세주소"
-												readonly
+												type="text" name="detailAdress" id="detailAddress" placeholder="상세주소"
 												class="elementor-field elementor-size-md elementor-field-textual"
 												required="required" aria-required="true"
-												style="background-color: white; width: 55%;">
+												style="background-color: white; width: 55%;"> <input
+												type="button" style="padding: 0.4em 1em; margin-top: 2%;"
+												id="findPostCode" value="우편번호 찾기">
 										</div>
 										<br>
 										</p>
@@ -227,8 +220,7 @@
 												required> <label for="privacy">개인정보 처리방침에
 												동의합니다. <a href="개인정보처리방침페이지.html" target="_blank"
 												style="color: blueviolet;">개인정보 처리방침 보기</a>
-											</label> <br>
-											<br>
+											</label> <br> <br>
 										</div>
 
 										<div

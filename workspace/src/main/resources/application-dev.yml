@@ -84,7 +84,8 @@ mybatis:
     map-underscore-to-camel-case: true  
   mapper-locations: 
     - classpath:mybatis/mapper/**/*.xml
-  type-aliases-package: tteogipbangbeomdae.goddog.domain.member.dto, tteogipbangbeomdae.goddog.domain.dog.dto
+  type-aliases-package: tteogipbangbeomdae.goddog.domain.member.dto, tteogipbangbeomdae.goddog.domain.adress.dto, tteogipbangbeomdae.goddog.domain.dog.dto 
+
 
 ---
       

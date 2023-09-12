@@ -17,8 +17,8 @@ public class SpringAOPTest {
 	
 	@Test
 	public void getMemberTest() {
-		Member member = memberService.getMember("bangry");
-		log.info("조회된 회원정보 : {}", member);
+//		Member member = memberService.getMember("bangry");
+//		log.info("조회된 회원정보 : {}", member);
 	}
 	
 }

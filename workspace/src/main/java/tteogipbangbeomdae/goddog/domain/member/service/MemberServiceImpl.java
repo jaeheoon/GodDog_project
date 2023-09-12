@@ -26,21 +26,21 @@ public class MemberServiceImpl implements MemberService{
 	public Member isMember(String id, String passwd) {
 		return memberMapper.findByIdAndPasswd(id, passwd);
 	}
-
-	@Override
-	public List<Member> getMemberList() {
-		return memberMapper.findByAll();
-	}
-
-	@Override
-	public Member getMember(String id) {
-		return memberMapper.findById(id);
-	}
-
-	@Override
-	@Transactional
-	public void editMember(Member member) {
-		memberMapper.update(member);
-	}
+//
+//	@Override
+//	public List<Member> getMemberList() {
+//		return memberMapper.findByAll();
+//	}
+//
+//	@Override
+//	public Member getMember(String id) {
+//		return memberMapper.findById(id);
+//	}
+//
+//	@Override
+//	@Transactional
+//	public void editMember(Member member) {
+//		memberMapper.update(member);
+//	}
 
 }

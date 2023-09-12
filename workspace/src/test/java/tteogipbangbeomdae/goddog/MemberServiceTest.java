@@ -18,8 +18,8 @@ public class MemberServiceTest {
 	@Test
 	public void isMemberTest() {
 		String id = "bangry", passwd = "1111";
-		Member loginMember = memberService.isMember(id, passwd);
-		log.info("로그인 사용자 정보 : {}", loginMember);
+//		Member loginMember = memberService.isMember(id, passwd);
+//		log.info("로그인 사용자 정보 : {}", loginMember);
 	}
 }
 

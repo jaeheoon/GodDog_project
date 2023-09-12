@@ -38,19 +38,19 @@ import tteogipbangbeomdae.goddog.web.member.exception.MemberException;
 public class MemberController {
 	
 	/** 회원 관련 비즈니스 메소드 제공 */
-//	private final MemberService memberService;
+	private final MemberService memberService;
 
 	/**
 	 * 사용자 회원가입 화면 요청 처리 
 	 * @param model  뷰에서 필요한 데이터 저장
 	 * @return  뷰의 논리적 이름
 	 */
-//	@GetMapping("/register")
-//	public String registerForm(Model model) {
-//		Member member = Member.builder().build();
-//		model.addAttribute("member", member);
-//		return "member/register";
-//	}
+	@GetMapping("/signup")
+	public String registerForm(Model model) {
+		Member member = Member.builder().build();
+		model.addAttribute("member", member);
+		return "member/signup";
+	}
 	
 	/**
 	 * 사용자 회원가입 요청 처리
@@ -62,22 +62,23 @@ public class MemberController {
 	 * @param model  뷰에서 필요한 데이터 저장
 	 * @return  뷰의 논리적 이름
 	 */
-//	@PostMapping("/register")
-//	public String register(@Validated @ModelAttribute Member member, BindingResult bindingResult,
-//			RedirectAttributes redirectAttributes, Model model) {
-//
-//		// 데이터 검증 실패 시 회원가입 화면으로 포워드
+	@PostMapping("/signup")
+	public String register(@Validated @ModelAttribute Member member, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, Model model) {
+		log.info("들어온 멤버 {}",member);
+		// 데이터 검증 실패 시 회원가입 화면으로 포워드
 //		if (bindingResult.hasErrors()) {
-//			// model에 bindingResult 자동 저장
-//			return "member/register";
+			// model에 bindingResult 자동 저장
+//			return "member/signup";
 //		}
-//
-//		// 데이터 검증 성공 시 회원 등록 처리 후 회원 상세 페이지로 리다이렉트
-//		memberService.register(member);
-//		// 일반 회원 상세 조회 페이지와 구별하기 status 속성 추가
-//		redirectAttributes.addFlashAttribute("status", true);
-//		return "redirect:/member/" + member.getId();
-//	}
+		member.setFullAdress(member.combineFullAdress());
+		member.setFullBirthday(member.combineFullBirthday());
+		member.setFullEmail(member.combineFullEmail());
+		
+		// 데이터 검증 성공 시 회원 등록 처리 후 회원 상세 페이지로 리다이렉트
+		memberService.register(member);
+		return "redirect:login";
+	}
 	
 	/** 회원 상세 조회 요청 처리 */
 //	@GetMapping("/{id}")
@@ -111,52 +112,54 @@ public class MemberController {
 //	}
 	
 	/** 회원 로그인 화면 요청 처리 */
-//	@GetMapping("/login")
-//	public String loginForm(Model model) {
-//		LoginForm loginForm = LoginForm.builder().build();
-//		model.addAttribute("loginForm", loginForm);
-//		return "member/login";
-//	}
+	@GetMapping("/login")
+	public String loginForm(Model model) {
+		LoginForm loginForm = LoginForm.builder().build();
+		model.addAttribute("loginForm", loginForm);
+		return "member/login";
+	}
 	
-//	/** 회원 로그인 요청 처리 */
-//	@PostMapping("/login") 
-//	public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
-//		
-//		// 데이터 검증 실패 시 로그인 화면으로 포워드
+	/** 회원 로그인 요청 처리 */
+	@PostMapping("/login") 
+	public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
+		
+		// 데이터 검증 실패 시 로그인 화면으로 포워드
 //		if (bindingResult.hasErrors()) {
 //			return "member/login";
 //		}
-//		
-//		// 데이터 검증 정상 처리 시
-//		Member loginMember = memberService.isMember(loginForm.getLoginId(), loginForm.getPasswd());
-//		
-//		// 회원이 아닌 경우
-//		if (loginMember == null) {
-//			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-//			return "member/login";
-//		}
-//		
-//		// 회원인 경우 세션 생성 및 로그인 아이디 설정
-//		HttpSession session =  request.getSession();
-//		session.setAttribute("loginMember", loginMember);
-//		
-//		// 로그인 처리 후 사용자가 원래 요청하려던 URL로 리다이렉트 처리
-//		String redirectURI = (String)session.getAttribute("redirectURI");
-//		log.warn(redirectURI);
-//		String uri = redirectURI == null ? "/" : redirectURI;
-//		return "redirect:" + uri;
-//	}
+//		log.info("들어온 폼아이디 {}",loginForm.getLoginId());
+//		log.info("들어온 폼패스워드 {}",loginForm.getPasswd());
+//		log.info("들어온 폼비밀번호 {}",loginForm.getRemember());
+		// 데이터 검증 정상 처리 시
+		Member loginMember = memberService.isMember(loginForm.getLoginId(), loginForm.getPasswd());
+		log.info("찾아온 회원 {}", loginMember);
+		// 회원이 아닌 경우
+		if (loginMember == null) {
+			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+			return "member/login";
+		}
+		
+		// 회원인 경우 세션 생성 및 로그인 아이디 설정
+		HttpSession session =  request.getSession();
+		session.setAttribute("loginMember", loginMember);
+		
+		// 로그인 처리 후 사용자가 원래 요청하려던 URL로 리다이렉트 처리
+		String redirectURI = (String)session.getAttribute("redirectURI");
+		log.warn("들어온 redirectURI {}",redirectURI);
+		String uri = redirectURI == null ? "/" : redirectURI;
+		return "redirect:" + uri;
+	}
 	
 	/** 회원 로그아웃 요청 처리 */
-//	@GetMapping("/logout")  
-//	public String logout(HttpServletRequest request) {
-//		// 세션이 있으면 기존 세션 반환, 없으면 생성하지 않고 null 반환
-//		HttpSession session =  request.getSession(false);
-//		if(session != null) {
-//			session.invalidate();
-//		}
-//		return "redirect:/";
-//	}
+	@GetMapping("/logout")  
+	public String logout(HttpServletRequest request) {
+		// 세션이 있으면 기존 세션 반환, 없으면 생성하지 않고 null 반환
+		HttpSession session =  request.getSession(false);
+		if(session != null) {
+			session.invalidate();
+		}
+		return "redirect:/";
+	}
 	
 	/** 아이디 중복 여부 요청 처리 */
 //	@GetMapping("/valid/{id}")
@@ -191,18 +194,15 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
-	@GetMapping("/login")
-	public String loginForm(Model model) {
-		return "member/login";
-	}
 	
-	@GetMapping("/signup")
-	public String signup(Model model) {		
-		return "member/signup";
-	}
+//	@GetMapping("/signup")
+//	public String signup(Model model) {		
+//		return "member/signup";
+//	}
 	
-	@PostMapping("/signup")
-	public String signupResult(Model model) {
-		return "redirect:login";
-	}
+//	@PostMapping("/signup")
+//	public String signupResult(Model model) {
+//		
+//		return "redirect:login";
+//	}
 }

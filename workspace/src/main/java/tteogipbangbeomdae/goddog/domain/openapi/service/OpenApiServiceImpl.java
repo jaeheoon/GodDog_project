@@ -27,9 +27,7 @@ import tteogipbangbeomdae.goddog.domain.dog.dto.Dog;
 @Service
 public class OpenApiServiceImpl implements OpenApiService{
 	
-	/**
-	 * 	OpenAPI 이용하여 강아지 리스트 불러오는 메소드
-	 */
+	/** OpenAPI 이용하여 강아지 리스트 불러오는 메소드 */
 	@Override
 	public List<Dog> getDogList() {
 		List<Dog> dogList = new ArrayList<Dog>();
