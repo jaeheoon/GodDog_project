@@ -7,7 +7,7 @@
 
 	<insert id="create" parameterType="Dog">
 		INSERT INTO DOG (dog_no, care_no, notice_date, find_place, age, weight, str_notice, end_notice, gender, surgery, etc, adopt_state, dog_kind)
-		VALUES (DOGNUM_seq.nextVal, 1, #{happenDt}, #{happenPlace}, #{age}, #{weight}, #{noticeSdt}, #{noticeEdt}, #{sexCd}, #{neuterYn}, #{specialMark}, #{processState}, #{kindCd})
+		VALUES (dog_no_seq.nextVal, 1, #{happenDt}, #{happenPlace}, #{age}, #{weight}, #{noticeSdt}, #{noticeEdt}, #{sexCd}, #{neuterYn}, #{specialMark}, #{processState}, #{kindCd})
 	</insert>
 	
 </mapper>
