@@ -20,7 +20,7 @@ public class DogTest {
 	@Test
 //	@Disabled
 	void listTest() {
-		List<Dog> dogs = openApiService.getDogList();
+		List<Dog> dogs = openApiService.getDogList("2");
 		for (int i = 0; i < dogs.size(); i++) {
 			log.info("강아지 정보 : " + dogs.get(i));
 		}

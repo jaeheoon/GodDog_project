@@ -1,7 +1,5 @@
 package tteogipbangbeomdae.goddog.domain.member.dto;
 
-import java.time.Month;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

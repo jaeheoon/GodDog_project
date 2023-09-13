@@ -29,7 +29,7 @@ public class OpenApiServiceImpl implements OpenApiService{
 	
 	/** OpenAPI 이용하여 강아지 리스트 불러오는 메소드 */
 	@Override
-	public List<Dog> getDogList() {
+	public List<Dog> getDogList(String pageNo) {
 		List<Dog> dogList = new ArrayList<Dog>();
 		StringBuilder sb = new StringBuilder();
 	     
@@ -37,7 +37,8 @@ public class OpenApiServiceImpl implements OpenApiService{
 	    	   StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic"); /*URL*/
 	           urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=akTdA6bI7qrFaVDNLP%2BSmmO0iqjbLVr6ff3e3zCcvKWVCtW%2B%2BmG2WQwnFVcsSjYMJPPRn54XgDA66FM2XgO1vQ%3D%3D"); /*Service Key*/
 	           urlBuilder.append("&" + URLEncoder.encode("upkind","UTF-8") + "=" + URLEncoder.encode("417000", "UTF-8")); /*축종 코드(개 : 417000)*/
-	           urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("300", "UTF-8")); /*한 페이지 결과 수(1,000 이하)*/
+	           urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("9", "UTF-8")); /*한 페이지 결과 수(1,000 이하)*/
+	           urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); /*페이지 번호*/
 	           urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*xml(기본값) 또는 json*/
 	           URL url = new URL(urlBuilder.toString());
 	           HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
@@ -60,8 +61,10 @@ public class OpenApiServiceImpl implements OpenApiService{
 	           JSONArray jsonArray = (JSONArray)items.get("item");
 	           for (int i = 0; i < jsonArray.size(); i++) {
 	        	   JSONObject object = (JSONObject) jsonArray.get(i);
+	        	   String desertionNo = (String) object.get("desertionNo");		//강아지 번호
 	        	   String happenDt = (String) object.get("happenDt");			//접수일
 	        	   String happenPlace = (String) object.get("happenPlace");		//발견장소
+	        	   String orgNm = (String) object.get("orgNm");					//시군구
 	        	   String kindCd = (String) object.get("kindCd");				//품종
 	        	   String colorCd = (String) object.get("colorCd");				//색상
 	        	   String age = (String) object.get("age");						//나이
@@ -72,14 +75,19 @@ public class OpenApiServiceImpl implements OpenApiService{
 	        	   String neuterYn = (String) object.get("neuterYn");			//중성화여부
 	        	   String specialMark = (String) object.get("specialMark");		//특징
 	        	   String careAddr = (String) object.get("careAddr");			//보호장소
+	        	   String noticeNo = (String) object.get("noticeNo");			//공고번호
 	        	   String noticeComment = (String) object.get("noticeComment");	//특이사항
 	        	   String noticeSdt = (String) object.get("noticeSdt");			//공고시작일
 	        	   String noticeEdt = (String) object.get("noticeEdt");			//공고종료일
-
+	        	   Long totalCount = (Long) body.get("totalCount");
+	        	   String kind = kindCd.replace("[개] ", "");
+	        	   
 	        	   Dog dog = Dog.builder()
+	        			   		.desertionNo(desertionNo)
 	        			   		.happenDt(happenDt)
 	        			   		.happenPlace(happenPlace)
-	        			   		.kindCd(kindCd)
+	        			   		.orgNm(orgNm)
+	        			   		.kindCd(kind)
 	        			   		.colorCd(colorCd)
 	        			   		.age(age)
 	        			   		.weight(weight)
@@ -89,9 +97,11 @@ public class OpenApiServiceImpl implements OpenApiService{
 	        			   		.neuterYn(neuterYn)
 	        			   		.specialMark(specialMark)
 	        			   		.careAddr(careAddr)
+	        			   		.noticeNo(noticeNo)
 	        			   		.noticeComment(noticeComment)
 	        			   		.noticeSdt(noticeSdt)
 	        			   		.noticeEdt(noticeEdt)
+	        			   		.totalCount(totalCount)
 	        			   		.build();
 	        	   dogList.add(dog);
 	           }

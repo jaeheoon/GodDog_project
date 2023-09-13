@@ -14,9 +14,10 @@ import lombok.ToString;
 @ToString
 @Builder
 public class Dog {
-	private int dogNo;				//번호
+	private String desertionNo;		//번호
 	private String happenDt;		//접수일
 	private String happenPlace;		//발견장소
+	private String orgNm;			//시군구
 	private String kindCd;			//품종
 	private String colorCd;			//색상
 	private String age;				//나이
@@ -27,8 +28,10 @@ public class Dog {
 	private String neuterYn;		//중성화여부
 	private String specialMark;		//특징
 	private String careAddr;		//보호장소
+	private String noticeNo;		//공고번호
 	private String noticeComment;	//특이사항
 	private String noticeSdt;		//공고시작일
 	private String noticeEdt;		//공고종료일
+	private Long totalCount;		//전체결과수
 	
 }

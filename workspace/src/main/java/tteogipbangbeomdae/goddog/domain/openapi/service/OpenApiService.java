@@ -13,6 +13,6 @@ import tteogipbangbeomdae.goddog.domain.dog.dto.Dog;
  */
 public interface OpenApiService {
 	
-	public List<Dog> getDogList();
+	public List<Dog> getDogList(String page);
 	
 }
