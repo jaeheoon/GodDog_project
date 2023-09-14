@@ -2,6 +2,7 @@ package tteogipbangbeomdae.goddog;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,11 +19,15 @@ public class DogTest {
 	private OpenApiService openApiService;
 	
 	@Test
-//	@Disabled
+	@Disabled
 	void listTest() {
 		List<Dog> dogs = openApiService.getDogList("2");
 		for (int i = 0; i < dogs.size(); i++) {
 			log.info("강아지 정보 : " + dogs.get(i));
 		}
+	}
+	
+	void searchTest() {
+		
 	}
 }

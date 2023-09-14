@@ -81,7 +81,11 @@ public class OpenApiServiceImpl implements OpenApiService{
 	        	   String noticeEdt = (String) object.get("noticeEdt");			//공고종료일
 	        	   Long totalCount = (Long) body.get("totalCount");
 	        	   String kind = kindCd.replace("[개] ", "");
-	        	   
+//	        	   if (sexCd.equals("M")) {
+//	        		   sexCd = "수컷";
+//	        	   } else {
+//	        		   sexCd = "암컷";
+//	        	   }
 	        	   Dog dog = Dog.builder()
 	        			   		.desertionNo(desertionNo)
 	        			   		.happenDt(happenDt)

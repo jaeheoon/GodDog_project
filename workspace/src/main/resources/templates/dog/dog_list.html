@@ -96,8 +96,9 @@
 													<div class="elementor-widget-container">
 														<div class="elementor-image-box-wrapper">
 															<figure class="elementor-image-box-img" style="text-align: center;">
-																<a href="/dog/dog-profile.html" th:href="@{'/'+dog+'/'+ profile}">
-																	<img class="elementor-animation-float attachment-full" style="height: 300px;"
+																<a href="/dog/dog-profile.html" 
+																th:href="@{'/'+dog+'/'+ profile + '?' + requestPage +'=' + ${requestPage} + '&' + desertionNo + '=' + ${dog != null ? dog.desertionNo : ''}}">
+																	<img class="elementor-animation-float attachment-full" style="height: 300px; width: 400px;"
 																		alt="강아지 정보가 없습니다."
 																		th:src="${dog != null ? dog.popfile : ''}" />
 																</a>
@@ -138,8 +139,7 @@
 															</li>
 															<li
 																class="elementor-icon-list-item elementor-inline-item">
-																<span class="elementor-icon-list-text" th:text="${dog != null ? dog.orgNm : ''}">Oakland,
-																	CA</span>
+																<span class="elementor-icon-list-text" th:text="${dog != null ? dog.orgNm : ''}">Oakland, CA</span>
 															</li>
 														</ul>
 													</div>
@@ -169,7 +169,7 @@
 
 					<!-- 11페이지부터 나옴 - 처음으로 -->
 					<th:block th:if="${pagination.isShowFirst}">
-						<li><a href="#" th:href="@{'/' + dog + '?'+requestPage+'=' + 1 }">&lt;&lt;</a></li>
+						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + 1 }">&lt;&lt;</a></li>
 					</th:block>
 					<!-- 2페이지부터 나옴 - 이전으로 -->
 					<th:block th:if="${pagination.isShowPrevious}">

@@ -18,7 +18,7 @@ import tteogipbangbeomdae.goddog.domain.web.dto.Pagination;
  * /dog관련 요청을 처리하는 세부 컨트롤러 구현 클래스
  *
  * @author  떡잎방범대 홍재헌
- * @since   2023. 9. 10.
+ * @since   2023. 9. 14.
  * @version 1.0
  */
 @Controller
@@ -57,13 +57,30 @@ public class DogController {
 		
 		Pagination pagination = new Pagination(pageParams);
 		
+		model.addAttribute("requestPage", requestPage);
 		model.addAttribute("list", dogList);
 		model.addAttribute("pagination", pagination);
 		return "dog/dog_list";
 	}
 	
 	@GetMapping("/profile")
-	public String showDogProfile(Model model) {		
+	public String showDogProfile(@RequestParam(defaultValue = "1") String requestPage, @RequestParam(value = "desertionNo") String desertionNo, Model model) {
+		List<Dog> dogs = openApiService.getDogList(requestPage);
+		Dog dog = new Dog();
+		for (int i = 0; i < dogs.size(); i++) {
+			if (dogs.get(i).getDesertionNo().equals(desertionNo)) {
+				dog.setDesertionNo(desertionNo);
+				dog.setKindCd(dogs.get(i).getKindCd());
+				dog.setColorCd(dogs.get(i).getColorCd());
+				dog.setAge(dogs.get(i).getAge());
+				dog.setSexCd(dogs.get(i).getSexCd());
+				dog.setWeight(dogs.get(i).getWeight());
+				dog.setNeuterYn(dogs.get(i).getNeuterYn());
+				dog.setPopfile(dogs.get(i).getPopfile());
+			}
+		}
+		
+		model.addAttribute("dog", dog);
 		return "dog/dog_profile";
 	}
 }
