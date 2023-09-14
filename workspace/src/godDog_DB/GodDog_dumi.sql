@@ -1,23 +1,13 @@
 --테스트를 위한 더미데이터 생성
--- 23.09.05 홍재헌 수정
-
--- Adress 테이블
-INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (1, '서울특별시', '중랑구', '신내동', '서울특별시 중랑구 용마산로');
-INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (2, '경기도', '광주시', '도척동', '경기도 광주시 도척면 독고개길');
-INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (3, '전라북도', '전주시', '대성동', '전라북도 전주시 완산구 객원길');
-INSERT INTO ADRESS (adress_no, do, gu, dong, new_adress)
-VALUES (4, '수원시', '영통구', '이의동', '수원시 영통구 이의로');
+-- 23.09.14 홍재헌 수정
 
 -- Care 테이블 - 보호소(최대3개만 등록)
 INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url)
-VALUES (1, '해피파워', '57-26', '010-1234-5678', '매주 목요일', 30, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23401.192695856615!2d127.15998703550167!3d35.792659781764605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35702510baabe389%3A0x20f739be04cba361!2z656R656R7J2064SkIO2VmOyImQ!5e0!3m2!1sko!2skr!4v1693900715878!5m2!1sko!2skr');
+VALUES (1, '해피파워', '57-26', '010-1234-5678', '매주 목요일', 30, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3160.286582158532!2d127.0987639896269!3d37.6189461490006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cba21c49379e7%3A0x18e763e51b5158de!2z7ISc7Jq47Jyg6riw64-Z66y87J6F7JaR7IS87YSw!5e0!3m2!1sko!2skr!4v1694584040563!5m2!1sko!2skr');
 INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url)
-VALUES (2, '굿도그', '357 KR', '010-5678-9101', '매주 목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4173.778456239814!2d127.30491264159748!3d37.33584054588896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356355f4a1f0641b%3A0x56ebac08078de44f!2z7JWE7J207KGw7JWEIOyalOyWkeuztO2YuOyGjCDqsr3quLDqtJHso7zsoJA!5e0!3m2!1sko!2skr!4v1693901340631!5m2!1sko!2skr');
+VALUES (2, '굿도그', '357 KR', '010-5678-9101', '매주 목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d178995.55098424698!2d126.90210231386554!3d38.10976704400116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357d338d5f434f95%3A0xbd5b1d5dd49ee366!2z7JyE65Oc64-F7IqkaW7tj6zsspw!5e0!3m2!1sko!2skr!4v1694584452617!5m2!1sko!2skr');
 INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url)
-VALUES (3, '춘향이와멍멍이', '139나길 83', '010-9876-5432', '매주 목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1348.064582504651!2d127.10170285603522!3d37.61888852972289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cba21c49379e7%3A0x18e763e51b5158de!2z7ISc7Jq47Jyg6riw64-Z66y87J6F7JaR7IS87YSw!5e0!3m2!1sko!2skr!4v1693901528111!5m2!1sko!2skr');
+VALUES (3, '춘향이와멍멍이', '139나길 83', '010-9876-5432', '매주 목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51770.013672154666!2d127.1375037724449!3d35.809117452526905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35702510baabe389%3A0x20f739be04cba361!2z656R656R7J2064SkIO2VmOyImQ!5e0!3m2!1sko!2skr!4v1694584279357!5m2!1sko!2skr');
 
 -- Care_admin 테이블 - 보호소 관리자
 INSERT INTO CARE_ADMIN (care_id, care_no, passwd)
@@ -45,81 +35,87 @@ VALUES (2, '봉사후기', '봉사후기에 대한 게시판 입니다');
 
 -- Anno - 공지사항
 INSERT INTO ANNO (anno_no, title, contents)
-VALUES (1, '2023-08-08 홈페이지 점검 안내', '홈페이지 점검 예정이오니 확인 부탁드립니다');
+VALUES (anno_no_seq.NEXTVAL, '입양 과정은 어떻게 이루어지나요?', '입양 과정은 일반적은로 신청, 승인, 서류 작성 및 서류 검토, 그리고 최종 입양 절차로 진행됩니다.');
 INSERT INTO ANNO (anno_no, title, contents)
-VALUES (2, '사이트이용 방법', '여러보호소의 강아지의 목록을 보시다가 만나보길 원하시는분은 채팅으로 해당 강아지를 보호중인 보호소와 상담해보시고 직접 보호소에 찾아가 보시기 바랍니다.');
+VALUES (anno_no_seq.NEXTVAL, '어떤 시간에 입양 및 방문이 가능한가요?', '입양 및 방문 가능 시간은 보호소나 구조 단체의 정책에 따라 다를 수 있으며, 일반적으로 주말과 평일의 일정한 시간에 열려 있습니다.');
 INSERT INTO ANNO (anno_no, title, contents)
-VALUES (3, '자주묻는 후원문의답변', '원하는 금액을 지정하여 후원은 불가능하십니다. 또한 후원받은 금액은 특정 보호소가 아닌 현재 사이트에 등록된 모든 보호소에 균등하게 지급됨을 미리 알려드립니다.');
+VALUES (anno_no_seq.NEXTVAL, '강아지들을 직접 만나볼 수 있나요?', '네. 일반적으로 보호소에서는 입양을 고려하는 사람들이 강아지들을 직접 만날 수 있도록 허용합니다.');
 INSERT INTO ANNO (anno_no, title, contents)
-VALUES (4, '봉사활동 신청방법', '봉사예약 페이지를 방문하여 원하시는 보호소를 선택 후, 달력에서 원하는 날짜를 선택하여 신청해 주세요. 한번 신청된 봉사도 취소 할 수 있습니다. 많은 관심 부탁드려요');
+VALUES (anno_no_seq.NEXTVAL, '현재 보호소에 몇 마리의 강아지가 있나요?', '현재 보호소에 있는 강아지들의 수는 항상 변할 수 있으며, 주기적으로 업데이트됩니다.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '입양을 원하는 강아지를 찾았어요. 다음 단계는 무엇인가요?', '원하는 강아지를 찾았다면, 일반적으로 입양 신청서를 작성하고 검토를 위해 제출해야 합니다.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '입양 전 강아지의 건강 상태를 어떻게 확인하나요?', '보호소에서는 일반적으로 강아지의 건강 상태를 확인하고, 필요한 모든 예방 접종과 의료 검진을 완료합니다.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '어떻게 봉사자가 될 수 있나요?', '봉사자가 되고자 하는 경우, 해당 보호소나 구조 단체의 웹사이트에서 봉사 신청 양식을 작성하거나 직접 연락할 수 있습니다.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '입양이 불가능한 경우는 어떤 경우인가요?', '입양이 불가능한 경우에는 보호소의 정책이나 강아지의 특정 상황에 따라 달라질 수 있습니다.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '보호소에서 필요한 물품을 기부하려면 어떻게 해야 하나요?', '보호소에서 필요한 물품을 기부하려면 해당 보호소의 웹사이트나 연락처를 통해 기부 절차와 원하는 물품 목록을 확인하세요.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '입양 신청 후 얼마나 빨리 피드백을 받을 수 있나요?', '입양 신청 후 보호소에서 얼마나 빨리 피드백을 받을지는 보호소에 따라 다를 수 있으며, 일반적으로 일주일 내에 연락을 받을 것입니다.');
+INSERT INTO ANNO (anno_no, title, contents)
+VALUES (anno_no_seq.NEXTVAL, '입양 시 필요한 서류는 어떤 것이 있나요?', '일반적으로 입양을 위해 신분증, 주소 증명서, 그리고 입양 신청서와 같은 기본 서류가 필요할 수 있습니다.');
 
--- Adopt 테이블 - 후기글
-INSERT INTO ADOPT (adopt_no, member_id, notice_no, title, contents, count, write_date, group_no, level_no, order_no) 
-VALUES (1, 'bangry', 1, '귀여운 강아지네요', '강아지 한 마리를 봤는데 너무 귀여워요', 231, '2023-09-24', 0, 0, 0);
-INSERT INTO ADOPT (adopt_no, member_id, notice_no, title, contents, count, write_date, group_no, level_no, order_no) 
-VALUES (2, 'furkids', 1, '퍼키즈 방문해보세요', '다양한 강아지들이 있습니다', 23, '2023-09-24', 0, 0, 0);
-INSERT INTO ADOPT (adopt_no, member_id, notice_no, title, contents, count, write_date, group_no, level_no, order_no) 
-VALUES (3, 'irion', 2, '굿도그 봉사 후기올립니다~', '너무 귀여운 아이들이 있고 마음이 치유되는 기분이내요~ 아파트에서 강아지 못키우게해서 자주가서 아이들이랑 놀아줄꺼 같아요. 여러분도 강츄!!', 23, '2023-09-24', 0, 0, 0);
-INSERT INTO ADOPT (adopt_no, member_id, notice_no, title, contents, count, write_date, group_no, level_no, order_no) 
-VALUES (4, 'furkids', 2, '퍼키즈 방문해보세요', '다양한 강아지들이 있습니다', 23, '2023-09-24', 0, 0, 0);
+-- Review 테이블 - 후기글
+INSERT INTO review (review_no, member_id, notice_no, review_title, review_contents, count, write_date, group_no, level_no, order_no) 
+VALUES (review_no_seq.NEXTVAL, 'bangry', 1, '귀여운 강아지네요', '강아지 한 마리를 봤는데 너무 귀여워요', 231, '2023-09-24', 0, 0, 0);
+INSERT INTO review (review_no, member_id, notice_no, review_title, review_contents, count, write_date, group_no, level_no, order_no) 
+VALUES (review_no_seq.NEXTVAL, 'furkids', 1, '퍼키즈 방문해보세요', '다양한 강아지들이 있습니다', 23, '2023-09-24', 0, 0, 0);
+INSERT INTO review (review_no, member_id, notice_no, review_title, review_contents, count, write_date, group_no, level_no, order_no) 
+VALUES (review_no_seq.NEXTVAL, 'irion', 2, '굿도그 봉사 후기올립니다~', '너무 귀여운 아이들이 있고 마음이 치유되는 기분이내요~ 아파트에서 강아지 못키우게해서 자주가서 아이들이랑 놀아줄꺼 같아요. 여러분도 강츄!!', 23, '2023-09-24', 0, 0, 0);
+INSERT INTO review (review_no, member_id, notice_no, review_title, review_contents, count, write_date, group_no, level_no, order_no) 
+VALUES (review_no_seq.NEXTVAL, 'furkids', 2, '퍼키즈 방문해보세요', '다양한 강아지들이 있습니다', 23, '2023-09-24', 0, 0, 0);
 
--- Adopt_img 테이블 - 보호소 이미지
-INSERT INTO ADOPT_IMG (img_no, adopt_no, img, member_id, notice_no)
-VALUES (1, 1, 'test-img.png', 'bangry', 1);
+-- Review_img 테이블 - 후기글 이미지
+INSERT INTO REVIEW_IMG (img_no, img, review_no, member_id, notice_no)
+VALUES (img_no_seq.NEXTVAL, 'test-img.png', 1, 'bangry', 1);
 
 -- Care_img 테이블 - 보호소 이미지
 INSERT INTO CARE_IMG (care_img_no, care_no, care_img, care_1_img, care_2_img, care_3_img)
-VALUES (1, 1, 'test-img.png', 'test-1-img', 'test-2-img', 'test-3-img');
-
--- Dog 테이블 - 유기견
-INSERT INTO DOG (dog_no, care_no, notice_date, find_place, age, weight, str_notice, end_notice, gender, surgery, etc, adopt_state, dog_kind)
-VALUES (4, 1, '20220906', '수원시 달통구 교회앞', '8개월', '5kg', '20230901', '20230930', '1', '1', '없음', '입양안됨', '비숑');
-
--- Dog_img 테이블 - 보호소 이미지
-INSERT INTO DOG_IMG (dog_img_no, dog_no, dog_img, dog_1_img, dog_2_img, dog_3_img)
-VALUES (1, 1, 'test-dog-img.png', 'test-dog-1-img', 'test-dog-2-img', 'test-dog-3-img');
+VALUES (care_img_seq.NEXTVAL, 1, 'test-img.png', 'test-1-img', 'test-2-img', 'test-3-img');
 
 -- Chat_room 테이블 - 채팅방 리스트
 INSERT INTO CHAT_ROOM (chat_room_no, member_id, care_id)
-VALUES (1, 'bangry', 'gooddog');
+VALUES (chat_room_no_seq.NEXTVAL, 'bangry', 'gooddog');
 INSERT INTO CHAT_ROOM (chat_room_no, member_id, care_id)
-VALUES (2, 'furkids', 'chunhyangandpuppy');
+VALUES (chat_room_no_seq.NEXTVAL, 'furkids', 'chunhyangandpuppy');
 INSERT INTO CHAT_ROOM (chat_room_no, member_id, care_id)
-VALUES (3, 'furkids', 'happypower');
+VALUES (chat_room_no_seq.NEXTVAL, 'furkids', 'happypower');
 INSERT INTO CHAT_ROOM (chat_room_no, member_id, care_id)
-VALUES (4, 'irion', 'gooddog');
+VALUES (chat_room_no_seq.NEXTVAL, 'irion', 'gooddog');
 
 -- Chat 테이블 - 채팅
 INSERT INTO CHAT (chat_no, chat_room_no, member_id, care_id, chat_contents, write_date)
-VALUES (1, 1, 'bangry', null, '강아지는 언제 보러갈 수 있나요?', '2023-09-02');
+VALUES (chat_no_seq.NEXTVAL, 1, 'bangry', null, '강아지는 언제 보러갈 수 있나요?', '2023-09-02');
 INSERT INTO CHAT (chat_no, chat_room_no, member_id, care_id, chat_contents, write_date)
-VALUES (2, 1, null, 'gooddog', '내일 보러오셔도 될 것 같습니다', '2023-09-02');
+VALUES (chat_no_seq.NEXTVAL, 1, null, 'gooddog', '내일 보러오셔도 될 것 같습니다', '2023-09-02');
 INSERT INTO CHAT (chat_no, chat_room_no, member_id, care_id, chat_contents, write_date)
-VALUES (3, 1, 'bangry', null, '알겠습니다. 그날 뵙겠습니다,', '2023-09-02');
+VALUES (chat_no_seq.NEXTVAL, 1, 'bangry', null, '알겠습니다. 그날 뵙겠습니다,', '2023-09-02');
 
 -- Donahistory 테이블 - 후원내역
 INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
-VALUES (1, 10000, '2023-09-05', 'irion');
+VALUES (donahistory_no_seq.NEXTVAL, 10000, '2023-09-05', 'irion');
 INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
-VALUES (2, 5000, '2023-09-02', 'bangry');
+VALUES (donahistory_no_seq.NEXTVAL, 5000, '2023-09-02', 'bangry');
 INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
-VALUES (3, 3000, '2023-09-04', 'bangry');
+VALUES (donahistory_no_seq.NEXTVAL, 3000, '2023-09-04', 'bangry');
 INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
-VALUES (4, 1000, '2023-09-01', 'furkids');
+VALUES (donahistory_no_seq.NEXTVAL, 1000, '2023-09-01', 'furkids');
 INSERT INTO DONAHISTORY (donahistory_no, donation, donation_date, member_id)
-VALUES (5, 1000, '2023-09-04', 'furkids');
+VALUES (donahistory_no_seq.NEXTVAL, 1000, '2023-09-04', 'furkids');
 
 -- Reservation 테이블 - 봉사 예약
 INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
-VALUES (1, 'bangry', 1, '2023-09-01', '09:00~12:00', 7, 'false');
+VALUES (reservation_no_seq.NEXTVAL, 'bangry', 1, '2023-09-01', '09:00~12:00', 7, 'false');
 INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
-VALUES (2, 'furkids', 2, '2023-09-01', '13:00~18:00', 5, 'false');
+VALUES (reservation_no_seq.NEXTVAL, 'furkids', 2, '2023-09-01', '13:00~18:00', 5, 'false');
 INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
-VALUES (3, 'furkids', 1, '2023-09-01', '09:00~12:00', 3, 'true');
+VALUES (reservation_no_seq.NEXTVAL, 'furkids', 1, '2023-09-01', '09:00~12:00', 3, 'wait');
 INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
-VALUES (4, 'bangry', 2,'2023-09-01', '13:00~18:00', 6, 'true');
+VALUES (reservation_no_seq.NEXTVAL, 'bangry', 2,'2023-09-01', '13:00~18:00', 6, 'wait');
 INSERT INTO RESERVATION (reservation_no, member_id, care_no, regdate, regtime, people, status)
-VALUES (5, 'irion', 2,'2023-09-01', '13:00~18:00', 1, 'true');
+VALUES (reservation_no_seq.NEXTVAL, 'irion', 2,'2023-09-01', '13:00~18:00', 1, 'true');
 
 
 commit;

@@ -1,5 +1,5 @@
 -- 테이블 생성
--- 23.09.05 홍재헌 수정
+-- 23.09.14 홍재헌 수정
 CREATE TABLE member (
   member_id VARCHAR2(40),
   adress_no NUMBER,
@@ -21,24 +21,24 @@ CREATE TABLE notice (
   CONSTRAINT notice_no_pk PRIMARY KEY ( notice_no )
 );
 
-CREATE TABLE adopt (
-  adopt_no    NUMBER,
+CREATE TABLE review (
+  review_no    NUMBER,
   member_id   VARCHAR2(40),
   notice_no   NUMBER,
-  title       VARCHAR2(100),
-  contents    VARCHAR2(2000),
+  review_title       VARCHAR2(100),
+  review_contents    VARCHAR2(2000),
   count       NUMBER,
   write_date  DATE,
   group_no    NUMBER,
   level_no    NUMBER,
   order_no    NUMBER,
-  CONSTRAINT adopt_no_pk PRIMARY KEY ( adopt_no )
+  CONSTRAINT adopt_no_pk PRIMARY KEY ( review_no )
 );
 
-CREATE TABLE adopt_img (
+CREATE TABLE review_img (
   img_no      NUMBER,
   img         VARCHAR2(2000),
-  adopt_no    NUMBER,
+  review_no    NUMBER,
   member_id   VARCHAR2(40),
   notice_no   NUMBER,
   CONSTRAINT img_no_pk PRIMARY KEY ( img_no )
@@ -46,20 +46,15 @@ CREATE TABLE adopt_img (
 
 CREATE TABLE care (
   care_no           NUMBER,
-  adress_no         NUMBER,
   name              VARCHAR2(50),
   adress            VARCHAR2(200),
   tel               VARCHAR2(20),
   closeday          VARCHAR2(20),
   mans              NUMBER(10),
-  week_open         VARCHAR2(40),
-  week_close        VARCHAR2(40),
-  week_adopt_str    VARCHAR2(40),
-  week_adopt_end    VARCHAR2(40),
-  weekend_open      VARCHAR2(40),
-  weekend_close     VARCHAR2(40),
-  weekend_adopt_str VARCHAR2(40),
-  weekend_adopt_end VARCHAR2(40),
+  open              VARCHAR2(40),
+  close             VARCHAR2(40),
+  volunteer_am      VARCHAR2(40),
+  volunteer_pm      VARCHAR2(40),
   map_url           VARCHAR2(4000),
   CONSTRAINT care_no_pk PRIMARY KEY ( care_no )
 );
@@ -74,30 +69,12 @@ CREATE TABLE care_admin (
 CREATE TABLE reservation (
   reservation_no NUMBER,
   member_id      VARCHAR2(40),
-  care_no        NUMBER,
-  regdate        VARCHAR2(100),
-  regtime        VARCHAR2(100),
   people         NUMBER,
   status         VARCHAR2(40),
+  regdate        VARCHAR2(100),
+  regtime        VARCHAR2(100),
+  care_no        NUMBER,
   CONSTRAINT reservation_no_pk PRIMARY KEY ( reservation_no )
-);
-
-CREATE TABLE dog (
-  dog_no      NUMBER,
-  care_no     NUMBER,
-  notice_date VARCHAR2(10),
-  find_place  VARCHAR2(200),
-  age         VARCHAR2(30),
-  weight      VARCHAR2(10),
-  str_notice  DATE,
-  end_notice  DATE,
-  status      VARCHAR2(10),
-  gender      CHAR(1),
-  surgery     CHAR(1),
-  etc         VARCHAR2(200),
-  adopt_state VARCHAR2(20),
-  dog_kind    VARCHAR2(100),
-  CONSTRAINT dog_no_pk PRIMARY KEY ( dog_no )
 );
 
 CREATE TABLE chat_room (
@@ -125,39 +102,11 @@ CREATE TABLE donahistory (
   CONSTRAINT donahistory_no_pk PRIMARY KEY ( donahistory_no )
 );
 
-CREATE TABLE adress (
-  adress_no  NUMBER,
-  do         VARCHAR2(300),
-  gu         VARCHAR2(300),
-  dong       VARCHAR2(300),
-  new_adress VARCHAR2(2000),
-  CONSTRAINT adress_no_pk PRIMARY KEY ( adress_no )
-);
-
-CREATE TABLE volunhistory (
-  volunhistory_no NUMBER,
-  volun_date      DATE,
-  care_no         NUMBER,
-  member_id       VARCHAR2(40),
-  people          NUMBER,
-  CONSTRAINT volunhistory_no_pk PRIMARY KEY ( volunhistory_no )
-);
-
 CREATE TABLE anno (
   anno_no  NUMBER,
   title    VARCHAR2(100),
   contents VARCHAR2(2000),
   CONSTRAINT anno_no_pk PRIMARY KEY ( anno_no )
-);
-
-CREATE TABLE dog_img (
-  dog_img_no NUMBER,
-  dog_no     NUMBER,
-  dog_img    VARCHAR2(200),
-  dog_1_img  VARCHAR2(200),
-  dog_2_img  VARCHAR2(200),
-  dog_3_img  VARCHAR2(200),
-  CONSTRAINT dog_img_no_pk PRIMARY KEY ( dog_img_no )
 );
 
 CREATE TABLE care_img (
@@ -172,27 +121,18 @@ CREATE TABLE care_img (
 
 -- FOREING KEY 생성
 
-ALTER TABLE adopt ADD (
-  CONSTRAINT adopt_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id ),
-  CONSTRAINT adopt_notice_no_fk FOREIGN KEY ( notice_no ) REFERENCES notice ( notice_no )
+ALTER TABLE review ADD (
+  CONSTRAINT review_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id ),
+  CONSTRAINT review_notice_no_fk FOREIGN KEY ( notice_no ) REFERENCES notice ( notice_no )
 );
 
 ALTER TABLE reservation ADD (
   CONSTRAINT reservation_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no ),
   CONSTRAINT reservation_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id )
 );
-
-ALTER TABLE member 
-  ADD CONSTRAINT member_adress_no_fk FOREIGN KEY ( adress_no ) REFERENCES adress ( adress_no );
-
-ALTER TABLE care 
-  ADD CONSTRAINT care_adress_no_fk FOREIGN KEY ( adress_no ) REFERENCES adress ( adress_no );
   
 ALTER TABLE care_admin 
   ADD CONSTRAINT care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no );
-
-ALTER TABLE dog 
-  ADD CONSTRAINT dog_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no );
 
 ALTER TABLE chat_room ADD (
   CONSTRAINT chat_room_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id ),
@@ -205,9 +145,6 @@ ALTER TABLE chat ADD (
   CONSTRAINT chat_member_id_fk FOREIGN KEY ( member_id ) REFERENCES member ( member_id )
 );
 
-ALTER TABLE dog_img
-  ADD CONSTRAINT dog_img_dog_no_fk FOREIGN KEY ( dog_no )  REFERENCES dog ( dog_no );
-
 ALTER TABLE care_img
   ADD CONSTRAINT care_img_care_no_fk FOREIGN KEY ( care_no ) REFERENCES care ( care_no );
 
@@ -218,24 +155,37 @@ COMMENT ON COLUMN member.lev IS '0.관리자 1.일반회원';
 
 ALTER TABLE member MODIFY ( regdate DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
-ALTER TABLE dog MODIFY ( gender CHAR(1) DEFAULT '1' );    --체크 여부 - 디폴트 체크 - 수컷
-COMMENT ON COLUMN dog.gender IS '1.수컷 2.암컷';
-
-ALTER TABLE dog MODIFY ( surgery CHAR(1) DEFAULT '1' );    --체크 여부 - 디폴트 체크 - YES
-COMMENT ON COLUMN dog.surgery IS '1.YES 2.NO';
+ALTER TABLE reservation MODIFY ( status VARCHAR2(40) DEFAULT 'wait' );    --체크 여부 - 디폴트 체크 - 대기
 
 ALTER TABLE donahistory MODIFY ( donation_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
-ALTER TABLE adopt MODIFY ( write_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
+ALTER TABLE review MODIFY ( write_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 ALTER TABLE chat MODIFY ( write_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 -- 시퀀스 생성---------------------------------------------------------------------------------------
-  CREATE SEQUENCE DOGNUM_seq
-  START WITH 1
-  INCREMENT BY 1;
+CREATE SEQUENCE chat_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE chat_room_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE care_img_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE care_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE reservation_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE donahistory_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE review_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE img_no_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE anno_no_seq START WITH 1 INCREMENT BY 1;
+
+-- 시퀀스 삭제---------------------------------------------------------------------------------------
+--DROP SEQUENCE chat_no_seq;
+--DROP SEQUENCE chat_room_no_seq;
+--DROP SEQUENCE care_img_seq;
+--DROP SEQUENCE donahistory_no_seq;
+--DROP SEQUENCE care_no_seq;
+--DROP SEQUENCE reservation_no_seq;
+--DROP SEQUENCE review_no_seq;
+--DROP SEQUENCE img_no_seq;
+
 
 --컬럼 수정 코드
 --ALTER TABLE chat RENAME COLUMN care_no to care_id;
@@ -255,16 +205,13 @@ ALTER TABLE volunhistory MODIFY ( volun_date DATE DEFAULT sysdate );  -- 오늘 날
 --TABLE 삭제 코드
 --DROP TABLE goddog.adopt CASCADE CONSTRAINTS;
 --DROP TABLE goddog.adopt_img CASCADE CONSTRAINTS;
---DROP TABLE goddog.adress CASCADE CONSTRAINTS;
 --DROP TABLE goddog.anno CASCADE CONSTRAINTS;
 --DROP TABLE goddog.care CASCADE CONSTRAINTS;
 --DROP TABLE goddog.care_admin CASCADE CONSTRAINTS;
 --DROP TABLE goddog.chat_room CASCADE CONSTRAINTS;
 --DROP TABLE goddog.chat CASCADE CONSTRAINTS;
-DROP TABLE goddog.dog CASCADE CONSTRAINTS;
 --DROP TABLE goddog.donahistory CASCADE CONSTRAINTS;
 --DROP TABLE goddog.member CASCADE CONSTRAINTS;
 --DROP TABLE goddog.notice CASCADE CONSTRAINTS;
 --DROP TABLE goddog.reservation CASCADE CONSTRAINTS;
-DROP TABLE goddog.dog_img CASCADE CONSTRAINTS;
 --DROP TABLE goddog.care_img CASCADE CONSTRAINTS;
