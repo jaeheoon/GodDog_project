@@ -26,7 +26,7 @@
 		<link rel='stylesheet'
 			href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css'>
 		<!-- ============================================================== 개별script =========================================================================-->
-		<script src="/assets/js/calender/cal.js"></script>
+		<script defer src="/assets/js/calender/cal.js"></script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 			integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -78,8 +78,7 @@
 													data-id="3fdf0404" data-element_type="widget"
 													data-widget_type="heading.default">
 													<div class="elementor-widget-container">
-														<h1 class="elementor-heading-title elementor-size-default">봉사활동
-															신청</h1>
+														<h1 class="elementor-heading-title elementor-size-default">봉사활동 신청</h1>
 													</div>
 												</div>
 												<div
@@ -166,10 +165,7 @@
 																		data-widget_type="image-carousel.default">
 																		<br> <br> <br>
 																		<div class="elementor-widget-container">
-																			<h3>
-																				<i aria-hidden="true" class="fas fa-house"></i> 굿도그
-																				보호소
-																			</h3>
+																			<h3><i aria-hidden="true" class="fas fa-house"></i><th:block th:text="${session.shelter.name + ' 보호소'}"> 굿도그 보호소 </th:block></h3>
 																		</div>
 																		<br> <br>
 
@@ -179,10 +175,9 @@
 																				<tr>
 																					<td onClick="prevCalendar();"
 																						style="cursor: pointer;">&#60;</td>
-																					<td colspan="5"><span id="calYear"></span>년 <span
-																						id="calMonth"></span>월</td>
-																					<td onClick="nextCalendar();"
-																						style="cursor: pointer;">&#62;</td>
+																					<td colspan="5"><span id="calYear"></span>년 
+																					<span id="calMonth"></span>월</td>
+																					<td onClick="nextCalendar();" style="cursor: pointer;">&#62;</td>
 																				</tr>
 																				<tr>
 																					<td>일</td>
@@ -203,10 +198,9 @@
 																		<!-- calendar 밑 버튼 -->
 																		<ul class="btn_set mar_t20">
 																			<li class="btn_default float_l"><a
-																				href="/volunteer/agreement.html" th:href="@{'/'+volunteer}">이전으로</a>
+																				href="/volunteer/agreement.html" th:href="@{'/'+ volunteer + '/' + 'map'}">이전으로</a>
 																			</li>
-																			<li class="btn_default btn_red float_r"><a
-																				href="/volunteer/choice.html" th:href="@{'/'+volunteer+'/'+choice}" id="submit">봉사신청</a></li>
+																			<li class="btn_default btn_red float_r"><a id="submit">봉사신청</a></li>
 																		</ul>
 																	</div>
 																</div>

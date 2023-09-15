@@ -13,7 +13,7 @@ public interface MemberMapper {
 	
 //	public List<Member> findByAll();
 	
-//	public Member findById(String id);
+	public Member findById(String id);
 	
 	public Member findByIdAndPasswd(@Param("memberId") String id, @Param("passwd") String passwd);
 	

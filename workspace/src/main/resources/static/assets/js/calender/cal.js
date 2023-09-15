@@ -53,12 +53,22 @@ function buildCalendar() {
 }
 
 // 날짜 선택
+let day;
 function choiceDate(newDIV) {
   if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
     document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
   }
   newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+  day = document.querySelector(".choiceDay").textContent;
+  //console.log(day);
 }
+
+document.getElementById("submit").addEventListener("click",()=>{
+   let year = document.querySelector("#calYear").textContent;
+   let month = document.querySelector("#calMonth").textContent;
+   location.href="/volunteer/choice?regdate="+year+month+day;
+   //console.log(day);
+})
 
 // 이전달 버튼 클릭
 function prevCalendar() {
@@ -79,6 +89,9 @@ function leftPad(value) {
   }
   return value;
 }
+
+//다음버튼 클릭시 선택된 날짜까지 포함해서 요청
+
 
 if (typeof _GUL == 'undefined') {
 

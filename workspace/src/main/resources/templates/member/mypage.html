@@ -105,7 +105,7 @@
 												data-id="1494d9a6" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container">
-													<p id="id-input">dongdong1111</p>
+													<p id="id-input" th:if="${session.loginMember != null}" th:text="${session.loginMember.memberId}">dongdong1111</p>
 												</div>
 											</div>
 										</div>
@@ -149,7 +149,7 @@
 												data-id="1494d9a6" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container">
-													<p id="name-input">최동동</p>
+													<p id="name-input" th:if="${session.loginMember != null}" th:text="${session.loginMember.name}">최동동</p>
 												</div>
 											</div>
 										</div>
@@ -193,7 +193,7 @@
 												data-id="1494d9a6" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container">
-													<p id="email-input">dongdong1111@naver.com</p>
+													<p id="email-input" th:if="${session.loginMember != null}" th:text="${session.loginMember.fullEmail}">dongdong1111@naver.com</p>
 												</div>
 											</div>
 										</div>
@@ -239,7 +239,7 @@
 												data-id="1494d9a6" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container" id="content-box">
-													<p id="phonenum-input">010-0000-0000</p>
+													<p id="phonenum-input" th:text="${session.loginMember.phoneNum}">010-0000-0000</p>
 												</div>
 											</div>
 										</div>
@@ -283,7 +283,7 @@
 												data-id="1494d9a6" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container">
-													<p id="brith-input">1999.01.01</p>
+													<p id="brith-input" th:text="${session.loginMember.fullBirthday}">1999.01.01</p>
 												</div>
 											</div>
 										</div>
@@ -327,7 +327,7 @@
 												data-id="1494d9a6" data-element_type="widget"
 												data-widget_type="text-editor.default">
 												<div class="elementor-widget-container">
-													<p id="address-input">서울시 은평구 떡잎마을 떡잎아파트 33동 303호</p>
+													<p id="address-input" th:text="${session.loginMember.fullAdress}">서울시 은평구 떡잎마을 떡잎아파트 33동 303호</p>
 												</div>
 											</div>
 										</div>
@@ -403,17 +403,18 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr id="table-content">
-																			<td class="m_hidden">009802949240</td>
-																			<td class="m_hidden">2023.09.04</td>
-																			<td class="m">10000</td>
+																		<tr th:each="donahistory, state : ${donaList}" id="table-content">
+																			<td class="m_hidden" th:text="${state.count}">009802949240</td>
+																			<td class="m_hidden" th:text="${donahistory.donationDate}">2023.09.04</td>
+																			<td class="m" th:text="${donahistory.donation}">10000</td>
 																		</tr>
-
+																		<!--
 																		<tr id="table-content">
 																			<td class="m_hidden">009802949240</td>
 																			<td class="m_hidden">2023.09.04</td>
 																			<td class="m">20000</td>
 																		</tr>
+																		-->
 																	</tbody>
 																</table>
 															</div>
@@ -457,13 +458,30 @@
 																	<thead>
 																		<tr id="table-subject">
 																			<th scope="col" class="m_hidden">신청일자</th>
-																			<th scope="col" class="m_hidden">프로그램</th>
+																			<th scope="col" class="m_hidden" th:text="보호소">프로그램</th>
 																			<th scope="col" class="m_hidden">봉사날짜</th>
 																			<th scope="col" class="m_hidden">시간</th>
 																			<th scope="col" class="m">상태</th>
 																		</tr>
 																	</thead>
 																	<tbody>
+																		<tr th:each="reservation : ${reserList}" id="table-content">
+																			<td class="m_hidden">2023.09.04</td>
+																			<td class="m_hidden"><a th:href="@{'/'+volunteer+'/'+detail}" th:text="${reservation.shelterName}">외래식물제거
+																					자원봉사(우이)</a></td>
+																			<td class="m_hidden" th:text="${reservation.regdate}">2023.10.04</td>
+																			<td class="m_hidden" th:text="${reservation.regtime}">13:00 ~14:00</td>
+																			<td class="m">
+																				<ul class="btn_set" id="btn-set" style="margin-top:0; margin-bottom:0;">
+																					<div class="btn_default_s">
+																						<a class="detail"
+																							href="/volunteer/cancel-detail.html"
+																							th:text="상세보기" th:href="@{'/' + volunteer + '/' + detail}">상세보기</a>
+																					</div>
+																				</ul>
+																			</td>
+																		</tr>
+																		<!--
 																		<tr id="table-content">
 																			<td class="m_hidden">2023.09.04</td>
 																			<td class="m_hidden"><a href="#" th:href="@{'/'+volunteer+'/'+detail}">외래식물제거
@@ -480,23 +498,7 @@
 																				</ul>
 																			</td>
 																		</tr>
-
-																		<tr id="table-content">
-																			<td class="m_hidden">2023.09.04</td>
-																			<td class="m_hidden"><a href="#" th:href="@{'/'+volunteer+'/'+detail}">외래식물제거
-																					자원봉사(우이)</a></td>
-																			<td class="m_hidden">2023.10.04</td>
-																			<td class="m_hidden">13:00 ~14:00</td>
-																			<td class="m">
-																				<ul class="btn_set" id="btn-set">
-																					<div class="btn_default_s ">
-																						<a class="detail"
-																							href="/volunteer/cancel-detail.html"
-																							th:href="@{'/'+volunteer+'/'+detail}">상세보기</a>
-																					</div>
-																				</ul>
-																			</td>
-																		</tr>
+																		-->
 																	</tbody>
 																</table>
 															</div>

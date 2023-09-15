@@ -16,6 +16,7 @@ server:
       charset: UTF-8
       force: true
     session:
+      tracking-modes: cookie # 이게없으면 최초 요청url에 jsessionId가 붙어서 나와서 제대로된 작업이 안됨.
       timeout: 1800              # 단위 : 초, 30분 설정
   tomcat:
     uri-encoding: UTF-8          # Spring Default
@@ -28,7 +29,7 @@ logging:
     console: "[%d{yy-MM-dd}][%thread][%-5level]\\(%F: %method\\(\\): %L\\) : %msg%n"
     file: "[%d{yyyy-MM-dd HH:mm:ss}][%thread][%-5level]\\(%F: %method\\(\\): %L\\) : %msg%n"
   file:
-    name: D:/JAVA/workspace/goddog/log/application-dev.log #조장변경
+    name: C:\ezen_fullstack\workspace\goddog\log\application-dev.log #조장변경
   logback:
     rollingpolicy:
       max-file-size: 1MB         #default 10M
@@ -84,14 +85,20 @@ mybatis:
     map-underscore-to-camel-case: true  
   mapper-locations: 
     - classpath:mybatis/mapper/**/*.xml
-  type-aliases-package: tteogipbangbeomdae.goddog.domain.member.dto, tteogipbangbeomdae.goddog.domain.adress.dto, tteogipbangbeomdae.goddog.domain.dog.dto 
+  type-aliases-package: tteogipbangbeomdae.goddog.domain.member.dto, 
+              tteogipbangbeomdae.goddog.domain.adress.dto, 
+              tteogipbangbeomdae.goddog.domain.donahistory.dto, 
+              tteogipbangbeomdae.goddog.domain.reservation.dto, 
+              tteogipbangbeomdae.goddog.domain.adress.dto, 
+              tteogipbangbeomdae.goddog.domain.dog.dto,
+              tteogipbangbeomdae.goddog.domain.shelter.dto
 
 
 ---
       
 # 파일업로드 경로 설정
 common:
-  uploadPath: D:/JAVA/workspace/goddog/upload/
+  uploadPath: C:\ezen_fullstack\workspace\goddog\upload\
   
   
   

@@ -13,7 +13,7 @@ public interface MemberService {
 	public void register(Member member);
 	public Member isMember(String id, String passwd);
 //	public List<Member> getMemberList();
-//	public Member getMember(String id);
+	public Member getMember(String id);
 //	public void editMember(Member member);
 
 }

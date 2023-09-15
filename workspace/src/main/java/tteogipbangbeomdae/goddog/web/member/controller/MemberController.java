@@ -19,10 +19,13 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
+import tteogipbangbeomdae.goddog.domain.donahistory.service.DonahistroyService;
 import tteogipbangbeomdae.goddog.domain.member.dto.LoginForm;
 import tteogipbangbeomdae.goddog.domain.member.dto.Member;
 import tteogipbangbeomdae.goddog.domain.member.service.MemberService;
-import tteogipbangbeomdae.goddog.web.member.exception.MemberException;
+import tteogipbangbeomdae.goddog.domain.reservation.dto.Reservation;
+import tteogipbangbeomdae.goddog.domain.reservation.service.ReservationService;
 
 /**
  * 사용자 관련 웹 요청을 처리하는 세부 컨트롤러 구현 클래스
@@ -39,6 +42,12 @@ public class MemberController {
 	
 	/** 회원 관련 비즈니스 메소드 제공 */
 	private final MemberService memberService;
+	
+	/** 후원 관련 비즈니스 메소드 제공*/
+	private final DonahistroyService donahistroyService;
+	
+	/** 봉사 관련 비즈니스 메소드 제공*/
+	private final ReservationService reservationService;
 
 	/**
 	 * 사용자 회원가입 화면 요청 처리 
@@ -67,10 +76,10 @@ public class MemberController {
 			RedirectAttributes redirectAttributes, Model model) {
 		log.info("들어온 멤버 {}",member);
 		// 데이터 검증 실패 시 회원가입 화면으로 포워드
-//		if (bindingResult.hasErrors()) {
-			// model에 bindingResult 자동 저장
-//			return "member/signup";
-//		}
+		if (bindingResult.hasErrors()) {
+//			 model에 bindingResult 자동 저장
+			return "member/signup";
+		}
 		member.setFullAdress(member.combineFullAdress());
 		member.setFullBirthday(member.combineFullBirthday());
 		member.setFullEmail(member.combineFullEmail());
@@ -124,9 +133,9 @@ public class MemberController {
 	public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
 		
 		// 데이터 검증 실패 시 로그인 화면으로 포워드
-//		if (bindingResult.hasErrors()) {
-//			return "member/login";
-//		}
+		if (bindingResult.hasErrors()) {
+			return "member/login";
+		}
 //		log.info("들어온 폼아이디 {}",loginForm.getLoginId());
 //		log.info("들어온 폼패스워드 {}",loginForm.getPasswd());
 //		log.info("들어온 폼비밀번호 {}",loginForm.getRemember());
@@ -162,12 +171,19 @@ public class MemberController {
 	}
 	
 	/** 아이디 중복 여부 요청 처리 */
-//	@GetMapping("/valid/{id}")
-//	@ResponseBody
-//	public boolean isMemberId(@PathVariable("id") String id) {
-//		Member member = memberService.getMember(id);
-//		return member != null ? true : false;
-//	}
+	@GetMapping("/valid/{id}")
+	@ResponseBody
+	public boolean isMemberId(@PathVariable("id") String id) {
+		Member member = memberService.getMember(id);
+		return member != null ? true : false;
+	}
+	
+	@GetMapping("/valid/{id}/{passwd}")
+	@ResponseBody
+	public boolean isMemberIdAndPw(@PathVariable("id") String id, @PathVariable("passwd") String passwd) {
+		Member member = memberService.isMember(id,passwd);
+		return member != null ? true : false;
+	}
 	
 	/** API 서비스 시 예외 처리를 위한 테스트 */
 //	@GetMapping("/rest/{id}")
@@ -190,19 +206,17 @@ public class MemberController {
 //	}
 	
 	@GetMapping("/mypage")
-	public String selectMethod(Model model) {		
+	public String selectMethod(Model model, HttpSession session) {		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		String loginId = loginMember.getMemberId();
+		//세션에 저장된 회원의 아이디로 해당 회원의 봉사/후원내역 불러오기
+		List<Donahistory> donaList = donahistroyService.getAllDonaHistory(loginId);
+//		List<Reservation> reserList = reservationService.findAllReservationById(loginId);
+		
+		//불러온 내역을 가지고 마이페이지(/mypage)로 이동
+//		model.addAttribute("reserList", reserList);
+		model.addAttribute("donaList", donaList);
 		return "member/mypage";
 	}
 	
-	
-//	@GetMapping("/signup")
-//	public String signup(Model model) {		
-//		return "member/signup";
-//	}
-	
-//	@PostMapping("/signup")
-//	public String signupResult(Model model) {
-//		
-//		return "redirect:login";
-//	}
 }

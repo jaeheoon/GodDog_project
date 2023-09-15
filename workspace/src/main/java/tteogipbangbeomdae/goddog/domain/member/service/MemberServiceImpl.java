@@ -32,10 +32,10 @@ public class MemberServiceImpl implements MemberService{
 //		return memberMapper.findByAll();
 //	}
 //
-//	@Override
-//	public Member getMember(String id) {
-//		return memberMapper.findById(id);
-//	}
+	@Override
+	public Member getMember(String id) {
+		return memberMapper.findById(id);
+	}
 //
 //	@Override
 //	@Transactional
