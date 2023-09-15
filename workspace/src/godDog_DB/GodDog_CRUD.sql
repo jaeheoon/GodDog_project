@@ -46,6 +46,11 @@ WHERE member_id = 'bangry';
 
 -- member/login - 로그인 페이지 - 예전에 했던거 사용
 
+-- CARE_NO로 봉사 예약 인원수 불러오기
+SELECT SUM(PEOPLE)
+FROM RESERVATION
+WHERE CARE_NO = 2;
+
 
 -- 230908 혜원 작성---------------------------------------------------------------------------------------------------------
 -- cancel-detail 신청내역 상세 불러오기

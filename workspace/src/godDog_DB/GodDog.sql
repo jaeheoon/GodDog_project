@@ -71,6 +71,7 @@ CREATE TABLE reservation (
   member_id      VARCHAR2(40),
   people         NUMBER,
   status         VARCHAR2(40),
+  insert_date    DATE,
   regdate        VARCHAR2(100),
   regtime        VARCHAR2(100),
   care_no        NUMBER,
@@ -157,6 +158,8 @@ ALTER TABLE member MODIFY ( regdate DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 ALTER TABLE reservation MODIFY ( status VARCHAR2(40) DEFAULT 'wait' );    --체크 여부 - 디폴트 체크 - 대기
 
+ALTER TABLE reservation MODIFY ( insert_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
+
 ALTER TABLE donahistory MODIFY ( donation_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 ALTER TABLE review MODIFY ( write_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
@@ -198,6 +201,7 @@ CREATE SEQUENCE anno_no_seq START WITH 1 INCREMENT BY 1;
 --ALTER TABLE care ADD (map_url VARCHAR2(4000));
 --ALTER TABLE member ADD (care_no NUMBER);
 --ALTER TABLE reservation ADD (regtime VARCHAR2(100));
+--ALTER TABLE reservation ADD (insert_date DATE);
 
 --FOREIGN KEY 삭제 코드
 --ALTER TABLE chat_room drop CONSTRAINT CHAT_ROOM_CARE_NO_FK;
