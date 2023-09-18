@@ -93,12 +93,13 @@ public class VolunteerController {
 	
 	@GetMapping("/result/{id}/{regdate}/{regtime}")
 	public String viewResult(@PathVariable("id") String id, @PathVariable("regdate") String regdate, @PathVariable("regtime") String regtime, Model model, HttpSession session) {
-		Reservation reservation = Reservation.builder()
-											.memberId(id)
-											.regdate(regdate)
-											.regtime(regtime)
-											.build();
 		int careNo = (int)session.getAttribute("careNo");
+		Reservation reservation = Reservation.builder()
+				.memberId(id)
+				.regdate(regdate)
+				.regtime(regtime)
+				.careNo(careNo)
+				.build();
 		Reservation resultReservation = reservationService.isReservation(reservation);
 		Shelter resultShelter = shelterService.clickShelter(careNo);
 		model.addAttribute("resultReservation", resultReservation);
@@ -120,7 +121,6 @@ public class VolunteerController {
 		if (bindingResult.hasErrors()) {
 			return "volunteer/map";
 		}
-		
 		Reservation setReservation = Reservation.builder()
 											 .memberId(memberId)
 											 .careNo(careNo)

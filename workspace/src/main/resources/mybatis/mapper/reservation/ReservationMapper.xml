@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="getReservation" resultType="Reservation" parameterType="Reservation">
-		SELECT *
+		SELECT MEMBER_ID memberId, REGTIME regtime, CARE_NO careNo, REGDATE regdate, TO_CHAR(INSERT_DATE, 'YYYY-MM-DD') insertDate, PEOPLE people
 		FROM RESERVATION
 		WHERE REGDATE = #{regdate}
 		AND CARE_NO = #{careNo}

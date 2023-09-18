@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import tteogipbangbeomdae.goddog.domain.reservation.dto.Reservation;
 import tteogipbangbeomdae.goddog.domain.reservation.mapper.ReservationMapper;
 import tteogipbangbeomdae.goddog.domain.shelter.dto.Shelter;
@@ -18,6 +19,7 @@ import tteogipbangbeomdae.goddog.domain.shelter.mapper.ShelterMapper;
  */
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ReservationServiceImpl implements ReservationService{
 	
 	private final ReservationMapper reservationMapper;
@@ -39,6 +41,7 @@ public class ReservationServiceImpl implements ReservationService{
 			Reservation resultReservation = reservationMapper.getReservation(reservation);
 			Reservation reservation2 = Reservation.builder()
 												.memberId(resultReservation.getMemberId())
+												.insertDate(resultReservation.getInsertDate())
 												.regdate(resultReservation.getRegdate())
 												.regtime(resultReservation.getRegtime())
 												.people(resultReservation.getPeople())
@@ -51,6 +54,7 @@ public class ReservationServiceImpl implements ReservationService{
 			Reservation resultReservation = reservationMapper.getReservation(reservation);
 			Reservation reservation2 = Reservation.builder()
 												.memberId(resultReservation.getMemberId())
+												.insertDate(resultReservation.getInsertDate())
 												.regdate(resultReservation.getRegdate())
 												.regtime(resultReservation.getRegtime())
 												.people(resultReservation.getPeople())

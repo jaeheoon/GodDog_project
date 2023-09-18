@@ -52,11 +52,19 @@ FROM RESERVATION
 WHERE CARE_NO = 2;
 
 -- 회원의 봉사예약 불러오기
-SELECT *
+SELECT MEMBER_ID MEMBERID, REGTIME, CARE_NO CARENO, REGDATE, TO_CHAR(INSERT_DATE, 'YYYY-MM-DD') INESRTDATE, PEOPLE
 FROM RESERVATION
-WHERE REGDATE = '2023-09-16'
+WHERE REGDATE = '2023-09-15'
+AND CARE_NO = 3
 AND REGTIME = '09:00 ~ 13:00'
 AND MEMBER_ID = 'bangry';
+
+SELECT MEMBER_ID memberId, REGTIME regtime, CARE_NO careNo, REGDATE regdate, TO_CHAR(INSERT_DATE, 'YYYY-MM-DD') insertDate, PEOPLE people
+		FROM RESERVATION
+		WHERE REGDATE = '2023-09-15'
+		AND CARE_NO = 3
+		AND REGTIME = '9:00 ~ 13:00'
+		AND MEMBER_ID = 'bangry';
 
 
 -- 230908 혜원 작성---------------------------------------------------------------------------------------------------------
