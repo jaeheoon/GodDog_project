@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,6 +20,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import tteogipbangbeomdae.goddog.domain.adminmember.dto.AdminMember;
+import tteogipbangbeomdae.goddog.domain.adminmember.service.AdminMemberService;
 import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
 import tteogipbangbeomdae.goddog.domain.donahistory.service.DonahistroyService;
 import tteogipbangbeomdae.goddog.domain.member.dto.LoginForm;
@@ -26,6 +29,8 @@ import tteogipbangbeomdae.goddog.domain.member.dto.Member;
 import tteogipbangbeomdae.goddog.domain.member.service.MemberService;
 import tteogipbangbeomdae.goddog.domain.reservation.dto.Reservation;
 import tteogipbangbeomdae.goddog.domain.reservation.service.ReservationService;
+import tteogipbangbeomdae.goddog.domain.web.dto.PageParams;
+import tteogipbangbeomdae.goddog.domain.web.dto.Pagination;
 
 /**
  * 사용자 관련 웹 요청을 처리하는 세부 컨트롤러 구현 클래스
@@ -43,11 +48,18 @@ public class MemberController {
 	/** 회원 관련 비즈니스 메소드 제공 */
 	private final MemberService memberService;
 	
-	/** 후원 관련 비즈니스 메소드 제공*/
+	/** 후원 관련 비즈니스 메소드 제공 */
 	private final DonahistroyService donahistroyService;
 	
-	/** 봉사 관련 비즈니스 메소드 제공*/
+	/** 봉사 관련 비즈니스 메소드 제공 */
 	private final ReservationService reservationService;
+	
+	/** 센터관리자회원 비즈니스 메소드 제공 */
+	private final AdminMemberService adminMemberService;
+	
+	/** 페이징 처리를 위한 엘리먼트 사이즈와 페이지사이즈 상수로 선언 */
+	private static final int ELEMENT_SIZE = 5;
+	private static final int PAGE_SIZE = 5;
 
 	/**
 	 * 사용자 회원가입 화면 요청 처리 
@@ -89,37 +101,6 @@ public class MemberController {
 		return "redirect:login";
 	}
 	
-	/** 회원 상세 조회 요청 처리 */
-//	@GetMapping("/{id}")
-//	public String read(@PathVariable("id") String id, Model model) {
-//		Member member = memberService.getMember(id);
-//		model.addAttribute("member", member);
-//		return "member/read";
-//	}
-	
-	/** 회원 목록 조회 요청 처리 */
-//	@GetMapping
-//	public String list(Model model) {
-//		List<Member> list = memberService.getMemberList();
-//		model.addAttribute("list", list);
-//		return "member/list";
-//	}
-	
-	/** 회원 정보 수정 화면 요청 처리 */
-//	@GetMapping("/edit/{id}")
-//	public String editForm(@PathVariable("id") String id, Model model) {
-//		Member member = memberService.getMember(id);
-//		model.addAttribute("member", member);
-//		return "member/edit";
-//	}
-	
-	/** 회원 정보 수정 요청 처리 */
-//	@PostMapping("/edit")
-//	public String edit(@ModelAttribute Member member, Model model) {
-//		memberService.editMember(member);
-//		return "redirect:/member/" + member.getId();
-//	}
-	
 	/** 회원 로그인 화면 요청 처리 */
 	@GetMapping("/login")
 	public String loginForm(Model model) {
@@ -136,21 +117,42 @@ public class MemberController {
 		if (bindingResult.hasErrors()) {
 			return "member/login";
 		}
-//		log.info("들어온 폼아이디 {}",loginForm.getLoginId());
-//		log.info("들어온 폼패스워드 {}",loginForm.getPasswd());
-//		log.info("들어온 폼비밀번호 {}",loginForm.getRemember());
 		// 데이터 검증 정상 처리 시
-		Member loginMember = memberService.isMember(loginForm.getLoginId(), loginForm.getPasswd());
-		log.info("찾아온 회원 {}", loginMember);
-		// 회원이 아닌 경우
-		if (loginMember == null) {
-			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-			return "member/login";
+		boolean type = false;
+		if(loginForm.getLoginType() == null) {
+			type = false;
+		} else {
+			type = true;
+		};
+		log.info("들어온 로그인 타입. {}",type);
+		HttpSession session =  request.getSession();
+			
+		if(type == true) {
+			
+			AdminMember loginMember = adminMemberService.isAdminMember(loginForm.getLoginId(),loginForm.getPasswd());
+			log.info("찾아온 회원 {}", loginMember);
+			// 회원이 아닌 경우
+			if (loginMember == null) {
+				bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+				return "member/login";
+			}
+			
+			// 회원인 경우 세션 생성 및 로그인 아이디 설정
+			session.setAttribute("loginMember", loginMember);
+			
+		} else if(type == false) {
+			
+			Member loginMember = memberService.isMember(loginForm.getLoginId(), loginForm.getPasswd());
+			log.info("찾아온 회원 {}", loginMember);
+			// 회원이 아닌 경우
+			if (loginMember == null) {
+				bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+				return "member/login";
+			}
+			// 회원인 경우 세션 생성 및 로그인 아이디 설정
+			session.setAttribute("loginMember", loginMember);
 		}
 		
-		// 회원인 경우 세션 생성 및 로그인 아이디 설정
-		HttpSession session =  request.getSession();
-		session.setAttribute("loginMember", loginMember);
 		
 		// 로그인 처리 후 사용자가 원래 요청하려던 URL로 리다이렉트 처리
 		String redirectURI = (String)session.getAttribute("redirectURI");
@@ -182,7 +184,8 @@ public class MemberController {
 	@ResponseBody
 	public boolean isMemberIdAndPw(@PathVariable("id") String id, @PathVariable("passwd") String passwd) {
 		Member member = memberService.isMember(id,passwd);
-		return member != null ? true : false;
+		AdminMember adminMember = adminMemberService.isAdminMember(id, passwd);
+		return member != null || adminMember != null ? true : false;
 	}
 	
 	/** API 서비스 시 예외 처리를 위한 테스트 */
@@ -206,17 +209,75 @@ public class MemberController {
 //	}
 	
 	@GetMapping("/mypage")
-	public String selectMethod(Model model, HttpSession session) {		
+	public String selectMethod(@RequestParam(value = "requestPage1" , defaultValue = "1") int requestPage1 , @RequestParam(value = "requestPage2" , defaultValue = "1") int requestPage2,Model model, HttpSession session) {		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		String loginId = loginMember.getMemberId();
-		//세션에 저장된 회원의 아이디로 해당 회원의 봉사/후원내역 불러오기
-		List<Donahistory> donaList = donahistroyService.getAllDonaHistory(loginId);
-//		List<Reservation> reserList = reservationService.findAllReservationById(loginId);
+
+
 		
+		//해당하는 회원의 후원, 봉사목록총 갯수
+		int donaRowCount = donahistroyService.getDonaCountById(loginId);
+		int reserRowCount = reservationService.getReserCountById(loginId);
+		
+		PageParams pageParams1 = PageParams.builder()
+				  .elementSize(ELEMENT_SIZE)
+				  .pageSize(PAGE_SIZE)
+				  .requestPage(requestPage1)
+				  .rowCount(donaRowCount)
+				  .build();
+		Pagination pagination1 = new Pagination(pageParams1);
+		
+		PageParams pageParams2 = PageParams.builder()
+				  .elementSize(ELEMENT_SIZE)
+				  .pageSize(PAGE_SIZE)
+				  .requestPage(requestPage2)
+				  .rowCount(reserRowCount)
+				  .build();
+		Pagination pagination2 = new Pagination(pageParams2);
+		
+		List<Donahistory> donaList = donahistroyService.getAllDonaHistory(pageParams1,loginId);
+		List<Reservation> reserList = reservationService.findAllReservationById(pageParams2,loginId);
 		//불러온 내역을 가지고 마이페이지(/mypage)로 이동
+
+		model.addAttribute("pagination1", pagination1);
+		model.addAttribute("pagination2", pagination2);
+		model.addAttribute("reserList", reserList);
+
 //		model.addAttribute("reserList", reserList);
+
 		model.addAttribute("donaList", donaList);
 		return "member/mypage";
+	}
+	
+	//관리자가 자기 봉사관리 페이지에 들어갔을 때 처리
+	@GetMapping("/mypage/adminpage")
+	public String moveToAdminpage(@RequestParam(value = "requestPage" , defaultValue = "1") int requestPage ,Model model, HttpSession session) {	
+		//세션에 들어있는 관리자 정보에서 careNo를 추출
+		AdminMember adminMember = (AdminMember)session.getAttribute("loginMember");
+		int careNo = adminMember.getCareNo();
+		//log.info("들어온 리퀘스트페이지 {}",requestPage);
+		//페이징 처리를 위한 해당 보호소 봉사내역갯수.
+		int rowCount = reservationService.getCount(careNo);
+		
+		//페이징 처리를 위한 Pagination객체 생성.
+		PageParams pageParams = PageParams.builder()
+										  .elementSize(ELEMENT_SIZE)
+										  .pageSize(PAGE_SIZE)
+										  .requestPage(requestPage)
+										  .rowCount(rowCount)
+										  .build();
+		Pagination pagination = new Pagination(pageParams);
+		
+		//페이징 처리를 위한 해당 보호소의 봉사내역리스트.
+		List<Reservation> reservations = reservationService.getReservationList(pageParams, careNo);
+//		for (Reservation reservation : reservations) {
+//			log.info("들어온 상태 : {}",reservation.getStatus());
+//		}
+		//준비된 정보들 페이지에 보내기위해 모델에 저장.
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("reservations", reservations);
+		
+		return "member/adminpage";
 	}
 	
 }

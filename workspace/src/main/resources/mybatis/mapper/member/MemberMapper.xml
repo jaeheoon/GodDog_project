@@ -11,13 +11,13 @@
 	</insert>
 	
 	<select id="findById" parameterType="string" resultType="Member">
-		SELECT member_id memberId, name, tel phoneNum, email fullEmail, lev, TO_CHAR(regdate, 'YYYY-MM-DD') regdate, birthday fullBirthday, adress fullAdress
+		SELECT member_id memberId, name, tel phoneNum, email fullEmail, lev, TO_CHAR(regdate, 'YYYY-MM-DD') regdate, TO_CHAR(birthday, 'YYYY-MM-DD') fullBirthday, adress fullAdress
 		FROM member
 		WHERE member_id = #{memberId}
 	</select>
 	
 	<select id="findByIdAndPasswd" resultType="Member">
-		SELECT member_id memberId, name, tel phoneNum, email fullEmail, lev, TO_CHAR(regdate, 'YYYY-MM-DD') regdate, birthday fullBirthday, adress fullAdress
+		SELECT member_id memberId, name, tel phoneNum, email fullEmail, lev, TO_CHAR(regdate, 'YYYY-MM-DD') regdate, TO_CHAR(birthday, 'YYYY-MM-DD') fullBirthday, adress fullAdress
 		FROM member
 		WHERE member_id = #{memberId} AND passwd = #{passwd}
 	</select>

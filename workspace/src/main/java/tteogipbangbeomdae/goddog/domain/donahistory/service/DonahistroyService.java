@@ -3,6 +3,7 @@ package tteogipbangbeomdae.goddog.domain.donahistory.service;
 import java.util.List;
 
 import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
+import tteogipbangbeomdae.goddog.domain.web.dto.PageParams;
 
 /**
  * 
@@ -15,6 +16,8 @@ import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
 public interface DonahistroyService {
 	
 	//멤버 아이디로 후원내역들 찾아오기
-	public List<Donahistory> getAllDonaHistory(String memberId); 
-
+	public List<Donahistory> getAllDonaHistory(PageParams pageParams,String memberId); 
+	
+	//멤버 아이디로 후원갯수 찾기
+	public int getDonaCountById(String memberId);
 }

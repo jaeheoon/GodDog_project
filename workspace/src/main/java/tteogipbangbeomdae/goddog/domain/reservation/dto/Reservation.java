@@ -2,6 +2,7 @@ package tteogipbangbeomdae.goddog.domain.reservation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,14 +22,25 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
+@EqualsAndHashCode
 public class Reservation{
 
-   private String memberId;		//회원 ID
-   private int careNo;			//보호소 번호
-   private String shelterName;	//보호소 이름
-   private String regdate;		//봉사 예약 날짜
-   private String regtime;		//봉사 예약 시간
-   private int people;			//봉사 인원
-   private String status;		//봉사 승인 상태(true, false, wait)
+   //신청 회원 정보 관련 속성
+   private int reservationNo;
+   private String memberId;
+   private String memberName;
+   private int people;
+   private String insertDate;
+   private String regdate;
+   private String regtime;
+   private String status;
+   private String memberPhoneNum;
+   
+
+   //신청 보호소 정보 관련 속성
+   private int careNo;
+   private String shelterName;
+   private String telNum;
+   
    
 }

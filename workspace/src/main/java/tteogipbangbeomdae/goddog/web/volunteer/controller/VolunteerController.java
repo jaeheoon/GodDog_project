@@ -40,6 +40,7 @@ import tteogipbangbeomdae.goddog.domain.shelter.service.ShelterService;
 public class VolunteerController {
 	
 	private final ReservationService reservationService;
+
 	private final ShelterService shelterService;
 	
 	/**
@@ -139,8 +140,11 @@ public class VolunteerController {
 		return "volunteer/list";
 	}
 	
-	@GetMapping("/detail")
-	public String viewDetail(Model model) {
+	@GetMapping("/detail/{reservationNo}")
+	public String viewDetail(@PathVariable("reservationNo")int reservationNo, Model model) {
+		Reservation reservation = reservationService.getReservation(reservationNo);
+
+		model.addAttribute("reservation", reservation);
 		return "volunteer/cancel_detail";
 	}
 	

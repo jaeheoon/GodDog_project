@@ -98,118 +98,6 @@
 							<div class="tab-content" id="myTabContent">
 								<div class="centerintro">
 
-
-
-									<!-- 추가추가 -->
-									<script type="text/javascript">
-										$(function() {
-
-											$("#btnRegist").click(function() {
-												$("#cancelForm").submit();
-											});
-
-											$("#cancelForm")
-													.submit(
-															function() {
-
-																if (confirm($(
-																		"#prgName")
-																		.text()
-																		+ " 봉사활동 신청내역을 취소하시겠습니까?\r\n취소 후에는 복구할 수 없습니다.")) {
-																	return true;
-																}
-
-																return false;
-
-															});
-											var prgtpe_cd = Number("9");
-											var teamCk = "개인";
-											if (!(35 <= prgtpe_cd && prgtpe_cd <= 42)) {
-												if (teamCk != "단체") {
-													getUptBtnAble();
-												}
-											}
-										});
-
-										function updateRsvtTime() {
-											if (confirm("수정 시 봉사일과 봉사시간만 수정할 수 있습니다.\n봉사활동 신청내역을 수정하시겠습니까?")) {
-												$("#updateForm")
-														.attr("action",
-																"/application/reservation/updateProgramDetail.action");
-												$("#updateForm").submit();
-												return true;
-											}
-											return false;
-
-											/* $("#updateForm").submit(function(event) {
-												alert("!!!!!!");
-												if(confirm("봉사활동 신청내역을 수정하시겠습니까?")) {
-													return true;
-												}
-												return false;
-											}); */
-										}
-
-										/*
-											현재날짜 체크 및 수정버튼 활성화
-										 */
-
-										function getUptBtnAble() {
-											var today = new Date();
-											var year = today.getFullYear() + "";
-											var month = today.getMonth() + 1;
-
-											var hour = today.getHours();
-											var min = today.getMinutes();
-											if (month <= 9) {
-												month = "0" + month;
-											}
-											var day = today.getUTCDate();
-											if (day <= 9) {
-												day = "0" + day;
-											}
-
-											var nowDay = year + month + day;
-											var rsrvDate = "";
-											rsrvDate = "20231004";
-
-											if (parseInt(rsrvDate) >= parseInt(nowDay)) {
-												if ((rsrvDate == parseInt(nowDay))
-														&& getDiffMinute(hour,
-																min)) {
-													drawTxt();
-												} else if (rsrvDate > parseInt(nowDay)) {
-													drawTxt();
-												}
-											}
-										}
-
-										function getDiffMinute(hour, min) {
-											var prgStattimeHour = "13";
-											var prgStattimeMin = "00";
-											var isable = false;
-											var diffMin = (parseInt(prgStattimeHour) - parseInt(hour))
-													* 60
-													+ (parseInt(prgStattimeMin) - parseInt(min));
-											if (diffMin >= 60) {
-												isable = true;
-											}
-
-											return isable
-
-										}
-
-										function drawTxt() {
-											var txt = "<li class='btn_default btn_green float_r'><a href='/volunteer/calender' id ='btnUpt' onclick = 'updateRsvtTime();'>예약수정</a></li>";
-											var txt2 = "<li><div><h4><span class='tts_default tts_cyan'>예약변경</span></h4>";
-											txt2 += "<p>봉사활동 시간을 변경하시려면<span class='tts_default tts_green'>예약수정</span>을 누르세요.</p>";
-											txt2 += "<p>봉사 1시간 전까지 봉사일과 봉사시간만 수정 가능합니다.</p></div></li>";
-											$("#confirm_beinfo").prepend(txt2);
-											$("#btn_set").append(txt);
-										}
-									</script>
-
-
 									<!-- 서브 컨텐츠 -->
 									<div id="sb_contents" class="contents">
 
@@ -224,23 +112,34 @@
 											<tbody>
 												<tr>
 													<th scope="row">신청인</th>
-													<td colspan="3" class="txt_l">홍길동</td>
+													<td colspan="3" class="txt_l"
+														th:text="${reservation.memberName}">홍길동</td>
+												</tr>
+												<tr>
+													<th scope="row">신청인원</th>
+													<td colspan="3" class="txt_l"><span
+														th:text="${reservation.people}">1</span>명</td>
 												</tr>
 												<tr>
 													<th scope="row">신청번호</th>
-													<td colspan="3" class="txt_l">009802949240</td>
+													<td colspan="3" class="txt_l"
+														th:text="${reservation.reservationNo}">009802949240</td>
 												</tr>
 												<tr>
 													<th scope="row">신청일</th>
-													<td colspan="3" class="txt_l">2023.09.04 [월] 22:20:19</td>
+													<td colspan="3" class="txt_l"
+														th:text="${reservation.insertDate}">2023.09.04 [월]
+														22:20:19</td>
 												</tr>
 												<tr>
 													<th scope="row">봉사장소</th>
-													<td colspan="3" class="txt_l">굿도그유기견센터</td>
+													<td colspan="3" class="txt_l"
+														th:text="${reservation.shelterName}">굿도그유기견센터</td>
 												</tr>
 												<tr>
 													<th scope="row">봉사일</th>
-													<td colspan="3" class="txt_l">2023.10.04 [수]</td>
+													<td colspan="3" class="txt_l"
+														th:text="${reservation.regdate}">2023.10.04 [수]</td>
 												</tr>
 												<tr>
 													<th scope="row">봉사시간</th>
@@ -251,22 +150,35 @@
 																	value="009802949240" /> <input type="hidden"
 																	name="prg_code" value="00003666" /> <input
 																	type="hidden" name="prgtpe_cd" value="9" /> <span
-																	id="startTime" name="startTime"> 시작시간 : 14:00 </span> <span
-																	id="endTime" name="endTime"> ~ 종료시간 : 18:00 </span>
-
+																	id="startTime" name="startTime"
+																	th:text="${reservation.regtime}"> 시작시간 : 14:00 </span>
+																<!-- <span id="endTime" name="endTime"> ~ 종료시간 : 18:00 </span>  -->
 															</form>
 														</div>
 													</td>
 												</tr>
 												<tr>
-													<th scope="row">문의전화</th>
-													<td colspan="3" class="txt_l">029403736</td>
+													<th scope="row">승인상태</th>
+													<td colspan="3" class="txt_l"
+														th:text="${reservation.status == 'true' ? '승인' : (reservation.status == 'false' ? '거절' : '대기중')}">승인</td>
+												</tr>
+												<tr>
+													<th scope="row" th:if="${session.loginMember.lev == 1}"
+														th:text="보호소문의">문의전화</th>
+													<th scope="row" th:if="${session.loginMember.lev != 1}"
+														th:text="회원문의">문의전화</th>
+													<td colspan="3" class="txt_l"
+														th:if="${session.loginMember.lev == 1}"
+														th:text="${reservation.telNum}">029403736</td>
+													<td colspan="3" class="txt_l"
+														th:if="${session.loginMember.lev != 1}"
+														th:text="${reservation.memberPhoneNum}">029403736</td>
 												</tr>
 											</tbody>
 										</table>
 										<!-- 봉사활동 사전안내 절차 -->
 										<!-- 봉사 승인여부에 따라 visible속성 추가제거 -->
-										<div class="beforeInfo_box">
+										<div th:if="${session.loginMember.lev == 1}" class="beforeInfo_box">
 											<ul class="confirm_beinfo" id="confirm_beinfo">
 												<li>
 													<div style="margin-left: 20%;">
@@ -282,26 +194,68 @@
 														</p>
 													</div>
 												</li>
+												<li>
+													<div style="margin-left: 20%;">
+														<h4>
+															<span class='tts_default tts_cyan'>예약변경</span>
+														</h4>
+														<p>
+															봉사활동 시간을 변경하시려면<span class='tts_default tts_green'>예약수정</span>을
+															누르세요.
+														</p>
+													</div>
+												</li>
 											</ul>
 										</div>
-
 										<!-- //봉사활동 사전안내 절차 -->
 
 										<!-- 봉사 승인여부에 따라 visible속성 추가제거 -->
-										<form action="/confirm/procCancelReservation.action"
-											method="POST" id="cancelForm">
-											<input type="hidden" name="rsrvt_id" value="009802949240" />
-										</form>
+										<th:block th:if="${session.loginMember.lev == 1}">
+											<form action="/confirm/procCancelReservation.action"
+												method="POST" id="cancelForm">
+												<input type="hidden" name="rsrvt_id" value="009802949240" />
+											</form>
 
-										<ul class="btn_set" id="btn_set">
-											<li class="btn_default float_l"><a
-												href="/volunteer/application_list.html" th:href="@{'/'+volunteer+'/'+list}">목록</a></li>
+											<ul class="btn_set" id="btn_set">
+												<li class="btn_default float_l"><a
+													href="/volunteer/application_list.html"
+													th:if="${session.loginMember.lev == 1}"
+													th:href="@{'/'+member+'/'+mypage}">목록</a></li>
+												<th:block th:if="${reservation.status == 'await'}">
+													<li class="btn_default btn_red float_r"><a
+														href="/volunteer/volunteer.html" th:href="@{'/'+volunteer}"
+														id="btnRegist">예약취소</a>
+													</li>
 
-											<li class="btn_default btn_red float_r"><a
-												href="/volunteer/volunteer.html" th:href="@{'/'+volunteer}" id="btnRegist">예약취소</a></li>
-										</ul>
+													<li class='btn_default btn_green float_r'><a
+														href="/volunteer/calender" th:href="@{'/'+volunteer}">예약수정</a>
+													</li>
+												</th:block>
+											</ul>
+										</th:block>
 
-
+										<th:block th:if="${session.loginMember.lev != 1}">
+											<form action="/confirm/procCancelReservation.action"
+												method="POST" id="cancelForm">
+												<input type="hidden" name="rsrvt_id" value="009802949240" />
+											</form>
+											<ul class="btn_set" id="btn_set">
+												<li class="btn_default float_l"><a
+													href="/volunteer/application_list.html"
+													th:if="${session.loginMember.lev != 1}"
+													th:href="@{'/'+member+'/'+mypage+'/'+adminpage}">목록</a></li>
+												<th:block th:if="${reservation.status == 'await'}">
+													<li class='btn_default btn_green float_r'><a
+														href="/volunteer/calender" id="btnCancel"
+														th:href="@{'/'+reservation+'/'+cancelReservations+'/'+${reservation.reservationNo}}">거절</a>
+													</li>
+													<li class="btn_default btn_red float_r"><a
+														href="/volunteer/volunteer.html"
+														th:href="@{'/'+reservation+'/'+agreeReservations+'/'+${reservation.reservationNo}}"
+														id="btnAgree">승인</a></li>
+												</th:block>
+											</ul>
+										</th:block>
 									</div>
 									<!-- //서브 컨텐츠 -->
 								</div>

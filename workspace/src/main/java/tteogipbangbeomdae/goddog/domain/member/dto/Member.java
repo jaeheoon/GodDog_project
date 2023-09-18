@@ -36,7 +36,7 @@ public class Member {
 	private String phoneNum;
 	
 	@NotBlank(message = "이메일은 필수 입력 항목입니다.")
-	@Pattern(regexp = "^[a-zA-Z][0-9a-zA-Z]{4,}$")
+	@Pattern(regexp = "^[a-zA-Z][0-9a-zA-Z]{2,}$")
 	private String emailF;
 
 	@NotBlank(message = "이메일은 필수 입력 항목입니다.")

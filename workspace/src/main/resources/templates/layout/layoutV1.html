@@ -458,7 +458,7 @@
 																	<!-- 로그인한 사람이 센터관계자일 경우 보호소 이름 표기 -->
 																	<th:block th:if="${session.loginMember.lev != 1}">
 																		<span class="elementor-button-text centername"
-																			th:text="${session.loginMember.memberId}">주먹빱진짜너모조아보호소</span>
+																			th:text="${session.loginMember.shelterName}">주먹빱진짜너모조아보호소</span>
 																	</th:block>
 																</div>
 
@@ -480,12 +480,28 @@
 																data-id="d40de64" data-element_type="widget"
 																data-widget_type="button.default">
 
-																<div class="elementor-widget-container">
-																	<div class="elementor-button-wrapper">
-																		<a href="/member/mypage.html" th:href="@{/member/mypage}"><span
-																			style="color: #fff !important;">마이페이지</span></a>
+																<th:block th:if="${session.loginMember.lev == 1}">
+																	<div class="elementor-widget-container">
+																		<div class="elementor-button-wrapper">
+																			<th:block th:if="${session.loginMember.lev == 1}">
+																				<a href="/member/mypage.html"
+																					th:href="@{/member/mypage}"><span
+																					style="color: #fff !important;">마이페이지</span></a>
+																		</div>
 																	</div>
-																</div>
+																</th:block>
+
+																<th:block th:if="${session.loginMember.lev != 1}">
+																	<div class="elementor-widget-container">
+																		<div class="elementor-button-wrapper">
+																			<th:block th:if="${session.loginMember.lev != 1}">
+																				<a href="/member/mypage.html"
+																					th:href="@{/member/mypage/adminpage}"><span
+																					style="color: #fff !important;">봉사관리페이지</span></a>
+																		</div>
+																	</div>
+																</th:block>
+
 
 															</div>
 														</div>
@@ -2342,8 +2358,7 @@
 							<div
 								class="elementor-element elementor-element-9195eca elementor-widget-divider--view-line elementor-widget elementor-widget-divider"
 								data-id="9195eca" data-element_type="widget"
-								data-widget_type="divider.default">
-							</div>
+								data-widget_type="divider.default"></div>
 						</div>
 					</div>
 				</div>

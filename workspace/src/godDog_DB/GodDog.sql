@@ -62,6 +62,7 @@ CREATE TABLE care (
 CREATE TABLE care_admin (
   care_id           VARCHAR2(40),
   care_no           NUMBER,
+  lev               NUMBER(10, 0),
   passwd            VARCHAR2(100),
   CONSTRAINT care_id_pk PRIMARY KEY ( care_id )
 );
@@ -156,6 +157,8 @@ COMMENT ON COLUMN member.lev IS '0.관리자 1.일반회원';
 
 ALTER TABLE member MODIFY ( regdate DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
+ALTER TABLE care_admin MODIFY ( lev NUMBER(10, 0) DEFAULT 2);  -- 오늘 날짜 기본
+
 ALTER TABLE reservation MODIFY ( status VARCHAR2(40) DEFAULT 'wait' );    --체크 여부 - 디폴트 체크 - 대기
 
 ALTER TABLE reservation MODIFY ( insert_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
@@ -198,7 +201,7 @@ CREATE SEQUENCE anno_no_seq START WITH 1 INCREMENT BY 1;
 --ALTER TABLE reservation DROP COLUMN dog_no;
 
 --컬럼 추가 코드
---ALTER TABLE care ADD (map_url VARCHAR2(4000));
+--ALTER TABLE care_admin ADD (lev NUMBER(10, 0));
 --ALTER TABLE member ADD (care_no NUMBER);
 --ALTER TABLE reservation ADD (regtime VARCHAR2(100));
 --ALTER TABLE reservation ADD (insert_date DATE);

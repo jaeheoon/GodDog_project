@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
 import tteogipbangbeomdae.goddog.domain.donahistory.mapper.DonahistoryMapper;
+import tteogipbangbeomdae.goddog.domain.web.dto.PageParams;
 
 /**
  * 
@@ -23,12 +24,17 @@ public class DonahistoryServiceImpl implements DonahistroyService {
 	private final DonahistoryMapper donahistoryMapper;
 	
 	@Override
-	public List<Donahistory> getAllDonaHistory(String memberId) {
+	public List<Donahistory> getAllDonaHistory(PageParams pageParams,String memberId) {
 		List<Donahistory> allList = null;
 		
-		allList = donahistoryMapper.findAllById(memberId);
+		allList = donahistoryMapper.findAllById(pageParams,memberId);
 		
 		return allList;
+	}
+
+	@Override
+	public int getDonaCountById(String memberId) {
+		return donahistoryMapper.getCountById(memberId);
 	}
 
 }

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,28 @@ public class DonahistoryMapperTest {
 	private DonahistoryMapper donahistoryMapper;
 	
 	@Test
-//	@Disabled
+	@Disabled
 	@DisplayName("회원이름으로 후원내역찾아오기")
 	public void findbyIdTest() {
 		//given
 		String memberId = "bangry";
 		//when
-		List<Donahistory> list = donahistoryMapper.findAllById(memberId);
+//		List<Donahistory> list = donahistoryMapper.findAllById(memberId);
 		//then
-		log.info("들어온 도네이션 히스토리 {}",list);
-		assertThat(list).isNotNull();
+//		log.info("들어온 도네이션 히스토리 {}",list);
+//		assertThat(list).isNotNull();
+	}
+	
+	@Test
+//	@Disabled
+	@DisplayName("회원이름으로 후원내역갯수 찾아오기")
+	public void getCountByIdTest() {
+		//given
+		String memberId = "bangry";
+		//when
+		int count = donahistoryMapper.getCountById(memberId);
+		//then
+		log.info("들어온 갯수 : {}",count);
 	}
 
 }

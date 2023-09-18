@@ -85,13 +85,14 @@ mybatis:
     map-underscore-to-camel-case: true  
   mapper-locations: 
     - classpath:mybatis/mapper/**/*.xml
-  type-aliases-package: tteogipbangbeomdae.goddog.domain.member.dto, 
-              tteogipbangbeomdae.goddog.domain.adress.dto, 
-              tteogipbangbeomdae.goddog.domain.donahistory.dto, 
-              tteogipbangbeomdae.goddog.domain.reservation.dto, 
-              tteogipbangbeomdae.goddog.domain.adress.dto, 
-              tteogipbangbeomdae.goddog.domain.dog.dto,
-              tteogipbangbeomdae.goddog.domain.shelter.dto
+
+  type-aliases-package: tteogipbangbeomdae.goddog.domain.member.dto,
+   tteogipbangbeomdae.goddog.domain.adress.dto,
+    tteogipbangbeomdae.goddog.domain.donahistory.dto,
+     tteogipbangbeomdae.goddog.domain.reservation.dto ,
+      tteogipbangbeomdae.goddog.domain.adress.dto,
+       tteogipbangbeomdae.goddog.domain.dog.dto,
+        tteogipbangbeomdae.goddog.domain.adminmember.dto,tteogipbangbeomdae.goddog.domain.shelter.dto
 
 
 ---

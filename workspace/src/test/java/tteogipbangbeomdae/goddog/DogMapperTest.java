@@ -22,7 +22,7 @@ public class DogMapperTest {
 	@Test
 //	@Disabled
 	void createTest() {
-		List<Dog> dogs = openApiService.getDogList();
+		List<Dog> dogs = openApiService.getDogList("1");
 		for (int i = 0; i < dogs.size(); i++) {
 			log.info("강아지 정보 : " + dogs.get(i));
 		}

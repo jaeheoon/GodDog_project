@@ -6,12 +6,12 @@ domainListEl.addEventListener('change', (event) => {
 	// option에 있는 도메인 선택 시
 	if (event.target.value !== "type") {
 		// 선택한 도메인을 input에 입력하고 disabled
-		domainInputEl.value = event.target.value
-		domainInputEl.disabled = true
+		domainInputEl.value = event.target.value;
+		domainInputEl.disabled = true;
 	} else { // 직접 입력 시
 		// input 내용 초기화 & 입력 가능하도록 변경
-		domainInputEl.value = ""
-		domainInputEl.disabled = false
+		domainInputEl.value = "";
+		domainInputEl.disabled = false;
 	}
 })
 
@@ -128,43 +128,43 @@ function doValidate() {
 	if (!Validator.isId(memberId)) {
 		const view = document.querySelector("#valid-id");
 		showError(view, '아이디는 6~12자 사이의 영어와 숫자의 조합입니다.Test');
-		console.log('아이디오류');
+		//console.log('아이디오류');
 		result = false;
 	} 
 	if (!Validator.isPw(passwd)) {
 		const view = document.querySelector("#valid-passwd");
 		showError(view, '비밀번호는 4~16자 사이의 영어와 숫자, 특수문자의 조합입니다.Test');
-		console.log('비밀번호 오류');
+		//console.log('비밀번호 오류');
 		result = false;
 	}
 	if (!Validator.isName(name)) {
 		const view = document.querySelector("#valid-name");
 		showError(view, '이름은 2~10자 사이의 영어이거나 한글입니다.Test');
-		console.log('이름오류');
+		//console.log('이름오류');
 		result = false;
 	}
 	if (!Validator.isPhoneNum(phoneNum)) {
 		const view = document.querySelector("#valid-phoneNum");
 		showError(view, '휴대폰 번호는 000-0000-0000의 형식입니다.');
-		console.log('휴대폰 오류');
+		//console.log('휴대폰 오류');
 		result = false;
 	}
 	if (!Validator.isEmail(fullEmail)) {
 		const view = document.querySelector("#valid-email");
 		showError(view, '이메일 입력은 필수입니다.');
-		console.log('이메일 오류');
+		//console.log('이메일 오류');
 		result = false;
 	}
 	if (!Validator.isBirthday(fullBirthday)) {
 		const view = document.querySelector("#valid-birthday");
 		showError(view, '생년월일입력은 필수입니다.');
-		console.log('생년월일 오류');
+		//console.log('생년월일 오류');
 		result = false;
 	}
 	if (!Validator.isAdress(fullAdress)) {
 		const view = document.querySelector("#valid-adress");
 		showError(view, '주소입력은 필수입니다.');
-		console.log('주소오류');
+		//console.log('주소오류');
 		result = false;
 	}
 	return result;

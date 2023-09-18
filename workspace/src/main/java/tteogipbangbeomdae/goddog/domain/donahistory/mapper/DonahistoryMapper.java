@@ -3,8 +3,10 @@ package tteogipbangbeomdae.goddog.domain.donahistory.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
+import tteogipbangbeomdae.goddog.domain.web.dto.PageParams;
 
 /**
  * 
@@ -17,6 +19,10 @@ import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
 @Mapper
 public interface DonahistoryMapper {
 	
-	public List<Donahistory> findAllById(String memberId);
+	//로그인한 회원 아이디에 해당하는 후원내역 리스트
+	public List<Donahistory> findAllById(@Param("pageParams")PageParams pageParams ,@Param("memberId") String memberId);
+	
+	//로그인한 회원 아이디에 해당하는 후원내역 갯수
+	public int getCountById(String memeberId);
 	
 }

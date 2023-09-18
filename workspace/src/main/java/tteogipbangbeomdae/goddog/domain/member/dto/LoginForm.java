@@ -24,7 +24,7 @@ public class LoginForm {
 	@Size(min = 4, max = 16, message = "비밀번호는 4~16자 사이여야 합니다.")
 	private String passwd;
 	
-	private Boolean remember;
+	private Boolean loginType;
 	
 }
 

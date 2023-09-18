@@ -111,13 +111,11 @@ class Validator {
    * 주소 입력 여부
    */
   static isAdress(value){
-	  let RegExp = /^[가-힣a-zA-Z\s]+$/;
+	  let RegExp = /^[가-힣a-zA-Z0-9\s\(\)\-]+$/;
 	  if(!RegExp.test(value)) {
 		  return false;
 	  }
 	  return true;
   }
-  
-  
   
 }
