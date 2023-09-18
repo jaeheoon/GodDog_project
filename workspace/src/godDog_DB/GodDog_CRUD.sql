@@ -51,6 +51,13 @@ SELECT SUM(PEOPLE)
 FROM RESERVATION
 WHERE CARE_NO = 2;
 
+-- 회원의 봉사예약 불러오기
+SELECT *
+FROM RESERVATION
+WHERE REGDATE = '2023-09-16'
+AND REGTIME = '09:00 ~ 13:00'
+AND MEMBER_ID = 'bangry';
+
 
 -- 230908 혜원 작성---------------------------------------------------------------------------------------------------------
 -- cancel-detail 신청내역 상세 불러오기

@@ -6,12 +6,14 @@ import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +29,8 @@ import tteogipbangbeomdae.goddog.domain.shelter.service.ShelterService;
  * 
  * /volunteer요청에 대한 세부 컨트롤러 요청된 url에 따라 해당하는 DB작업을 이루고 템플릿으로 연동시켜줌.
  *
- * @author  떡잎방범대 조영호
- * @since   2023. 09. 10.
+ * @author  떡잎방범대 홍재헌
+ * @since   2023. 09. 18.
  * @version 1.0
  */
 @Controller
@@ -41,9 +43,9 @@ public class VolunteerController {
 	private final ShelterService shelterService;
 	
 	/**
-	 * @author 떡잎방범대 조영호
-	 * @param 뷰에담아줄 모델
-	 * @since 2023. 09. 10.
+	 * @author 떡잎방범대 홍재헌
+	 * @param 봉사예약 컨트롤러
+	 * @since 2023. 09. 18.
 	 * @version 1.0
 	 * @return /volunteer요청에 해당하는 활동과 뷰 반환
 	 */
@@ -65,7 +67,9 @@ public class VolunteerController {
 	@GetMapping("/calender")
 	public String viewCalender(@RequestParam("careNo") int careNo, Model model,HttpSession session) {
 		Shelter shelter = shelterService.clickShelter(careNo);
-		int maxCount = reservationService.getReservation(careNo);
+		int maxCount = reservationService.getReservationCount(careNo);
+		
+		session.setAttribute("careNo", careNo);
 		session.setAttribute("shelter", shelter);
 		session.setAttribute("maxCount", maxCount);
 		return "volunteer/calender";
@@ -87,31 +91,47 @@ public class VolunteerController {
 		return "volunteer/choice";
 	}
 	
-	@GetMapping("/result")
-	public String viewResult(@RequestParam("regtime") String regtime, @RequestParam("people") int people, Model model, HttpSession session) {
-		
-		Member member = (Member)session.getAttribute("loginMember");
-		String regdate = (String)session.getAttribute("regdate");
-		Shelter shelter = (Shelter)session.getAttribute("shelter");
-		int careNo = shelter.getCareNo();
-		
-//		String memberId = member.getMemberId();
-//		model.addAttribute("memberId", memberId);
-		String memberId = member.getMemberId();
-	
-//		boolean reservation = reservationService.isReservation(regtime, regdate, people, memberId, careNo);
-		
-		
-//		model.addAttribute("reservation", reservation);
-		
+	@GetMapping("/result/{id}/{regdate}/{regtime}")
+	public String viewResult(@PathVariable("id") String id, @PathVariable("regdate") String regdate, @PathVariable("regtime") String regtime, Model model, HttpSession session) {
+		Reservation reservation = Reservation.builder()
+											.memberId(id)
+											.regdate(regdate)
+											.regtime(regtime)
+											.build();
+		int careNo = (int)session.getAttribute("careNo");
+		Reservation resultReservation = reservationService.isReservation(reservation);
+		Shelter resultShelter = shelterService.clickShelter(careNo);
+		model.addAttribute("resultReservation", resultReservation);
+		model.addAttribute("resultShelter", resultShelter);
 		return "volunteer/result";
 	}
 	
 	@PostMapping("/result")
-	public String viewResultProsses(@ModelAttribute Reservation reservation, Model model, HttpSession session) {
-		log.info(reservation.toString());
+	public String viewResultProsses(@ModelAttribute Reservation resultReservation, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		int careNo = (int)session.getAttribute("careNo");
+		String memberId = member.getMemberId();
+		String shelterName = resultReservation.getShelterName();
+		int people = resultReservation.getPeople();
+		String regTime = resultReservation.getRegtime();
+		String regDate = resultReservation.getRegdate().replace('.', '-');
 		
-		return "volunteer/result";
+		// 데이터 검증 실패 시 봉사예약 첫 화면으로 Forward
+		if (bindingResult.hasErrors()) {
+			return "volunteer/map";
+		}
+		
+		Reservation setReservation = Reservation.builder()
+											 .memberId(memberId)
+											 .careNo(careNo)
+											 .shelterName(shelterName)
+											 .people(people)
+											 .regdate(regDate)
+											 .regtime(regTime)
+											 .build();
+		reservationService.isReservation(setReservation);
+		redirectAttributes.addFlashAttribute("status", true);
+		return "redirect:/volunteer/result/" + setReservation.getMemberId() + "/" + setReservation.getRegdate() + "/" + setReservation.getRegtime();
 	}
 	
 	@GetMapping("/list")

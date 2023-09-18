@@ -32,9 +32,22 @@ public class ReservationMapperTest {
 	}
 	
 	@Test
+//	@Disabled
 	@DisplayName("보호소별 예약 인원")
-	public void getReservationCount() {
-		log.info("인원 수 : " + reservationMapper.getReservationCount(1));
+	public void getReservationCountTest() {
+		log.info("인원 수 : " + reservationMapper.getReservationCount(3));
+	}
+	
+	@Test
+	@Disabled
+	@DisplayName("봉사 예약 결과 불러오기")
+	public void getReservationTest() {
+		Reservation reservation = Reservation.builder()
+				.memberId("bangry")
+				.regdate("2023-09-16")
+				.regtime("09:00~13:00")
+				.build();
+		reservationMapper.getReservation(reservation);
 	}
 	
 }

@@ -11,10 +11,19 @@
 		VALUES (reservation_no_seq.NEXTVAL, #{memberId}, #{careNo}, #{regdate}, #{regtime}, #{people})
 	</insert>
 	
-	<select id="getReservationCount" resultType="int">
+	<select id="getReservationCount" resultType="Integer">
 		SELECT SUM(PEOPLE)
 		FROM RESERVATION
 		WHERE CARE_NO = ${careNo}
+	</select>
+	
+	<select id="getReservation" resultType="Reservation" parameterType="Reservation">
+		SELECT *
+		FROM RESERVATION
+		WHERE REGDATE = #{regdate}
+		AND CARE_NO = #{careNo}
+		AND REGTIME = #{regtime}
+		AND MEMBER_ID = #{memberId}
 	</select>
 
 </mapper>

@@ -12,10 +12,9 @@ import tteogipbangbeomdae.goddog.domain.reservation.dto.Reservation;
 public interface ReservationService {
 	
 	/** 봉사 예약 등록 */
-	public void isReservation(Reservation reservation);
+	public Reservation isReservation(Reservation reservation);
 	
-	/** CareNo로 봉사 예약 총 인원 수 검색 
-	 * @return */
-	public int getReservation(int careNo);
-
+	/** CareNo로 봉사 예약 총 인원 수 검색 */
+	public int getReservationCount(int careNo);
+	
 }

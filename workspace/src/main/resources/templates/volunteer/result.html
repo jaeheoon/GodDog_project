@@ -71,8 +71,7 @@
 													data-id="3fdf0404" data-element_type="widget"
 													data-widget_type="heading.default">
 													<div class="elementor-widget-container">
-														<h1 class="elementor-heading-title elementor-size-default">신청완료
-															내역</h1>
+														<h1 class="elementor-heading-title elementor-size-default">신청완료 내역</h1>
 													</div>
 												</div>
 											</div>
@@ -174,8 +173,7 @@
 
 																				<div class="msg_box">
 
-																					<strong>"자원봉사 신청이 <span
-																						class="tts_default tts_green">완료</span>되었습니다."
+																					<strong>"자원봉사 신청이 <span class="tts_default tts_green">완료</span>되었습니다."
 																					</strong>
 																					<p class="msg_body">
 																						신청하신 상세내역은 <span class="tts_default tts_red">신청변경/취소</span>
@@ -194,23 +192,23 @@
 																						<tr>
 																							<th scope="row"
 																								style="background-color: #fafcff;">신청일자</th>
-																							<td>2023.09.04 [월]</td>
+																							<td th:text="${resultReservation.regdate}">2023.09.04 [월]</td>
 																						</tr>
 																						<tr>
 																							<th scope="row">장소</th>
-																							<td th:text="${session.loginMember.name}">굿도그유기견센터</td>
+																							<td th:text="${resultReservation.shelterName + ' 보호소'}">굿도그유기견센터</td>
 																						</tr>
 																						<tr>
 																							<th scope="row">봉사날짜</th>
-																							<td>2023.10.04</td>
+																							<td th:text="${resultReservation.regdate}">2023.10.04</td>
 																						</tr>
 																						<tr>
 																							<th scope="row">봉사시간</th>
-																							<td>9:00 ~ 13:00</td>
+																							<td th:text="${resultReservation.regtime}">9:00 ~ 13:00</td>
 																						</tr>
 																						<tr>
 																							<th scope="row">문의 전화</th>
-																							<td>029403736</td>
+																							<td th:text="${resultShelter.tel}">029403736</td>
 																						</tr>
 																						<tr>
 																							<th scope="row">준비물</th>

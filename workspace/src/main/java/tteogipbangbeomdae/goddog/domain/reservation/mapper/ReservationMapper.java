@@ -20,6 +20,9 @@ public interface ReservationMapper {
 	public void createReservation(Reservation reservation);
 	
 	//보호소 봉사 예약 인원 불러오기
-	public int getReservationCount(@Param("careNo") int careNo);
+	public Integer getReservationCount(@Param("careNo") Integer careNo);
+	
+	//날짜와 아이디로 보호소 예약 불러오기
+	public Reservation getReservation(Reservation reservation);
 	
 }
