@@ -25,4 +25,7 @@ public interface DonahistoryMapper {
 	//로그인한 회원 아이디에 해당하는 후원내역 갯수
 	public int getCountById(String memeberId);
 	
+	//생성
+	public void create(Donahistory donahistory);
+	
 }

@@ -14,20 +14,30 @@
 		<link rel="stylesheet" href="/assets/css/member/sub.css">
 		<link rel="stylesheet" href="/assets/css/member/title.css">
 		<link rel="stylesheet" href="/assets/css/nontap.css">
-	
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.css'>
-		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css'>
-	
+
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'
+			rel='stylesheet' type='text/css'>
+		<link rel='stylesheet'
+			href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.css'>
+		<link rel='stylesheet'
+			href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css'>
+
 		<!-- ============================================================== 개별script =========================================================================-->
-		<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+		<script
+			src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 			integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
 			crossorigin="anonymous"></script>
-		<script defer src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-		<script defer src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js'></script>
+		<script defer
+			src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+		<script defer
+			src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js'></script>
 		<script defer src="/assets/js/shelter/slick.js"></script>
+
+		<!-- 결제 open api -->
+		<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	</th:block>
 
 	<!--/* 페이지별 콘텐츠 동적변경 */-->
@@ -60,7 +70,7 @@
 													data-id="3fdf0404" data-element_type="widget"
 													data-widget_type="heading.default">
 													<div class="elementor-widget-container">
-														<h1 class="elementor-heading-title elementor-size-default">기부하기</h1>
+														<h1 class="elementor-heading-title elementor-size-default">후원하기</h1>
 													</div>
 												</div>
 											</div>
@@ -94,14 +104,14 @@
 											<thead>
 												<tr>
 													<th scope="col" class="m_hidden">결제방법 &nbsp<i
-														class="fas fa-check pad_15" alt="필수"/>
+														class="fas fa-check pad_15" alt="필수" />
 													</th>
 													<td class="nm_col_2 setThBorderBottom">
 														<table>
 															<tbody>
 																<tr>
 																	<li><input
-																		id="ctl00_ContentPlaceHolder1_rdoPayType_0"
+																		id="ctl00_ContentPlaceHolder1_rdoPayType_1"
 																		type="radio"
 																		name="ctl00$ContentPlaceHolder1$rdoPayType"
 																		value="CARD" checked="checked"
@@ -110,64 +120,60 @@
 																</tr>
 																<tr>
 																	<li><input
-																		id="ctl00_ContentPlaceHolder1_rdoPayType_1"
+																		id="ctl00_ContentPlaceHolder1_rdoPayType_2"
 																		type="radio"
 																		name="ctl00$ContentPlaceHolder1$rdoPayType"
 																		value="BANK" style="margin-left: -80%;"><label
 																		for="ctl00_ContentPlaceHolder1_rdoPayType_1">계좌이체</label></li>
 																</tr>
 
-																<!-- <tr>
-																	<li><input id="ctl00_ContentPlaceHolder1_rdoPayType_3" type="radio"
-																			name="ctl00$ContentPlaceHolder1$rdoPayType" value="PAYCO"  style="margin-left: -81%;"><label
-																			for="ctl00_ContentPlaceHolder1_rdoPayType_3">
-																				<img src="/final/assets/img/dona/payco.png" height="14"
-																						style="width:auto;vertical-align:middle">
-																			</div>
-																		</label>
-																	</li>
-																</tr>
-																<tr>
-																	<li><input id="ctl00_ContentPlaceHolder1_rdoPayType_4" type="radio"
-																			name="ctl00$ContentPlaceHolder1$rdoPayType" value="KAKAOPAY" style="margin-left: -79.7%;"><label
-																			for="ctl00_ContentPlaceHolder1_rdoPayType_4">
-																		
-																				<img src="/final/assets/img/dona/kakaopay_payment_text_large.png"
-																						height="18" style="width:auto;vertical-align:middle">
-																	
-																		</label></li>
-																</tr>		 -->
 															</tbody>
 														</table>
-														</div>
 													</td>
 												</tr>
 												<tr>
-													<th scope="co2" class="m_hidden">안내사항 &nbsp<i
-														class="fas fa-check pad_l5" alt="필수"/></th>
+													<th scope="co2" class="m_hidden">후원금액 &nbsp<i
+														class="fas fa-check pad_l5" alt="필수" /></th>
 													<td class="nm_col_2 setThBorderBottom">
 														<table>
 															<tbody>
 																<tr>
-																	<li style="text-align: start;">신용카드후원 시 수수료가 발생 할
-																		수 있습니다.</li>
+																	<li style="text-align: start; margin-left: 4%" 
+																	th:text="${formattedPay}"></li>
 																</tr>
 															</tbody>
+
+															</tbody>
 														</table>
-														</div>
-													</td>
+											</div>
+											</td>
+											</tr>
+											<tr>
+												<th scope="co2" class="m_hidden">안내사항 &nbsp<i
+													class="fas fa-check pad_l5" alt="필수" /></th>
+												<td class="nm_col_2 setThBorderBottom">
+													<table>
+														<tbody>
+															<tr>
+																<li style="text-align: start;">신용카드후원 시 수수료가 발생 할 수
+																	있습니다.</li>
+															</tr>
+														</tbody>
+													</table>
+													</div>
+												</td>
 											</thead>
 
 										</table>
 									</div>
 
-									<form name="vowInfoForm">
+									<!--<form name="vowInfoForm"> -->
 										<div class="tab-content" id="myTabContent">
 											<div class="centerintro">
 												<div id="sb_contents" class="contents"
 													style="text-align: right;">
 													<!-- 여기 사이즈 -->
-													<p>약관에 동의하셔야 회원가입이 가능합니다.</p>
+													<p>약관에 동의하셔야 후원이 가능합니다.</p>
 													<table class="tbl_cen tbl_confirm"
 														style="width: 100% !important;">
 														<caption>후원 결제 페이지</caption>
@@ -182,7 +188,7 @@
 														<thead>
 															<tr>
 																<th scope="col" class="m_hidden">개인정보수집/이용 &nbsp<i
-																	class="fas fa-check pad_l5" alt="필수"/>
+																	class="fas fa-check pad_l5" alt="필수" />
 																</th>
 																<td class="nm_col_2 setThBorderBottom">
 																	<table>
@@ -204,7 +210,7 @@
 															</tr>
 															<tr>
 																<th scope="co2" class="m_hidden">개인정보제3자제공 &nbsp<i
-																	class="fas fa-check pad_l5" alt="필수"/>
+																	class="fas fa-check pad_l5" alt="필수" />
 																</th>
 																<td class="nm_col_2 setThBorderBottom">
 																	<table>
@@ -227,7 +233,7 @@
 														</thead>
 													</table>
 												</div>
-									</form>
+									<!--</form>-->
 									<div
 										class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-40 e-form__buttons"
 										style="margin-bottom: 10%; margin-left: 45%">
@@ -239,13 +245,14 @@
 											</span>
 										</button>
 									</div>
-									<script defer type="text/javascript">
+
+									<script defer th:inline="javascript" type="text/javascript">
 										$(function() {
 											// 확인버튼 클릭
 											$('#submit')
 													.click(
 															function() {
-																var form = document.vowInfoForm;
+																//var form = document.vowInfoForm;
 																var chk1 = $(
 																		'input[name=validyn1]:checked')
 																		.val();
@@ -260,12 +267,73 @@
 																			"#validyn")
 																			.focus();
 																	return false;
-
 																} else {
-																	form.action = "/donation/result";
-																	form.method="post";
-																	form
-																			.submit();
+																	var IMP = window.IMP;
+																    IMP.init('imp42115025'); // 가맹점 식별코드를 입력해야 합니다
+																    // 결제 버튼 클릭 이벤트 처리
+																    var paymentButton = document.getElementById('submit');
+																    var paymentCard = document.getElementsByName("ctl00$ContentPlaceHolder1$rdoPayType")[0].value;
+																    var paymentBank = document.getElementsByName("ctl00$ContentPlaceHolder1$rdoPayType")[1].value;
+
+																    paymentButton.addEventListener('click', function() {
+																      
+																    	// 결제 수단 설정
+																        var payMethod = paymentCard ? 'card' : (paymentBank ? 'trans' : ''); // 신용카드 또는 계좌이체
+																        
+																    	// 결제 정보 설정
+																    	  var paymentInfo = {  
+																			        pg: 'html5_inicis',  // 결제 수단 (KG이니시스)
+																			        // pay_method: 'card',
+																			        // pay_method: 'trans',
+																			        pay_method: payMethod,
+																			        // 결제 방법 (신용카드)
+																			        merchant_uid: 'merchant_' + new Date().getTime(),
+																			        // 주문번호
+																			        //amount: [[${pay}]],
+																			        // 결제 금액 테스트
+																			        amount: 1,
+																			         // 결제 금액
+																			        name: '후원',
+																			         // 상품명
+																			        buyer_name: [[${session.loginMember.name}]],
+																			         // 구매자 이름
+																			       // buyer_tel: '010-1234-5678',
+																			         // 구매자 전화번호
+																			        buyer_email: [[${session.loginMember.FullEmail}]]
+																			         // 구매자 이메일
+																			       // m_redirect_url: '결제 완료 후 이동할 URL'
+																			         // 결제 완료 후 이동할 URL
+																			      };
+																      
+																    	// 결제 수단 체크
+																          var paymentCard = document.getElementById('ctl00_ContentPlaceHolder1_rdoPayType_1').checked;
+																          var paymentBank = document.getElementById('ctl00_ContentPlaceHolder1_rdoPayType_2').checked;
+
+																          // 결제 수단에 따라 pay_method 설정
+																          if (paymentCard) {
+																            paymentInfo.pay_method = 'card';
+																          } else if (paymentBank) {
+																            paymentInfo.pay_method = 'trans';
+																          } else {
+																            return false;
+																          }
+																      
+
+																      // 결제 요청
+																      IMP.request_pay(paymentInfo, function(response) {
+																        if (response.success) {
+																         // alert('결제가 완료되었습니다.');
+																          	
+																          	let payment = [[${pay}]];
+																          	location.href=`/donation/result/${payment}`;
+																        } else {
+																          var msg = '결제에 실패했습니다. 에러 내용: ' + response.error_msg;
+																          alert(msg);
+
+																        }
+																      });
+																    });
+																	
 																}
 
 															})

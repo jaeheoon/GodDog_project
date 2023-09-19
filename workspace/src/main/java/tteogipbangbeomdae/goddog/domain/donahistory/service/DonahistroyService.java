@@ -20,4 +20,7 @@ public interface DonahistroyService {
 	
 	//멤버 아이디로 후원갯수 찾기
 	public int getDonaCountById(String memberId);
+	
+	//생성
+	public void createDonaHistory(Donahistory donahistory);
 }

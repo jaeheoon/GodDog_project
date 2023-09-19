@@ -3,35 +3,35 @@ replyBtns.forEach(btn => {
 	//btn.addEventListener('click', getReply);
 	btn.addEventListener('click', (event)=>{
 		event.preventDefault();
-		console.log('클릭됨.');
-		let dd = event.target.textContent;
-		console.log(dd);
-		
+		console.log('클릭됨.');		
 	});
 });
 
 async function getReply(event) {
-	const memoId = event.target.value;
-    let replys = await requestReplys(memoId);
-    showReply(memoId, replys);
+	let requestPage = event.target.textContent;
+    let replys = await requestReplys(requestPage);
+	replys.forEach(a=>{
+		console.log(a);
+	})
+    showReply(replys);
 }
 
-function requestReplys(memoId) {
-    const url = `/mall/article/reply?id=${memoId}`;
+function requestReplys(requestPage) {
+    const url = `/member/mypage?requestPage2=${requestPage}`;
     return fetch(url).then(response => response.json());
 }
 
-function  showReply(memoId, replys) {
-	const views = document.querySelectorAll("#replyView");
+function  showReply(replys) {
+	const views = document.querySelectorAll(".reservation");
 	views.forEach(p => {
 		if(memoId === p.dataset.id){
 			// HTML 태그에 맞게 출력
-			let ul = `<ul>`;
+			let content = `<td>`;
 			replys.forEach(reply => {
 				ul += `<li>${reply.content}(${reply.regdate}) -  ${reply.id}</li>`;	
 			});
-			ul += `</ul>`;
-			p.innerHTML = ul;
+			ul += `</td>`;
+			content.innerHTML = ul;
 		}
 	});
 }

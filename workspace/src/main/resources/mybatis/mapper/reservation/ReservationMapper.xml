@@ -3,6 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="tteogipbangbeomdae.goddog.domain.reservation.mapper.ReservationMapper">
 
 	<insert id="createReservation" parameterType="Reservation">
@@ -79,8 +80,9 @@
        					   TO_CHAR(a.insert_date,'YYYY-MM-DD') insertDate
             	    FROM reservation a
             		     JOIN care n
-            			 ON a.care_no = n.care_no) a
-            		WHERE a.care_no = #{careNo}
+            			 ON a.care_no = n.care_no
+            		ORDER BY a.reservation_no DESC) a
+               WHERE a.care_no = #{careNo}
             		) a
 		WHERE request_page = #{pageParams.requestPage}
 	</select>

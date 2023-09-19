@@ -3,6 +3,7 @@ package tteogipbangbeomdae.goddog.domain.donahistory.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import tteogipbangbeomdae.goddog.domain.donahistory.dto.Donahistory;
@@ -35,6 +36,14 @@ public class DonahistoryServiceImpl implements DonahistroyService {
 	@Override
 	public int getDonaCountById(String memberId) {
 		return donahistoryMapper.getCountById(memberId);
+	}
+	
+	//신규 후원 작성
+	@Override
+	@Transactional
+	public void createDonaHistory(Donahistory donahistory) {
+		
+		donahistoryMapper.create(donahistory);
 	}
 
 }

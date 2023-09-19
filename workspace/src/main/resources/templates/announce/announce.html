@@ -71,6 +71,9 @@
 					</div>
 				</div>
 			</section>
+			
+			<!-- =============================================================공지사항 목록===================================================================== -->
+			<th:block th:fragment="content">
 			<section
 				class="elementor-section elementor-top-section elementor-element elementor-element-75f717dc elementor-section-boxed elementor-section-height-default elementor-section-height-default"
 				data-id="75f717dc" data-element_type="section">
@@ -85,9 +88,11 @@
 								data-widget_type="toggle.default">
 								<div class="elementor-widget-container">
 									<div class="elementor-toggle">
-										<div class="elementor-toggle-item">
+										
+										<div class="elementor-toggle-item" th:each="announce, state : ${list}">
+											
 											<div id="elementor-tab-title-3831"
-												class="elementor-tab-title" data-tab="1" role="button"
+												class="elementor-tab-title" th:data-tab="${state.count}" data-tab="1" role="button"
 												aria-controls="elementor-tab-content-3831"
 												aria-expanded="false">
 												<span
@@ -97,16 +102,20 @@
 														class="fas fa-chevron-down"></i></span> <span
 													class="elementor-toggle-icon-opened"><i
 														class="elementor-toggle-icon-opened fas fa-chevron-up"></i></span>
-												</span> <a class="elementor-toggle-title" tabindex="0">입양 과정은
+												</span> <a class="elementor-toggle-title" tabindex="0"th:text="${announce.title}">입양 과정은
 													어떻게 이루어지나요?</a>
 											</div>
 
 											<div id="elementor-tab-content-3831"
 												class="elementor-tab-content elementor-clearfix"
+												th:data-tab="${state.count}"
 												data-tab="1" role="region"
-												aria-labelledby="elementor-tab-title-3831">입양 과정은
-												일반적으로 신청, 승인, 서류 작성 및 서류 검토, 그리고 최종 입양 절차로 진행됩니다.</div>
+												aria-labelledby="elementor-tab-title-3831" th:text="${announce.contents}">입양 과정은
+												일반적으로 신청, 승인, 서류 작성 및 서류 검토, 그리고 최종 입양 절차로 진행됩니다.
+											</div>
+											
 										</div>
+										<!-- 
 										<div class="elementor-toggle-item">
 											<div id="elementor-tab-title-3832"
 												class="elementor-tab-title" data-tab="2" role="button"
@@ -328,8 +337,10 @@
 												class="elementor-tab-content elementor-clearfix"
 												data-tab="11" role="region"
 												aria-labelledby="elementor-tab-title-38311">일반적으로 입양을
-												위해 신분증, 주소 증명서, 그리고 입양 신청서와 같은 기본 서류가 필요할 수 있습니다.</div>
+												위해 신분증, 주소 증명서, 그리고 입양 신청서와 같은 기본 서류가 필요할 수 있습니다.
+											</div>
 										</div>
+										 -->
 									</div>
 
 
@@ -350,7 +361,8 @@
 					</div>
 				</div>
 			</section>
-
+			<th:block>
+			
 			<section
 				class="elementor-section elementor-top-section elementor-element elementor-element-4691d05d elementor-section-full_width elementor-section-height-default elementor-section-height-default"
 				data-id="4691d05d" data-element_type="section">

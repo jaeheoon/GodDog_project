@@ -21,7 +21,7 @@
 		<link rel="stylesheet" href="/assets/css/footer/footer_common.css">
 	
 		<!-- ============================================================== 개별script =========================================================================-->
-		<script src="/assets/js/board/article.js"></script>
+		<script defer src="/assets/js/board/article.js"></script>
 	</th:block>
 
 	<!--/* 페이지별 콘텐츠 동적변경 */-->
@@ -92,19 +92,20 @@
 													<div class="volunteer_step m_hidden">
 														<!-- 서브 컨텐츠 -->
 														<div id="sb_contents" class="contents board_wrap">
+															<div id="sb_contents" class="contents board_wrap">
 
+														<div class="container" th:if="${articleList.levelNo == 0}" th:each="articleList, state : ${articleList}">
 															<ul class="board_detail">
 
 																<!-- 제목 -->
-																<li class="tit_detail"><span class="hidden">제목</span>전주 유기견 보호소 봉사 후기</li>
+																<li class="tit_detail" th:text="${articleList.reviewTitle}"><span class="hidden">제목</span>전주 유기견 보호소 봉사 후기</li>
 
 																<!-- 게시물정보 -->
 																<li>
 																	<ul class="data">
-																		<li class="sort"><span class="hidden">사무소</span>연구원</li>
-																		<li class="adm"><span class="hidden">글쓴이</span>전주영</li>
-																		<li class="date"><span class="hidden">날짜</span>2023-09-04</li>
-																		<li class="view"><span class="hidden">조회수</span>조회 : 5</li>
+																		<li class="adm" th:text="${articleList.memberId}"><span class="hidden" >글쓴이</span>전주영</li>
+																		<li class="date" th:text="${articleList.writeDate}"><span class="hidden">날짜</span>2023-09-04</li>
+																		<li class="view" th:text="${articleList.count}"><span class="hidden">조회수</span>조회 : 5</li>
 																	</ul>
 																</li>
 
@@ -113,9 +114,7 @@
 
 																<!-- 내용 -->
 																<li class="txt_box">
-																	<p>무더운 날이여서 힘들었지만 보람있었습니다.</p>
-
-																	<p>강아지들은 언제나 귀엽고 사랑스럽습니다.</p>
+																	<p th:text="${articleList.reviewContents}"></p>
 																</li>
 
 															</ul>
@@ -123,7 +122,7 @@
 															<!-- 버튼 -->
 															<ul class="btn_set board_btn">
 																<li class="btn_default float_l"><a href="/article/volunteer_board.html"
-																th:href="@{'/'+article+'/'+volunteer+'/'+board}"
+																th:href="@{'/'+article+'/'+volunteer+'/'+board+'/'+{noticeNo}}"
 																		id="btnList">목록</a></li>
 																<li class="btn_default btn_red float_r"><a id="btnComment"
 																		style="cursor: pointer;">삭제하기</a></li>
@@ -131,16 +130,8 @@
 																		href="/article/volunteer_article_correct.html" th:href="@{'/'+article+'/'+volunteer+'/'+correct}" style="cursor: pointer;">수정하기</a>
 																</li>
 															</ul>
-
-															<!-- 댓글 입력 폼 -->
-															<div id="commentForm" style="display: none;">
-																<form id="commentForm">
-
-																	<input type="text" id="username" placeholder="사용자명" required>
-																	<textarea id="commentInput" placeholder="댓글 내용" required></textarea>
-																	<button type="submit" id="commentSubmit">댓글 등록</button>
-																</form>
-															</div>
+															
+														</div>
 
 															<!-- // 서브 컨텐츠 -->
 
@@ -152,10 +143,10 @@
 																	<!-- 댓글 입력 폼 -->
 																	<li class="tit_detail">
 																		<div id="commentForm">
-																			<form id="commentForm">
+																			<form id="commentForm" class="commentForm" th:action="@{'/'+article+'/'+comment}" method="post">
 
-																				<input type="text" id="username" placeholder="사용자명" required>
-																				<textarea id="commentInput" placeholder="댓글 내용" required></textarea>
+																				<input type="text" id="username" name="memberId" th:value="${session.loginMember.memberId}" placeholder="사용자명" required>
+																				<textarea id="commentInput" name="reviewContents" placeholder="댓글 내용" required></textarea>
 
 																				<br><br>
 																				<ul class="btn_set board_btn">
@@ -163,7 +154,7 @@
 																						<a id="btnList" onclick="doDisplay();">댓글보기</a>
 																					</li>
 																					<li class="btn_default btn_red float_r mar_r5">
-																						<a id="btnCancel" style="cursor:pointer;">댓글 등록</a>
+																						<a href="#" id="btnCancel" class="confirm">댓글 등록</a>
 																					</li>
 																				</ul>
 																			</form>
@@ -171,16 +162,15 @@
 																	</li>
 
 																	<!-- 작성된 댓글들 -->
-																	<div class="commentBoxList" style="display: none;">
+																	<div class="commentBoxList" th:each="articleList : ${articleList}" th:if=" ${articleList.levelNo}==1" style="display: none;">
 																		<li class="commentbox">
 																			<div class="container">
 																				<div class="comment-container">
 																					<div class="box commentt">
 																						<div class="comment">
-																							<div class="date">2023-08-19</div>
-																							<div class="user">사용자1</div>
-																							<div class="message">이 글은 정말 유용합니다!</div>
-
+																							<div class="date" th:text="${articleList.writeDate}">2023-08-19</div>
+																							<div class="user" th:text="${articleList.memberId}">사용자1</div>
+																							<div class="message" th:text="${articleList.reviewContents}">이 글은 정말 유용합니다!</div>
 																							<!-- <ul class="btn_set board_btn">
 																							<li class="btn_default_line btn_green float_r">
 																								<a class="a_bt02" id="btnRegist" style="cursor: pointer;">수정하기</a>
@@ -192,6 +182,7 @@
 																			</div>
 																		</li>
 
+																		<!-- 
 																		<li class="commentbox">
 																			<div class="container">
 																				<div class="comment-container">
@@ -200,17 +191,12 @@
 																							<div class="date">2023-08-19</div>
 																							<div class="user">사용자2</div>
 																							<div class="message">이 글은 정말 유용합니다!</div>
-
-																							<!-- <ul class="btn_set board_btn">
-																							<li class="btn_default_line btn_green float_r">
-																								<a class="a_bt02" id="btnRegist" style="cursor: pointer;">수정하기</a>
-																							</li>
-																						</ul> -->
 																						</div>
 																					</div>
 																				</div>
 																			</div>
 																		</li>
+																		 -->
 																	</div>
 
 

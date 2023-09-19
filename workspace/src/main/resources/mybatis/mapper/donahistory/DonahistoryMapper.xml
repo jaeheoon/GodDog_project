@@ -32,4 +32,16 @@
 		WHERE  member_id = #{value}
 	</select>
 	
+	<insert id="create" parameterType="donahistory">
+		INSERT INTO donahistory (
+			donahistory_no,
+			donation,
+			member_id
+		) VALUES (
+			DONAHISTORY_NO_seq.NEXTVAL,
+			#{donation},
+			#{memberId}
+		)
+	</insert>
+	
 </mapper>

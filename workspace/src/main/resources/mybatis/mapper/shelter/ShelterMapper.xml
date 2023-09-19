@@ -7,7 +7,9 @@
 	namespace="tteogipbangbeomdae.goddog.domain.shelter.mapper.ShelterMapper">
 
 	<select id="selectShelter" parameterType="int" resultType="Shelter">
-		SELECT care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url
+		SELECT care_no, name, adress, tel, closeday,
+		mans, open, close,
+		volunteer_am, volunteer_pm, map_url
 		FROM care
 		WHERE care_no = #{value}
 	</select>

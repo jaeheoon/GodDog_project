@@ -27,4 +27,5 @@ public class ShelterController {
 	public String showDetail(Model model) {		
 		return "shelter/shelter_detail";
 	}
+	
 }

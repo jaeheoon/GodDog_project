@@ -52,5 +52,18 @@ public class DonahistoryMapperTest {
 		//then
 		log.info("들어온 갯수 : {}",count);
 	}
+	
+	@Test
+	@Disabled
+	void createTest() {
+		 Donahistory createDonahistory = Donahistory
+				 .builder()
+				 .donation(10000)
+				 .memberId("bangry")
+				 .build();
+		 donahistoryMapper.create(createDonahistory);
+			log.info("후원 내역 등록 완료 : {}", createDonahistory);
+			
+	}
 
 }

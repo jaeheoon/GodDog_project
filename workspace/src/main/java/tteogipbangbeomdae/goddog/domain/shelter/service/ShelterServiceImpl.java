@@ -17,4 +17,5 @@ public class ShelterServiceImpl implements ShelterService{
 	public Shelter clickShelter(int careNo) {
 		return shelterMapper.selectShelter(careNo);
 	}
+
 }

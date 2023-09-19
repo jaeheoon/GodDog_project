@@ -8,12 +8,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import tteogipbangbeomdae.goddog.domain.member.dto.Member;
+import tteogipbangbeomdae.goddog.domain.reservation.dto.Reservation;
+import tteogipbangbeomdae.goddog.domain.reservation.service.ReservationService;
+import tteogipbangbeomdae.goddog.domain.shelter.dto.Shelter;
+import tteogipbangbeomdae.goddog.domain.shelter.service.ShelterService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +76,7 @@ public class VolunteerController {
 		return "volunteer/map";
 	}
 	
+
 	@GetMapping("/calender")
 	public String viewCalender(@RequestParam("careNo") int careNo, Model model,HttpSession session) {
 		Shelter shelter = shelterService.clickShelter(careNo);
@@ -105,6 +117,7 @@ public class VolunteerController {
 		Shelter resultShelter = shelterService.clickShelter(careNo);
 		model.addAttribute("resultReservation", resultReservation);
 		model.addAttribute("resultShelter", resultShelter);
+
 		return "volunteer/result";
 	}
 	

@@ -19,8 +19,8 @@
 		<link rel="stylesheet" href="/assets/css/footer/footer_common.css">
 
 		<!-- ============================================================== 개별script =========================================================================-->
-		<script src="/assets/js/board/article.js"></script>
-		<script src="/assets/js/board/vol_create.js"></script>
+		<script defer src="/assets/js/board/article.js"></script>
+		<script defer src="/assets/js/board/vol_create.js"></script>
 	</th:block>
 
 	<!--/* 페이지별 콘텐츠 동적변경 */-->
@@ -99,8 +99,8 @@
 															<div id="sb_contents" class="contents board_wrap">
 
 																<form id="boardVO" name="form" class="boardForm"
-																	action="/article/volunteer/create"
-																	method="post" enctype="multipart/form-data">
+																	action="/article/volunteer/create" method="post"
+																	enctype="multipart/form-data">
 																	<input type="hidden" name="prnts_ntart_no" value="" />
 																	<input type="hidden" name="tmprr_no" id="tmprr_no"
 																		value="2023090222241708" /> <input type="hidden"
@@ -108,33 +108,38 @@
 																		type="hidden" name="fileNtartNo" id="fileNtartNo"
 																		value="" />
 																	<div id="_DEL_LIST"></div>
+
 																	<table class="tbl_left mar_t10 tbl_qna">
-																		<caption>활동후기 제목, 국립공원, 공개여부, 내용 등 입력</caption>
+																		<caption>활동후기 제목, 내용 등 입력</caption>
 																		<colgroup>
 																			<col>
 																			<col>
 																		</colgroup>
+
 																		<tbody>
 																			<tr>
-																				<th scope="row">제목<i class="fas fa-check pad_l5"
-																					alt="필수"/></th>
+																				<th scope="row">제목<i
+																					class="fas fa-check pad_l5" alt="필수" /></th>
 																				<td><label for="ntart_subjc" class="hidden">제목</label>
-																					<input id="ntart_subjc" name="ntart_subjc"
+																					<input id="ntart_subjc" name="title"
 																					class="width input2 _VNotNull" title="제목"
 																					type="text" value="" maxlength="100" /></td>
+																					<!--<input id="ntart_subjc" name="ntart_subjc" -->
 																			</tr>
 																			<tr>
-																				<th scope="row">내용<i class="fas fa-check pad_l5"
-																					alt="필수"/></th>
+																				<th scope="row">내용<i
+																					class="fas fa-check pad_l5" alt="필수" /></th>
 																				<td><label for="cntns_bdtxt_cont"
 																					class="hidden">내용</label> <textarea
-																						id="cntns_bdtxt_cont" name="cntns_bdtxt_cont"></textarea>
+																						id="cntns_bdtxt_cont" name="content"></textarea>
+																						<!--id="cntns_bdtxt_cont" name="cntns_bdtxt_cont"></textarea> -->
 																				</td>
 																			</tr>
 																			<tr>
 																				<th rowspan="2">첨부파일</th>
 																				<td><label for="multipartFile" class="hidden">첨부파일선택</label>
-																					<input type="file" name="techFileDTO.multipartFile"
+																					<!--<input type="file" name="techFileDTO.multipartFile"  -->
+																					<input type="file" name="multipartFile"
 																					id="multipartFile_0" class="btn_upload"
 																					multiple="multiple" onchange="addFile(this);" /> <input
 																					type="hidden" name="fileFieldName"
@@ -143,23 +148,25 @@
 																		</tbody>
 																	</table>
 
-																<ul class="btn_set board_btn">
-																	<li class="btn_default btn_red float_r"><a
-																		id="btnSubmit" 
-																		style="cursor: pointer;">확인</a></li>
-																	<li class="btn_default btn_green float_r mar_r5"><a
-																		id="btnCancel" href="/article/volunteer_board.html"
-																		th:href="@{'/'+article+'/'+volunteer+'/'+board}"
-																		style="cursor: pointer;">취소</a></li>
-																</ul>
+																	<ul class="btn_set board_btn">
+																		<li class="btn_default btn_red float_r"><a
+																			id="btnSubmit" style="cursor: pointer;">확인</a></li>
+																		<li class="btn_default btn_green float_r mar_r5"><a
+																			id="btnCancel" href="/article/volunteer_board.html"
+																			th:href="@{'/'+article+'/'+volunteer+'/'+board}"
+																			style="cursor: pointer;">취소</a></li>
+																	</ul>
 
 																</form>
 															</div>
 															<!-- // 서브 컨텐츠 -->
-
-
 														</div>
 													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</section>
 						</div>
 					</div>

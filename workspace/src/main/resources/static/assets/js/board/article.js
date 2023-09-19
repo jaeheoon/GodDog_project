@@ -53,3 +53,16 @@ function doDisplay(){
     }
   }
 }
+
+document.querySelector('.confirm').addEventListener('click',(event)=>{
+	event.preventDefault();
+	//console.log('클릭');
+	const form = document.querySelector('.commentForm');
+	let content = document.querySelector('#commentInput').value;
+	console.log(content);
+	if(content){
+		form.submit();	
+	}else{
+		alert('댓글내용을 입력하세요.');
+	}
+})

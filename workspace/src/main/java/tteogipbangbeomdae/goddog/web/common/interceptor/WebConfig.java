@@ -23,7 +23,8 @@ public class WebConfig implements WebMvcConfigurer{
 	public static final List<String> loginEssential = Arrays.asList("/**");
 	
 	public static final List<String> loginNotEssential = Arrays.asList("/", "/**/*.ico", "/**/*.html", "/**/css/**", "/**/js/**", "/**/assets/**", 
-				"/error", "/member", "/member/signup", "/member/login", "/member/logout", "/member/valid/{path}", "/member/valid/{path}/{path}", "/member/rest/{path}" ,"/**/img/**", "/**/video/**" ,"/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js","/shelter/list","/shelter/detail","/introduce/introduce","/introduce/team","/article/adoption/board","/article/volunteer/board","/announce","/announce/announce","/introduce","/dog","/donation","/shelter","/volunteer","/dog/profile","/member/mypage/adminpage");
+				"/error", "/member", "/member/signup", "/member/login", "/member/logout", "/member/valid/{path}", "/member/valid/{path}/{path}", "/member/rest/{path}" ,"/**/img/**", "/**/video/**" ,"/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js","/shelter/list","/shelter/detail","/introduce/introduce","/introduce/team","/article/adoption/board","/article/volunteer/board","/announce","/announce/announce","/introduce","/dog","/donation","/shelter","/volunteer","/dog/profile","/member/mypage/adminpage","/article/volunteer/board/{path}","/article/adoption/board/{path}");
+
 
 	 @Override
 	 public void addInterceptors(InterceptorRegistry registry) {

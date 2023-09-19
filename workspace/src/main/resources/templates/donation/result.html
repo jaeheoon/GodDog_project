@@ -101,11 +101,11 @@
 											<tbody>
 												<tr>
 													<th scope="row" style="background-color: #fafcff;">결제일자</th>
-													<td>2023.09.04 [월]</td>
+													<td th:text="${#calendars.format(#calendars.createNow(), 'yyyy년 MM월  dd일' )}">2023.09.04 [월]</td>
 												</tr>
 												<tr>
 													<th scope="row">결제금액</th>
-													<td>10000원</td>
+													<td th:text="${formattedPay}">10000</td>
 												</tr>
 												<th scope="row">문의 전화</th>
 												<td>029403736</td>

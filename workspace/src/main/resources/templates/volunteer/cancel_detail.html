@@ -162,6 +162,7 @@
 													<td colspan="3" class="txt_l"
 														th:text="${reservation.status == 'true' ? '승인' : (reservation.status == 'false' ? '거절' : '대기중')}">승인</td>
 												</tr>
+														<!--th:text="${reservation.status == 'true' ? '승인' : (reservation.status == 'false' ? '거절' : '대기중')}">승인</td> -->
 												<tr>
 													<th scope="row" th:if="${session.loginMember.lev == 1}"
 														th:text="보호소문의">문의전화</th>

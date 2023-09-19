@@ -148,33 +148,38 @@
 																<!-- //검색 -->
 
 																<!-- 게시판 -->
-																<p class="result_list_num">Total : <span>3624 개 (페이지
-																		1/363) </span></p>
+																<p class="result_list_num">Total : <span th:text="${rowCount}">3624</span><span> 개 (페이지
+																		<span th:text="${requestPage}">1</span>/<span th:text="${pagination.totalPages}">363</span>) 
+																		</span></p>
 																<ul class="board_list">
 
 
-																	<li>
+																	<li th:each="adoption,loop : ${adoptionList}">
+																		
 																		<div class="num">
 																			<span>3624</span>
 																		</div>
 																		<ul class="data">
 																			<li class="tit"><span
 																					class="hidden">제목</span>
-																				<a href="#" th:href="@{'/'+article+'/'+adoption+'/'+read}">우리집 막내가 된 댕댕이</a>
+																				<a href="/article/adoption_article_detail.html"
+																				 th:href="@{'/'+article+'/'+adoption+'/'+read+'?'+groupNo+'='+${adoption.groupNo}}" th:text="${adoption.reviewTitle}">
+																				 우리집 막내가 된 댕댕이</a>
 																			</li>
-																			<li class="adm"><span
+																			
+																			<li class="adm" th:text="${adoption.memberId}"><span
 																					class="hidden">글쓴이</span>이현주</li>
-																			<li class="date"><span
+																			<li class="date" th:text="${adoption.writeDate}"><span
 																					class="hidden">날짜</span>2023-08-31
 																			</li>
-																			<li class="view"><span
+																			<li class="view" th:text="${adoption.count}"><span
 																					class="hidden">조회수</span>조회 : 23
 																			</li>
 																		</ul>
 																	</li>
 
 
-
+																	<!-- 
 																	<li>
 																		<div class="num">
 																			<span>3623</span>
@@ -366,8 +371,7 @@
 																					class="hidden">조회수</span>조회 : 6</li>
 																		</ul>
 																	</li>
-
-
+																	-->
 																</ul>
 
 																<ul class="btn_set board_btn">
@@ -382,13 +386,28 @@
 																<ul class="pagenate">
 
 																	<!-- 11페이지부터 나옴 -->
-																	<li><a href="#">&lt;&lt;</a></li>
+																	<th:block th:if="${pagination.showFirst}">
+																		<li class="page-item">
+																			<a th:href="@{'/'+article+'/'+'adoption'+'/'+board+'/'+'2'+'?'+requestPage+'='+1}"
+																		class="page-link" href="#" aria-label="Previous">&lt;&lt;</a>
+																		</li>
+																	</th:block>
 
 																	<!-- 2페이지부터 나옴 -->
-																	<li><a href="#">&lt;</a></li>
+																	<th:block th:if="${pagination.showPrevious}">
+																		<li class="page-item">
+																			<a th:href="@{'/'+article+'/'+'adoption'+'/'+board+'/'+'2'+'?'+requestPage+'='+${pagination.previousStartPage}}"
+																			class="page-link" href="#" aria-label="Previous">&lt;</a>
+																		</li>
+																	</th:block>
 
-																	<li class="on"><a>1</a></li>
-
+																	<th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+																		<li class="on page-item" th:class="${i == pagination.params.requestPage} ? 'page-item active' : 'page-item'">
+																		<a class="page-link" th:href="@{'/'+article+'/'+'adoption'+'/'+board+'/'+'2'+'?'+requestPage+'='+${i}}" th:text="${i}">1</a>
+																		</li>
+																	</th:block>
+																		
+																	<!--	
 																	<li><a href="#">2</a></li>
 
 																	<li><a href="#">3</a></li>
@@ -406,13 +425,23 @@
 																	<li><a href="#">9</a></li>
 
 																	<li><a href="#">10</a></li>
+																	-->
 
+																	<th:block th:if="${pagination.showNext}">
 																	<!-- 마지막 페이지에서 사라짐 -->
-																	<li><a href="#">&gt;</a></li>
+																		<li class="page-item">
+																			<a th:href="@{'/'+article+'/'+'adoption'+'/'+board+'/'+'2'+'?'+requestPage+'='+${pagination.nextStartPage}}"
+																			class="page-link" href="#" aria-label="Previous">&gt;</a>
+																		</li>
+																	</th:block>
 
+																	<th:block th:if="${pagination.showLast}">
 																	<!-- 마지막 페이지가 포함된 리스트가 나오면 사라짐 -->
-																	<li><a href="#">&gt;&gt;</a></li>
-
+																		<li class="page-item">
+																			<a th:href="@{'/'+article+'/'+'adoption'+'/'+board+'/'+'2'+'?'+requestPage+'='+${pagination.totalPages}}"
+																			class="page-link" href="#" aria-label="Previous">&gt;&gt;</a>
+																		</li>
+																	</th:block>
 																</ul>
 																<!-- pagenate -->
 
