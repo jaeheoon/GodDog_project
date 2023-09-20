@@ -28,7 +28,7 @@ public class DogController {
 	
 	private final OpenApiService openApiService;
 	
-	//보여지는 글 갯수(게시판 제목)
+	//보여지는 글 갯수
 	private final int ELEMENT_SIZE = 9;
 	
 	//페이징처리 목록 갯수(1, 2, 3, 4, 5)

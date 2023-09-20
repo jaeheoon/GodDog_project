@@ -56,6 +56,8 @@ CREATE TABLE care (
   volunteer_am      VARCHAR2(40),
   volunteer_pm      VARCHAR2(40),
   map_url           VARCHAR2(4000),
+  introduction      VARCHAR2(4000),
+  etc               VARCHAR2(200),
   CONSTRAINT care_no_pk PRIMARY KEY ( care_no )
 );
 
