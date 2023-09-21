@@ -11,6 +11,7 @@
 	<th:block th:fragment="uniqhead">
 		<!-- =============================================================== 개별css ========================================================================== -->
 		<link rel="stylesheet" href="/assets/css/doglist/title.css">
+		<link rel="stylesheet" href="/assets/css/doglist/doglist.css">
 		<link rel="stylesheet" href="/assets/css/faq/faq.css">
 		<link rel="stylesheet" href="/assets/css/pagenation.css">
 		<link rel="stylesheet" href="/assets/css/footer/footer_common.css">
@@ -80,21 +81,20 @@
 						<div class="elementor-container elementor-column-gap-no" style="max-width: 1140px; padding: 1.5em 0em 0em 0em">
 							<h4 class="elementor-image-box-title">지역</h4>
 						</div>
-						<div class="elementor-container elementor-column-gap-no" style="max-width: 1140px;">
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">경기도</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">서울</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">제주도</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">강원도</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">부산</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">대구</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">인천</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">광주</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">세종</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">대전</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">울산</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">충청도</a>
-							<a href="/dog/dog-profile.html" style="border: 1px solid black; margin: 5px; padding: 5px;">전라도</a>
+						<div class="elementor-container elementor-column-gap-no" style="max-width: 1140px; display: flex; flex: auto; flex-wrap: wrap">
+							<a href="/dog/dog-profile.html" class="filter area" th:each="area : ${areaList}" th:text="${area.orgdownNm}"
+							th:href="@{'/'+dog + '?' + requestPage +'=1&sido=' + ${area.orgCd}}">>경기도</a>
+							<!-- <button class="filter area" th:each="area : ${areaList}" th:text="${area.orgdownNm}">경기도</button> -->
 						</div>
+						
+						<!-- 품종은 제거 나중에 필요하면 추가
+						<div class="elementor-container elementor-column-gap-no" style="max-width: 1140px; padding: 1.5em 0em 0em 0em">
+							<h4 class="elementor-image-box-title">품종</h4>
+						</div>
+						<div class="elementor-container elementor-column-gap-no" style="overflow:auto; width:1140px; height:160px; max-width: 1140px; display: flex; flex: auto; flex-wrap: wrap">
+							<a href="/dog/dog-profile.html" class="filter area" th:each="dogKind : ${dogKindList}" th:text="${dogKind.knm}">골든 리트리버</a>
+						</div>
+						 -->
 					</div>
 				</section>
 							
@@ -187,26 +187,26 @@
 
 					<!-- 11페이지부터 나옴 - 처음으로 -->
 					<th:block th:if="${pagination.isShowFirst}">
-						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + 1 }">&lt;&lt;</a></li>
+						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + 1 + '&' + sido + '=' + ${sidoCode != null ? sidoCode : ''}}">&lt;&lt;</a></li>
 					</th:block>
 					<!-- 2페이지부터 나옴 - 이전으로 -->
 					<th:block th:if="${pagination.isShowPrevious}">
-						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage +'=' + ${pagination.previousStartPage}}">&lt;</a></li>
+						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage +'=' + ${pagination.previousStartPage} + '&' + sido + '=' + ${sidoCode != null ? sidoCode : ''}}">&lt;</a></li>
 					</th:block>
 					
 					<!-- 목록 숫자 -->
 					<th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
 						<li class="page-item active" th:class="${i == pagination.params.requestPage} ? 'page-item active' : 'page-item'">
-						<a class="page-link" href="#" th:href="@{'/'+ dog + '?' + requestPage + '=' + ${i}}" th:text="${i}">1</a></li>
+						<a class="page-link" href="#" th:href="@{'/'+ dog + '?' + requestPage + '=' + ${i} + '&' + sido + '=' + ${sidoCode != null ? sidoCode : ''}}" th:text="${i}">1</a></li>
 					</th:block>
 
 					<!-- 마지막 페이지에서 사라짐 - 다음으로 -->
 					<th:block th:if="${pagination.isShowNext}">
-						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + ${pagination.nextStartPage}}">&gt;</a></li>
+						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + ${pagination.nextStartPage} + '&' + sido + '=' + ${sidoCode != null ? sidoCode : ''}}">&gt;</a></li>
 					</th:block>
 					<!-- 마지막 페이지가 포함된 리스트가 나오면 사라짐 - 마지막으로 -->
 					<th:block th:if="${pagination.isShowLast}">
-						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + ${pagination.totalPages}}">&gt;&gt;</a></li>
+						<li><a href="#" th:href="@{'/' + dog + '?' + requestPage + '=' + ${pagination.totalPages} + '&' + sido + '=' + ${sidoCode != null ? sidoCode : ''}}">&gt;&gt;</a></li>
 					</th:block>
 				</ul>
 				<!-- pagenate -->

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 홈페이지 요청을 처리하는 세부 컨트롤러 구현 클래스
  *
- * @author  떡잎방범대 조영호
- * @since   2023. 9. 10.
+ * @author  떡잎방범대 홍재헌
+ * @since   2023. 9. 21.
  * @version 1.0
  */
 @Controller
