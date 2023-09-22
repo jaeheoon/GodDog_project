@@ -2,12 +2,20 @@
 -- 23.09.14 홍재헌 수정
 
 -- Care 테이블 - 보호소(최대3개만 등록)
-INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url)
-VALUES (1, '해피파워', '57-26', '010-1234-5678', '매주 목요일', 30, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3160.286582158532!2d127.0987639896269!3d37.6189461490006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cba21c49379e7%3A0x18e763e51b5158de!2z7ISc7Jq47Jyg6riw64-Z66y87J6F7JaR7IS87YSw!5e0!3m2!1sko!2skr!4v1694584040563!5m2!1sko!2skr');
-INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url)
-VALUES (2, '굿도그', '357 KR', '010-5678-9101', '매주 목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d178995.55098424698!2d126.90210231386554!3d38.10976704400116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357d338d5f434f95%3A0xbd5b1d5dd49ee366!2z7JyE65Oc64-F7IqkaW7tj6zsspw!5e0!3m2!1sko!2skr!4v1694584452617!5m2!1sko!2skr');
-INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url)
-VALUES (3, '춘향이와멍멍이', '139나길 83', '010-9876-5432', '매주 목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51770.013672154666!2d127.1375037724449!3d35.809117452526905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35702510baabe389%3A0x20f739be04cba361!2z656R656R7J2064SkIO2VmOyImQ!5e0!3m2!1sko!2skr!4v1694584279357!5m2!1sko!2skr');
+INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url, Introduction, etc )
+VALUES (1, '해피파워', '57-26', '010-1234-5678', '목요일', 30, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3160.286582158532!2d127.0987639896269!3d37.6189461490006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cba21c49379e7%3A0x18e763e51b5158de!2z7ISc7Jq47Jyg6riw64-Z66y87J6F7JaR7IS87YSw!5e0!3m2!1sko!2skr!4v1694584040563!5m2!1sko!2skr',
+'해피파워 입양센터는 전주시에 위치해 있고, 주인을 기다리고 있는 반려동물 입양시설입니다. 보다 쉽게 유기동물과 교감하고 가족이 되실 수 있습니다. 보호되고 있는 아이들 모두 착하고 밝으니 한번 보러오세요!',
+'새로운 가족을 만들어보아요');
+INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url, Introduction, etc)
+VALUES (2, '굿도그', '357 KR', '010-5678-9101', '목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d178995.55098424698!2d126.90210231386554!3d38.10976704400116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357d338d5f434f95%3A0xbd5b1d5dd49ee366!2z7JyE65Oc64-F7IqkaW7tj6zsspw!5e0!3m2!1sko!2skr!4v1694584452617!5m2!1sko!2skr',
+'우리 입양센터에서 진정한 동반자를 만나보세요. 강아지의 건강과 행복을 최우선으로 생각하며, 안전한 환경에서 무한한 사랑을 제공합니다.입양은 양쪽 모두에게 특별한 경험을 선물할 수 있는 기회입니다.
+이 멋진 여정을 함께 시작해보세요.',
+'입양으로 인생의 변화를 경험하세요');
+INSERT INTO CARE (care_no, name, adress, tel, closeday, mans, open, close, volunteer_am, volunteer_pm, map_url, Introduction, etc )
+VALUES (3, '춘향이와멍멍이', '139나길 83', '010-9876-5432', '목요일', 40, '09:00', '18:00', '9:00 ~ 13:00', '14:00 ~ 18:00', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51770.013672154666!2d127.1375037724449!3d35.809117452526905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35702510baabe389%3A0x20f739be04cba361!2z656R656R7J2064SkIO2VmOyImQ!5e0!3m2!1sko!2skr!4v1694584279357!5m2!1sko!2skr',
+'우리 입양센터에서는 남겨진 강아지들에게 새로운 희망을 선사합니다. 매일 그들을 위해 헌신하며, 각 강아지의 독특한 특성과 성격을 고려하여 최적의 매칭을 찾아드립니다.
+한 마리 강아지를 입양하면, 그 강아지의 삶을 풍요롭게 만들 뿐 아니라 당신의 삶에도 큰 변화를 가져다 줄 수 있는 특별한 기회가 여기있습니다.',
+'사랑스러운 동반자를 만나보세요');
 
 -- Care_admin 테이블 - 보호소 관리자
 INSERT INTO CARE_ADMIN (care_id, care_no, passwd)
@@ -72,8 +80,24 @@ INSERT INTO REVIEW_IMG (img_no, img, review_no, member_id, notice_no)
 VALUES (img_no_seq.NEXTVAL, 'test-img.png', 1, 'bangry', 1);
 
 -- Care_img 테이블 - 보호소 이미지
-INSERT INTO CARE_IMG (care_img_no, care_no, care_img, care_1_img, care_2_img, care_3_img)
-VALUES (care_img_seq.NEXTVAL, 1, 'test-img.png', 'test-1-img', 'test-2-img', 'test-3-img');
+INSERT INTO CARE_IMG (care_img_no, care_no, care_img, care_1_img, care_2_img, care_3_img, care_4_img)
+VALUES (care_img_seq.NEXTVAL, 1, 'happypower-list-img.jpg',
+'introex3.jpg',
+'happypower-img1.jpg',
+'happypower-img2.jpg',
+'happypower-img3.jpg');
+INSERT INTO CARE_IMG (care_img_no, care_no, care_img, care_1_img, care_2_img, care_3_img, care_4_img)
+VALUES (care_img_seq.NEXTVAL, 2, 'gooddog-list-img.jpg',
+'introex1.jpg',
+'gooddog-img1.jpg',
+'gooddog-img2.jpg',
+'gooddog-img3.jpg');
+INSERT INTO CARE_IMG (care_img_no, care_no, care_img, care_1_img, care_2_img, care_3_img, care_4_img)
+VALUES (care_img_seq.NEXTVAL, 3, 'chunhyangandpuppy-list-img.jpg',
+'introex2.jpg',
+'chunhyangandpuppy-img1.jpg',
+'chunhyangandpuppy-img2.jpg',
+'chunhyangandpuppy-img3.jpg');
 
 -- Chat_room 테이블 - 채팅방 리스트
 INSERT INTO CHAT_ROOM (chat_room_no, member_id, care_id)

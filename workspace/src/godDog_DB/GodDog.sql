@@ -120,6 +120,7 @@ CREATE TABLE care_img (
   care_1_img  VARCHAR2(200),
   care_2_img  VARCHAR2(200),
   care_3_img  VARCHAR2(200),
+  care_4_img  VARCHAR2(200),
   CONSTRAINT care_img_no_pk PRIMARY KEY ( care_img_no )
 );
 
@@ -161,7 +162,7 @@ ALTER TABLE member MODIFY ( regdate DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
 ALTER TABLE care_admin MODIFY ( lev NUMBER(10, 0) DEFAULT 2);  -- 오늘 날짜 기본
 
-ALTER TABLE reservation MODIFY ( status VARCHAR2(40) DEFAULT 'wait' );    --체크 여부 - 디폴트 체크 - 대기
+ALTER TABLE reservation MODIFY ( status VARCHAR2(40) DEFAULT 'await' );    --체크 여부 - 디폴트 체크 - 대기
 
 ALTER TABLE reservation MODIFY ( insert_date DATE DEFAULT sysdate );  -- 오늘 날짜 기본
 
@@ -207,6 +208,7 @@ CREATE SEQUENCE anno_no_seq START WITH 1 INCREMENT BY 1;
 --ALTER TABLE member ADD (care_no NUMBER);
 --ALTER TABLE reservation ADD (regtime VARCHAR2(100));
 --ALTER TABLE reservation ADD (insert_date DATE);
+--ALTER TABLE care_img ADD (care_4_img VARCHAR2(200));
 
 --FOREIGN KEY 삭제 코드
 --ALTER TABLE chat_room drop CONSTRAINT CHAT_ROOM_CARE_NO_FK;
