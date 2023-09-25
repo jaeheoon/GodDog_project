@@ -54,7 +54,7 @@ public class DogController {
 			status = true;
 			for (int i = 0; i < shelterList.size(); i++) {
 				if (shelter.equals(shelterList.get(i).getName())) {
-					dogList = openApiService.getShelterDogList(i + 1, requestPage, status);
+					dogList = openApiService.getShelterDogList(String.valueOf(i + 1), requestPage, status);
 				}
 			}
 		}
@@ -94,22 +94,33 @@ public class DogController {
 	 * @version 1.0
 	 */
 	@GetMapping("/profile")
-	public String showDogProfile(@RequestParam(defaultValue = "1") String requestPage, @RequestParam(value = "desertionNo") String desertionNo, Model model) {
-		List<Dog> dogs = openApiService.getDogList(requestPage, "");
+	public String showDogProfile(@RequestParam(defaultValue = "1") String requestPage, @RequestParam(defaultValue = "") String sido, @RequestParam(defaultValue = "") String shelter, @RequestParam(value = "desertionNo") String desertionNo, Model model) {
+		List<Dog> dogList = openApiService.getDogList(requestPage, sido);
+		List<Shelter> shelterList = shelterService.findAllShelter();
+		boolean status = false;
+		if (!shelter.equals("")) {
+			status = true;
+			for (int i = 0; i < shelterList.size(); i++) {
+				if (shelter.equals(shelterList.get(i).getName())) {
+					dogList = openApiService.getShelterDogList(String.valueOf(i + 1), requestPage, status);
+				}
+			}
+		}
 		Dog dog = new Dog();
-		for (int i = 0; i < dogs.size(); i++) {
-			if (dogs.get(i).getDesertionNo().equals(desertionNo)) {
+		for (int i = 0; i < dogList.size(); i++) {
+			if (dogList.get(i).getDesertionNo().equals(desertionNo)) {
 				dog.setDesertionNo(desertionNo);
-				dog.setKindCd(dogs.get(i).getKindCd());
-				dog.setColorCd(dogs.get(i).getColorCd());
-				dog.setAge(dogs.get(i).getAge());
-				dog.setSexCd(dogs.get(i).getSexCd());
-				dog.setWeight(dogs.get(i).getWeight());
-				dog.setNeuterYn(dogs.get(i).getNeuterYn());
-				dog.setPopfile(dogs.get(i).getPopfile());
+				dog.setKindCd(dogList.get(i).getKindCd());
+				dog.setColorCd(dogList.get(i).getColorCd());
+				dog.setAge(dogList.get(i).getAge());
+				dog.setSexCd(dogList.get(i).getSexCd());
+				dog.setWeight(dogList.get(i).getWeight());
+				dog.setNeuterYn(dogList.get(i).getNeuterYn());
+				dog.setPopfile(dogList.get(i).getPopfile());
 			}
 		}
 		
+		model.addAttribute("status", status);
 		model.addAttribute("dog", dog);
 		return "dog/dog_profile";
 	}

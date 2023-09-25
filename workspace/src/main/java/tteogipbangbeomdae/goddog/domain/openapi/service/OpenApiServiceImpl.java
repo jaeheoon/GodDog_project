@@ -34,7 +34,7 @@ public class OpenApiServiceImpl implements OpenApiService{
 	public List<Dog> getDogList(String pageNo, String sido) {
 		List<Dog> dogList = new ArrayList<Dog>();
 		StringBuilder sb = new StringBuilder();
-	     
+	    
 	       try {
 	    	   StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic"); /*URL*/
 	           urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=akTdA6bI7qrFaVDNLP%2BSmmO0iqjbLVr6ff3e3zCcvKWVCtW%2B%2BmG2WQwnFVcsSjYMJPPRn54XgDA66FM2XgO1vQ%3D%3D"); /*Service Key*/
@@ -289,16 +289,16 @@ public class OpenApiServiceImpl implements OpenApiService{
 	}
 	
 	/** OpenAPI 이용하여 보호소 강아지 리스트 불러오는 메소드 */
-	public List<Dog> getShelterDogList(int shelterNo, String pageNo, boolean status) {
+	public List<Dog> getShelterDogList(String shelterNo, String pageNo, boolean status) {
 		List<Dog> dogList = new ArrayList<Dog>();
 		StringBuilder sb = new StringBuilder();
 		String area = "";
 		String numOfRows = "6";
-		if (shelterNo == 1) {
+		if (shelterNo.equals("1") || shelterNo.equals("해피파워")) {
 			area = "6110000";
-		} else if (shelterNo == 2) {
+		} else if (shelterNo.equals("2") || shelterNo.equals("굿도그")) {
 			area = "6410000";
-		} else if (shelterNo == 3) {
+		} else if (shelterNo.equals("3") || shelterNo.equals("춘향이와멍멍이")) {
 			area = "6460000";
 		}
 		

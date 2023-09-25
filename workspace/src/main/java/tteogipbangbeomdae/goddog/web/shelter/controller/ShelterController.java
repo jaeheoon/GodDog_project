@@ -52,7 +52,8 @@ public class ShelterController {
 	@GetMapping("/detail/{careNo}")
 	public String showDetail(@PathVariable("careNo") int careNo, Model model) {
 		Shelter shelter = shelterService.clickShelter(careNo);
-		List<Dog> dogList = openApiService.getShelterDogList(careNo, "1", false);
+		String careNoString = String.valueOf(careNo);
+		List<Dog> dogList = openApiService.getShelterDogList(careNoString, "1", false);
 		model.addAttribute("shelter", shelter);
 		model.addAttribute("dogList", dogList);
 		return "shelter/shelter_detail";
